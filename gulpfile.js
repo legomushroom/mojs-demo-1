@@ -44,9 +44,9 @@ var paths = {
 }
               
 gulp.task('build', function(){
-  return gulp.src(paths.src.js)
+  return gulp.src(['dist/**/*.js', 'vendor/**/*.js'])
           .pipe(concat('main.min.js'))
-          .pipe(gulp.dest(distFolder+'js/'))
+          .pipe(gulp.dest(distFolder))
 });
 
 gulp.task('stylus', function(){
@@ -64,6 +64,18 @@ gulp.task('coffee-all', function(e){
     .pipe(coffee({ bare: true }))
     .pipe(gulp.dest('dist/'))
     .pipe(livereload())
+});
+
+// gulp.task('browserify', function(e){
+//   return gulp.src('dist/main.js', { read: false })
+//     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+//     .pipe(browserify({}))
+//     .pipe(gulp.dest('dist/main.dist.js'))
+//     .pipe(livereload())
+// });
+
+gulp.task('coffee-all + build', function() {
+  sequence('coffee-all', 'build');
 });
 
 gulp.task('coffee-lint', function(e){
@@ -86,9 +98,9 @@ gulp.task('index:jade', function(e){
 gulp.task('default', function(){
   var server = livereload();
   gulp.watch(paths.src.css,   ['stylus']);
-  gulp.watch(paths.src.js,    ['coffee-all', 'coffee-lint']);
+  gulp.watch(paths.src.js,    ['coffee-lint']);
   gulp.watch(paths.src.index, ['index:jade']);
-
+  // gulp.watch('dist/main.js',  ['browserify']);
 });
 
 

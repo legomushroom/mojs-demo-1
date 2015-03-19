@@ -513,20 +513,20 @@ var Easing, easing;
 Easing = (function() {
   function Easing() {}
 
-  Easing.prototype.Linear = {
-    None: function(k) {
+  Easing.prototype.linear = {
+    none: function(k) {
       return k;
     }
   };
 
-  Easing.prototype.Quadratic = {
-    In: function(k) {
+  Easing.prototype.quadratic = {
+    "in": function(k) {
       return k * k;
     },
-    Out: function(k) {
+    out: function(k) {
       return k * (2 - k);
     },
-    InOut: function(k) {
+    inout: function(k) {
       if ((k *= 2) < 1) {
         return 0.5 * k * k;
       }
@@ -534,14 +534,14 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Cubic = {
-    In: function(k) {
+  Easing.prototype.cubic = {
+    "in": function(k) {
       return k * k * k;
     },
-    Out: function(k) {
+    out: function(k) {
       return --k * k * k + 1;
     },
-    InOut: function(k) {
+    inout: function(k) {
       if ((k *= 2) < 1) {
         return 0.5 * k * k * k;
       }
@@ -549,14 +549,14 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Quartic = {
-    In: function(k) {
+  Easing.prototype.quartic = {
+    "in": function(k) {
       return k * k * k * k;
     },
-    Out: function(k) {
+    out: function(k) {
       return 1 - (--k * k * k * k);
     },
-    InOut: function(k) {
+    inout: function(k) {
       if ((k *= 2) < 1) {
         return 0.5 * k * k * k * k;
       }
@@ -564,14 +564,14 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Quintic = {
-    In: function(k) {
+  Easing.prototype.quintic = {
+    "in": function(k) {
       return k * k * k * k * k;
     },
-    Out: function(k) {
+    out: function(k) {
       return --k * k * k * k * k + 1;
     },
-    InOut: function(k) {
+    inout: function(k) {
       if ((k *= 2) < 1) {
         return 0.5 * k * k * k * k * k;
       }
@@ -579,34 +579,34 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Sinusoidal = {
-    In: function(k) {
+  Easing.prototype.sinusoidal = {
+    "in": function(k) {
       return 1 - Math.cos(k * Math.PI / 2);
     },
-    Out: function(k) {
+    out: function(k) {
       return Math.sin(k * Math.PI / 2);
     },
-    InOut: function(k) {
+    inout: function(k) {
       return 0.5 * (1 - Math.cos(Math.PI * k));
     }
   };
 
-  Easing.prototype.Exponential = {
-    In: function(k) {
+  Easing.prototype.exponential = {
+    "in": function(k) {
       if (k === 0) {
         return 0;
       } else {
         return Math.pow(1024, k - 1);
       }
     },
-    Out: function(k) {
+    out: function(k) {
       if (k === 1) {
         return 1;
       } else {
         return 1 - Math.pow(2, -10 * k);
       }
     },
-    InOut: function(k) {
+    inout: function(k) {
       if (k === 0) {
         return 0;
       }
@@ -620,14 +620,14 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Circular = {
-    In: function(k) {
+  Easing.prototype.circular = {
+    "in": function(k) {
       return 1 - Math.sqrt(1 - k * k);
     },
-    Out: function(k) {
+    out: function(k) {
       return Math.sqrt(1 - (--k * k));
     },
-    InOut: function(k) {
+    inout: function(k) {
       if ((k *= 2) < 1) {
         return -0.5 * (Math.sqrt(1 - k * k) - 1);
       }
@@ -635,8 +635,8 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Elastic = {
-    In: function(k) {
+  Easing.prototype.elastic = {
+    "in": function(k) {
       var a, p, s;
       s = void 0;
       p = 0.4;
@@ -650,7 +650,7 @@ Easing = (function() {
       s = p / 4;
       return -(a * Math.pow(2, 10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p));
     },
-    Out: function(k) {
+    out: function(k) {
       var a, p, s;
       s = void 0;
       p = 0.4;
@@ -664,7 +664,7 @@ Easing = (function() {
       s = p / 4;
       return a * Math.pow(2, -10 * k) * Math.sin((k - s) * (2 * Math.PI) / p) + 1;
     },
-    InOut: function(k) {
+    inout: function(k) {
       var a, p, s;
       s = void 0;
       p = 0.4;
@@ -683,18 +683,18 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Back = {
-    In: function(k) {
+  Easing.prototype.back = {
+    "in": function(k) {
       var s;
       s = 1.70158;
       return k * k * ((s + 1) * k - s);
     },
-    Out: function(k) {
+    out: function(k) {
       var s;
       s = 1.70158;
       return --k * k * ((s + 1) * k + s) + 1;
     },
-    InOut: function(k) {
+    inout: function(k) {
       var s;
       s = 1.70158 * 1.525;
       if ((k *= 2) < 1) {
@@ -704,11 +704,11 @@ Easing = (function() {
     }
   };
 
-  Easing.prototype.Bounce = {
-    In: function(k) {
-      return 1 - easing.Bounce.Out(1 - k);
+  Easing.prototype.bounce = {
+    "in": function(k) {
+      return 1 - easing.bounce.out(1 - k);
     },
-    Out: function(k) {
+    out: function(k) {
       if (k < (1 / 2.75)) {
         return 7.5625 * k * k;
       } else if (k < (2 / 2.75)) {
@@ -719,11 +719,11 @@ Easing = (function() {
         return 7.5625 * (k -= 2.625 / 2.75) * k + 0.984375;
       }
     },
-    InOut: function(k) {
+    inout: function(k) {
       if (k < 0.5) {
-        return easing.Bounce.In(k * 2) * 0.5;
+        return easing.bounce["in"](k * 2) * 0.5;
       }
-      return easing.Bounce.Out(k * 2 - 1) * 0.5 + 0.5;
+      return easing.bounce.out(k * 2 - 1) * 0.5 + 0.5;
     }
   };
 
@@ -1102,11 +1102,11 @@ Helpers = (function() {
     }
     if (typeof string === 'string' && string.length) {
       split = string.split('.');
-      firstPart = this.capitalize(split[0] || 'Linear');
-      secondPart = this.capitalize(split[1] || 'None');
+      firstPart = split[0].toLowerCase() || 'linear';
+      secondPart = split[1].toLowerCase() || 'none';
       return [firstPart, secondPart];
     } else {
-      return ['Linear', 'None'];
+      return ['linear', 'none'];
     }
   };
 
@@ -1318,12 +1318,12 @@ if (typeof window !== "undefined" && window !== null) {
 /*
   :: mo · js :: motion graphics toolbelt for the web
   LegoMushroom - Oleg Solomka 2015 MIT
-  v0.101.1 unstable
+  v0.106.4 unstable
  */
 var Burst, MotionPath, Stagger, Swirl, Timeline, Transit, Tween, h;
 
 window.mojs = {
-  revision: '0.101.1',
+  revision: '0.106.4',
   isDebug: true
 };
 
@@ -1448,9 +1448,9 @@ MotionPath = (function() {
 
   MotionPath.prototype.addEvent = function(el, type, handler) {
     if (el.addEventListener) {
-      return this.container.addEventListener(type, handler, false);
+      return el.addEventListener(type, handler, false);
     } else if (el.attachEvent) {
-      return this.container.attachEvent(type, handler);
+      return el.attachEvent(type, handler);
     }
   };
 
@@ -1676,22 +1676,25 @@ MotionPath = (function() {
   };
 
   MotionPath.prototype.then = function(o) {
-    var i, it, key, keys, opts, prevOptions, value;
+    var it, key, opts, prevOptions, value;
     prevOptions = this.history[this.history.length - 1];
+    opts = {};
     for (key in prevOptions) {
       value = prevOptions[key];
-      if (o[key] == null) {
-        o[key] = value;
+      if (!h.callbacksMap[key] && !h.tweenOptionMap[key] || key === 'duration') {
+        if (o[key] == null) {
+          o[key] = value;
+        }
+      } else {
+        if (o[key] == null) {
+          o[key] = void 0;
+        }
+      }
+      if (h.tweenOptionMap[key]) {
+        opts[key] = key !== 'duration' ? o[key] : o[key] != null ? o[key] : prevOptions[key];
       }
     }
     this.history.push(o);
-    keys = Object.keys(h.tweenOptionMap);
-    i = keys.length;
-    opts = {};
-    while (i--) {
-      key = keys[i];
-      opts[key] = o[key] || prevOptions[key];
-    }
     it = this;
     opts.onUpdate = (function(_this) {
       return function(p) {
@@ -2518,7 +2521,7 @@ Rect = (function(_super) {
     Rect.__super__.draw.apply(this, arguments);
     radiusX = this.props.radiusX != null ? this.props.radiusX : this.props.radius;
     radiusY = this.props.radiusY != null ? this.props.radiusY : this.props.radius;
-    return this.setAttr({
+    return this.setAttrsIfChanged({
       width: 2 * radiusX,
       height: 2 * radiusY,
       x: this.props.x - radiusX,
@@ -2687,7 +2690,8 @@ Stagger = (function(_super) {
     },
     isShowInit: false,
     isShowEnd: false,
-    radius: 0
+    radius: 0,
+    type: 'line'
   };
 
   Stagger.prototype.vars = function() {
@@ -2923,7 +2927,7 @@ Transit = (function(_super) {
   };
 
   Transit.prototype.setElStyles = function() {
-    var marginSize, size;
+    var marginSize, size, _ref;
     if (!this.isForeign) {
       size = "" + this.props.size + "px";
       marginSize = "" + (-this.props.size / 2) + "px";
@@ -2935,7 +2939,9 @@ Transit = (function(_super) {
       this.el.style['margin-left'] = marginSize;
       this.el.style['margin-top'] = marginSize;
     }
-    this.el.style.opacity = this.props.opacity;
+    if ((_ref = this.el) != null) {
+      _ref.style.opacity = this.props.opacity;
+    }
     if (this.o.isShowInit) {
       return this.show();
     } else {
@@ -3150,7 +3156,7 @@ Transit = (function(_super) {
   };
 
   Transit.prototype.extendDefaults = function(o) {
-    var defaultsValue, fromObject, key, keys, len, optionsValue, _ref;
+    var array, defaultsValue, fromObject, i, key, keys, len, optionsValue, property, unit, value, _i, _len, _ref;
     if (this.props == null) {
       this.props = {};
     }
@@ -3183,11 +3189,32 @@ Transit = (function(_super) {
           }
         }
         this.props[key] = optionsValue;
+        if (key === 'radius') {
+          if (this.o.radiusX == null) {
+            this.props.radiusX = optionsValue;
+          }
+          if (this.o.radiusY == null) {
+            this.props.radiusY = optionsValue;
+          }
+        }
         if (this.h.posPropsMap[key]) {
           this.props[key] = this.h.parseUnit(this.props[key]).string;
         }
         if (this.h.strokeDashPropsMap[key]) {
-          this.props[key] = this.h.parseUnit(this.props[key]);
+          property = this.props[key];
+          value = [];
+          switch (typeof property) {
+            case 'number':
+              value.push(this.h.parseUnit(property));
+              break;
+            case 'string':
+              array = this.props[key].split(' ');
+              for (i = _i = 0, _len = array.length; _i < _len; i = ++_i) {
+                unit = array[i];
+                value.push(this.h.parseUnit(unit));
+              }
+          }
+          this.props[key] = value;
         }
         continue;
       }
@@ -3219,29 +3246,40 @@ Transit = (function(_super) {
   };
 
   Transit.prototype.mergeThenOptions = function(start, end) {
-    var endKey, i, key, keys, o, startKey, startKeys;
+    var endValue, i, isFunction, key, keys, o, startKey, startKeys, value;
     o = {};
-    this.h.extend(o, start);
+    for (key in start) {
+      value = start[key];
+      if (!this.h.tweenOptionMap[key] && !this.h.callbacksMap[key] || key === 'duration') {
+        o[key] = value;
+      } else {
+        o[key] = key === 'easing' ? '' : void 0;
+      }
+    }
     keys = Object.keys(end);
     i = keys.length;
     while (i--) {
       key = keys[i];
-      endKey = end[key];
-      if (this.h.tweenOptionMap[key] || typeof endKey === 'object') {
-        o[key] = endKey != null ? endKey : start[key];
+      endValue = end[key];
+      isFunction = typeof endValue === 'function';
+      if (this.h.tweenOptionMap[key] || typeof endValue === 'object' || isFunction) {
+        o[key] = endValue != null ? endValue : start[key];
         continue;
       }
       startKey = start[key];
       if (startKey == null) {
         startKey = this.defaults[key];
       }
-      if (typeof startKey === 'object') {
+      if ((key === 'radiusX' || key === 'radiusY') && (startKey == null)) {
+        startKey = start.radius;
+      }
+      if (typeof startKey === 'object' && (startKey != null)) {
         startKeys = Object.keys(startKey);
         startKey = startKey[startKeys[0]];
       }
-      if (endKey != null) {
+      if (endValue != null) {
         o[key] = {};
-        o[key][startKey] = endKey;
+        o[key][startKey] = endValue;
       } else {
         o[key] = startKey;
       }
@@ -3446,12 +3484,7 @@ Transit = (function(_super) {
   };
 
   Transit.prototype.getBitLength = function() {
-    var isChanged, isChangedXY;
-    isChangedXY = this.isPropChanged('radiusX') || this.isPropChanged('radiusY');
-    isChanged = this.isPropChanged('radius');
-    if (isChangedXY || isChanged) {
-      this.props.bitLength = this.bit.getLength();
-    }
+    this.props.bitLength = this.bit.getLength();
     return this.props.bitLength;
   };
 
@@ -3552,9 +3585,15 @@ Timeline = (function() {
     if ((time >= this.props.startTime) && (time < this.props.endTime)) {
       this.isOnReverseComplete = false;
       this.isCompleted = false;
-      if (!this.isStarted) {
-        if ((_ref = this.o.onStart) != null) {
+      if (!this.isFirstUpdate) {
+        if ((_ref = this.o.onFirstUpdate) != null) {
           _ref.apply(this);
+        }
+        this.isFirstUpdate = true;
+      }
+      if (!this.isStarted) {
+        if ((_ref1 = this.o.onStart) != null) {
+          _ref1.apply(this);
         }
         this.isStarted = true;
       }
@@ -3579,12 +3618,6 @@ Timeline = (function() {
         } else {
           this.setProc(0);
         }
-      }
-      if (!this.isFirstUpdate) {
-        if ((_ref1 = this.o.onFirstUpdate) != null) {
-          _ref1.apply(this);
-        }
-        this.isFirstUpdate = true;
       }
       if (time < this.prevTime && !this.isFirstUpdateBackward) {
         if ((_ref2 = this.o.onFirstUpdateBackward) != null) {
@@ -3705,6 +3738,20 @@ Tween = (function() {
   };
 
   Tween.prototype.add = function(timeline) {
+    var i, tm, _i, _len, _results;
+    if (h.isArray(timeline)) {
+      _results = [];
+      for (i = _i = 0, _len = timeline.length; _i < _len; i = ++_i) {
+        tm = timeline[i];
+        _results.push(this.pushTimeline(tm));
+      }
+      return _results;
+    } else {
+      return this.pushTimeline(timeline);
+    }
+  };
+
+  Tween.prototype.pushTimeline = function(timeline) {
     this.timelines.push(timeline);
     return this.props.totalTime = Math.max(timeline.props.totalTime, this.props.totalTime);
   };
@@ -4195,3 +4242,7 @@ if ((typeof define === "function") && define.amd) {
 }
 
 },{}]},{},[5])
+
+if ((typeof module === "object") && (typeof module.exports === "object")) {
+  module.exports = mojs;
+}

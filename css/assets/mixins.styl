@@ -1,6 +1,6 @@
-gs = 8px
-br = 3px
-PX = (1/16)em
+PX = (1/16)rem
+gs = 10*PX
+br = 3*PX
 
 retina(path, size= 100%, color= white)
   background color url(path+'.png') no-repeat center center
@@ -55,9 +55,9 @@ bbox()
 cbox()
   box-sizing content-box
 
-// rect(size)
-//   width size
-//   height size
+rect(size)
+  width size
+  height size
 
 // min-rect(size)
 //   min-width size
