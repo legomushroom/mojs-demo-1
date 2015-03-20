@@ -11,7 +11,7 @@ class FirstBall
     @line1    = document.querySelector '#js-t-line-1'
     @line2    = document.querySelector '#js-t-line-2'
     @line3    = document.querySelector '#js-t-line-3'
-    @easing = @o.generateBezier(0.435, 0.715, 0.635, 0.395)
+    @easing = @o.generateBezier(0.220, 0.665, 0.825, 0.430)
 
   create:->
     trail = new mojs.Transit
@@ -26,6 +26,7 @@ class FirstBall
       delay:            @o.BALL_5_START*@S
       duration:         @o.BALL_5_ARCDUR*@S
       easing:           @easing
+      isRunLess:        @o.IS_RUNLESS
 
     opacityDelta = {}; opacityDelta[@o.TRAIL_OPACITY] = 0
     trailFade = new mojs.Transit
@@ -39,6 +40,7 @@ class FirstBall
       isShowEnd:        true
       delay:            (@o.BALL_5_START+(@o.BALL_5_ARCDUR/1.25))*@S
       duration:         @o.TRAIL_FADE*@S
+      isRunLess:        @o.IS_RUNLESS
 
     mp = new mojs.MotionPath
       path:         @path
@@ -64,13 +66,13 @@ class FirstBall
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 
-    nDuration = 1000; nDelay = @o.BALL_5_START+200
+    tDuration = 1000; tDelay = @o.BALL_5_START+200
     t1Stagger = new mojs.Stagger
       els:              @line1
-      duration:         nDuration*@S
+      duration:         tDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
-      delay:            "stagger(#{(nDelay)*@S}, 200)"
+      delay:            "stagger(#{(tDelay)*@S}, 200)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '100%'
@@ -78,10 +80,10 @@ class FirstBall
 
     t2Stagger = new mojs.Stagger
       els:              @line2
-      duration:         nDuration*@S
+      duration:         tDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
-      delay:            "stagger(#{(nDelay+100)*@S}, 200)"
+      delay:            "stagger(#{(tDelay+100)*@S}, 200)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '100%'
@@ -89,25 +91,14 @@ class FirstBall
 
     t3Stagger = new mojs.Stagger
       els:              @line3
-      duration:         nDuration*@S
+      duration:         tDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
-      delay:            "stagger(#{(nDelay+100)*@S}, 200)"
+      delay:            "stagger(#{(tDelay+100)*@S}, 200)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
-
-    # tween = new mojs.Tween; shift = 22.5; it = @
-    # tween.add new mojs.Timeline
-    #   duration:   nDuration
-    #   delay:      nDelay
-    #   easing:     @o.STAGGER_EASING
-    #   onUpdate:(p)->
-    #     # nP = 1 - p
-    #     it.n1.setAttribute 'transform', "translate(#{shift*p})"
-    #     it.n2.setAttribute 'transform', "translate(#{-shift*p})"
-    # @o.IS_RUNLESS or tween.start()
 
     [
       t1Stagger.tween, t2Stagger.tween, t3Stagger.tween, burst.tween,

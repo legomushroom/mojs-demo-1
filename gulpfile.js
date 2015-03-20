@@ -66,6 +66,12 @@ gulp.task('coffee-all', function(e){
     .pipe(livereload())
 });
 
+gulp.task('js-reload', function(e){
+  return gulp.src(['dist/main.js'])
+    .pipe(plumber())
+    .pipe(livereload())
+});
+
 // gulp.task('browserify', function(e){
 //   return gulp.src('dist/main.js', { read: false })
 //     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -99,6 +105,7 @@ gulp.task('default', function(){
   var server = livereload();
   gulp.watch(paths.src.css,   ['stylus']);
   gulp.watch(paths.src.js,    ['coffee-lint']);
+  gulp.watch('dist/main.js',  ['js-reload']);
   gulp.watch(paths.src.index, ['index:jade']);
   // gulp.watch('dist/main.js',  ['browserify']);
 });

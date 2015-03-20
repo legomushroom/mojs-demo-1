@@ -51,7 +51,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Ball_1, Ball_2, Ball_3, Ball_4, Ball_5, Ball_6, Main, mojs,
+	var Ball_1, Ball_2, Ball_3, Ball_4, Ball_5, Ball_6, Ball_7, Main, mojs,
 	  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 	mojs = __webpack_require__(2);
@@ -70,6 +70,8 @@
 
 	Ball_6 = __webpack_require__(8);
 
+	Ball_7 = __webpack_require__(9);
+
 	Main = (function() {
 	  Main.prototype.YELLOW = '#F9DD5E';
 
@@ -81,7 +83,7 @@
 
 	  Main.prototype.S = 1;
 
-	  Main.prototype.DELAY_START = 1500;
+	  Main.prototype.DELAY_START = 0;
 
 	  Main.prototype.STROKE_WIDTH = 2;
 
@@ -109,17 +111,20 @@
 	    this.bottomLine = 240;
 	    this.bottomLineBurst = this.bottomLine + 10;
 	    this.CHARS_TOP = this.bottomLine - 70;
+	    this.DOWN_DUR = 50;
 	    this.BALL_1_START = this.DELAY_START;
-	    this.BALL_2_START = this.BALL_1_START + 1900;
+	    this.BALL_2_START = this.BALL_1_START + 1800;
 	    this.BALL_2_ARCDUR = 800;
-	    this.BALL_3_START = this.BALL_2_START + this.BALL_2_ARCDUR + 200;
+	    this.BALL_3_START = this.BALL_2_START + this.BALL_2_ARCDUR + 100;
 	    this.BALL_3_ARCDUR = 900;
-	    this.BALL_4_START = this.BALL_3_START + this.BALL_3_ARCDUR + 200;
+	    this.BALL_4_START = this.BALL_3_START + this.BALL_3_ARCDUR + 100;
 	    this.BALL_4_ARCDUR = 900;
-	    this.BALL_5_START = this.BALL_4_START + this.BALL_4_ARCDUR + 200;
+	    this.BALL_5_START = this.BALL_4_START + this.BALL_4_ARCDUR + 100;
 	    this.BALL_5_ARCDUR = 800;
-	    this.BALL_6_START = this.BALL_5_START + this.BALL_5_ARCDUR + 200;
+	    this.BALL_6_START = this.BALL_5_START + this.BALL_5_ARCDUR + 100;
 	    this.BALL_6_ARCDUR = 800;
+	    this.BALL_7_START = this.BALL_6_START + this.BALL_6_ARCDUR + 100;
+	    this.BALL_7_ARCDUR = 600;
 	    this.STAGGER_COLORS = [this.PINK, this.CYAN, this.WHITE];
 	    this.STAGGER_EASING = 'sinusoidal.out';
 	    this.BG = '#333';
@@ -155,7 +160,8 @@
 	    this.tween.add(new Ball_3(this));
 	    this.tween.add(new Ball_4(this));
 	    this.tween.add(new Ball_5(this));
-	    return this.tween.add(new Ball_6(this));
+	    this.tween.add(new Ball_6(this));
+	    return this.tween.add(new Ball_7(this));
 	  };
 
 	  Main.prototype.generateBezier = function(mX1, mY1, mX2, mY2) {
@@ -4622,7 +4628,7 @@
 	      x: this.o.o2Left,
 	      y: this.o.bottomLine - 92,
 	      parent: this.o.ctx,
-	      delay: (this.o.BALL_1_START + 750) * this.S,
+	      delay: (this.o.BALL_1_START + 700) * this.S,
 	      duration: 500 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      strokeDasharray: this.o.TRAIL_DASH,
@@ -4648,7 +4654,7 @@
 	      x: this.o.o2Left,
 	      y: this.o.topLine,
 	      parent: this.o.ctx,
-	      delay: (this.o.BALL_1_START + 1250) * this.S,
+	      delay: (this.o.BALL_1_START + 1200) * this.S,
 	      duration: 500 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      strokeDasharray: this.o.TRAIL_DASH,
@@ -4684,68 +4690,53 @@
 	      isRunLess: this.o.IS_RUNLESS,
 	      delay: (this.o.BALL_1_START + 600) * this.S,
 	      y: yDelta,
-	      duration: gooDur * this.S,
-	      onUpdate: function() {}
+	      duration: gooDur * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 100 * this.S,
-	      delay: 50 * this.S
+	      duration: 200 * this.S,
+	      delay: 0
 	    }).then({
-	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS,
 	      duration: 200 * this.S,
-	      delay: 0 * this.S
+	      delay: 0
 	    }).then({
-	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
 	      duration: 200 * this.S,
-	      delay: 450 * this.S
+	      delay: 400 * this.S
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: 100 * this.S
+	      delay: 50 * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
 	      duration: 200 * this.S,
-	      delay: 0 * this.S
+	      delay: 0
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_2_ARCDUR - 2 * gooDur) * this.S
+	      delay: (this.o.BALL_2_ARCDUR - 3 * gooDur) * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
 	      duration: 200 * this.S,
-	      delay: 0 * this.S
+	      delay: 0
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_3_ARCDUR - gooDur) * this.S
-	    }).then({
-	      y: 0,
-	      radiusX: this.o.CIRCLE_RADIUS / 2,
-	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
-	      delay: 0 * this.S
-	    }).then({
-	      y: this.o.CIRCLE_RADIUS,
-	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
-	      radiusY: this.o.CIRCLE_RADIUS / 2,
-	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_4_ARCDUR - gooDur) * this.S
+	      delay: (this.o.BALL_3_ARCDUR - 3 * gooDur) * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
@@ -4757,7 +4748,7 @@
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_5_ARCDUR - gooDur) * this.S
+	      delay: (this.o.BALL_4_ARCDUR - 3 * gooDur) * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
@@ -4769,7 +4760,30 @@
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_6_ARCDUR - gooDur) * this.S
+	      delay: (this.o.BALL_5_ARCDUR - 3 * gooDur) * this.S
+	    }).then({
+	      y: 0,
+	      radiusX: this.o.CIRCLE_RADIUS / 2,
+	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
+	      duration: 200 * this.S,
+	      delay: 0 * this.S
+	    }).then({
+	      y: this.o.CIRCLE_RADIUS,
+	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
+	      radiusY: this.o.CIRCLE_RADIUS / 2,
+	      duration: gooDur * this.S,
+	      delay: (this.o.BALL_6_ARCDUR - 3 * gooDur) * this.S
+	    }).then({
+	      y: 0,
+	      radiusX: this.o.CIRCLE_RADIUS / 2,
+	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
+	      duration: (this.o.BALL_7_ARCDUR / 3) * this.S,
+	      delay: 0
+	    }).then({
+	      radiusX: this.o.CIRCLE_RADIUS,
+	      radiusY: this.o.CIRCLE_RADIUS,
+	      duration: (this.o.BALL_7_ARCDUR / 3) * this.S,
+	      delay: 0
 	    });
 	    ball.el.style.opacity = 0;
 	    mp = new mojs.MotionPath({
@@ -4786,7 +4800,7 @@
 	      isReverse: true,
 	      pathStart: .35,
 	      easing: this.RISE_EASING,
-	      delay: (gooDur + 100) * this.S,
+	      delay: (this.o.DOWN_DUR + gooDur) * this.S,
 	      duration: 500 * this.S
 	    }).then({
 	      isReverse: false,
@@ -4805,7 +4819,7 @@
 	      type: 'line',
 	      stroke: this.o.YELLOW,
 	      strokeWidth: this.o.STROKE_WIDTH,
-	      delay: (this.o.BALL_1_START + 650) * this.S,
+	      delay: (this.o.BALL_1_START + 600) * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      childOptions: {
 	        radius: {
@@ -4847,7 +4861,7 @@
 	      type: 'line',
 	      stroke: this.o.CYAN,
 	      strokeWidth: this.o.STROKE_WIDTH,
-	      delay: (this.o.BALL_1_START + 1800) * this.S,
+	      delay: (this.o.BALL_1_START + 1700) * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      childOptions: {
 	        radius: {
@@ -4908,7 +4922,8 @@
 	      isShowEnd: true,
 	      delay: this.o.BALL_2_START * this.S,
 	      duration: this.o.BALL_2_ARCDUR * this.S,
-	      easing: this.easing
+	      easing: this.easing,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
@@ -4922,7 +4937,8 @@
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: (this.o.BALL_2_START + (this.o.BALL_2_ARCDUR / 1.25)) * this.S,
-	      duration: this.o.TRAIL_FADE * this.S
+	      duration: this.o.TRAIL_FADE * this.S,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    mp = new mojs.MotionPath({
 	      path: this.path,
@@ -5207,7 +5223,8 @@
 	      isShowEnd: true,
 	      delay: this.o.BALL_4_START * this.S,
 	      duration: this.o.BALL_4_ARCDUR * this.S,
-	      easing: this.easing
+	      easing: this.easing,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
@@ -5221,7 +5238,8 @@
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: (this.o.BALL_4_START + (this.o.BALL_4_ARCDUR / 1.25)) * this.S,
-	      duration: this.o.TRAIL_FADE * this.S
+	      duration: this.o.TRAIL_FADE * this.S,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    mp = new mojs.MotionPath({
 	      path: this.path,
@@ -5345,11 +5363,11 @@
 	    this.line1 = document.querySelector('#js-t-line-1');
 	    this.line2 = document.querySelector('#js-t-line-2');
 	    this.line3 = document.querySelector('#js-t-line-3');
-	    return this.easing = this.o.generateBezier(0.435, 0.715, 0.635, 0.395);
+	    return this.easing = this.o.generateBezier(0.220, 0.665, 0.825, 0.430);
 	  };
 
 	  FirstBall.prototype.create = function() {
-	    var burst, mp, nDelay, nDuration, opacityDelta, t1Stagger, t2Stagger, t3Stagger, trail, trailFade;
+	    var burst, mp, opacityDelta, t1Stagger, t2Stagger, t3Stagger, tDelay, tDuration, trail, trailFade;
 	    trail = new mojs.Transit({
 	      bit: this.pathMask,
 	      fill: 'transparent',
@@ -5363,7 +5381,8 @@
 	      isShowEnd: true,
 	      delay: this.o.BALL_5_START * this.S,
 	      duration: this.o.BALL_5_ARCDUR * this.S,
-	      easing: this.easing
+	      easing: this.easing,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
@@ -5377,7 +5396,8 @@
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: (this.o.BALL_5_START + (this.o.BALL_5_ARCDUR / 1.25)) * this.S,
-	      duration: this.o.TRAIL_FADE * this.S
+	      duration: this.o.TRAIL_FADE * this.S,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    mp = new mojs.MotionPath({
 	      path: this.path,
@@ -5410,14 +5430,14 @@
 	        }
 	      }
 	    });
-	    nDuration = 1000;
-	    nDelay = this.o.BALL_5_START + 200;
+	    tDuration = 1000;
+	    tDelay = this.o.BALL_5_START + 200;
 	    t1Stagger = new mojs.Stagger({
 	      els: this.line1,
-	      duration: nDuration * this.S,
+	      duration: tDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
-	      delay: "stagger(" + (nDelay * this.S) + ", 200)",
+	      delay: "stagger(" + (tDelay * this.S) + ", 200)",
 	      easing: this.o.STAGGER_EASING,
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: '100%',
@@ -5427,10 +5447,10 @@
 	    });
 	    t2Stagger = new mojs.Stagger({
 	      els: this.line2,
-	      duration: nDuration * this.S,
+	      duration: tDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
-	      delay: "stagger(" + ((nDelay + 100) * this.S) + ", 200)",
+	      delay: "stagger(" + ((tDelay + 100) * this.S) + ", 200)",
 	      easing: this.o.STAGGER_EASING,
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: '100%',
@@ -5440,10 +5460,10 @@
 	    });
 	    t3Stagger = new mojs.Stagger({
 	      els: this.line3,
-	      duration: nDuration * this.S,
+	      duration: tDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
-	      delay: "stagger(" + ((nDelay + 100) * this.S) + ", 200)",
+	      delay: "stagger(" + ((tDelay + 100) * this.S) + ", 200)",
 	      easing: this.o.STAGGER_EASING,
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: '100%',
@@ -5500,7 +5520,8 @@
 	      isShowEnd: true,
 	      delay: this.o.BALL_6_START * this.S,
 	      duration: this.o.BALL_6_ARCDUR * this.S,
-	      easing: this.easing
+	      easing: this.easing,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
@@ -5514,7 +5535,8 @@
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: (this.o.BALL_6_START + (this.o.BALL_6_ARCDUR / 1.25)) * this.S,
-	      duration: this.o.TRAIL_FADE * this.S
+	      duration: this.o.TRAIL_FADE * this.S,
+	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    mp = new mojs.MotionPath({
 	      path: this.path,
@@ -5539,7 +5561,7 @@
 	      fill: 'none',
 	      stroke: this.o.PINK,
 	      strokeWidth: this.o.STROKE_WIDTH,
-	      delay: (this.o.BALL_6_START + this.o.BALL_6_ARCDUR) * this.S,
+	      delay: (this.o.BALL_6_START + this.o.BALL_6_ARCDUR + 50) * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      childOptions: {
 	        radius: {
@@ -5592,6 +5614,117 @@
 	})();
 
 	module.exports = FirstBall;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Ball, mojs;
+
+	mojs = __webpack_require__(2);
+
+	Ball = (function() {
+	  function Ball(o) {
+	    this.o = o != null ? o : {};
+	    this.vars();
+	    return this.create();
+	  }
+
+	  Ball.prototype.vars = function() {
+	    this.S = this.o.S;
+	    this.line1 = document.querySelector('#js-i-line-1');
+	    this.line2 = document.querySelector('#js-i-line-2');
+	    return this.line3 = document.querySelector('#js-i-line-3');
+	  };
+
+	  Ball.prototype.create = function() {
+	    var circle, i1Stagger, i2Stagger, i3Stagger, iDelay, iDelay2, iDuration, iDuration2, mp;
+	    mp = new mojs.MotionPath({
+	      path: "M240.529297,234.470827 L240.529297,57",
+	      el: this.o.mainBall.el,
+	      isRunLess: this.o.IS_RUNLESS,
+	      delay: this.o.BALL_7_START * this.S,
+	      duration: this.o.BALL_7_ARCDUR * this.S,
+	      easing: 'elastic.out',
+	      isAngle: true,
+	      angleOffset: 90,
+	      pathEnd: .38,
+	      duration: 3000 * this.S
+	    });
+	    iDuration = 800;
+	    iDelay2 = this.o.BALL_7_START + 100;
+	    iDuration2 = 250;
+	    iDelay = iDelay2 + iDuration2;
+	    i1Stagger = new mojs.Stagger({
+	      els: this.line1,
+	      duration: iDuration * this.S,
+	      isRunLess: this.o.IS_RUNLESS,
+	      isShowEnd: true,
+	      delay: "stagger(" + (iDelay * this.S) + ", 200)",
+	      easing: this.o.STAGGER_EASING,
+	      stroke: this.o.STAGGER_COLORS,
+	      strokeDasharray: '100%',
+	      strokeDashoffset: {
+	        '100%': 0
+	      }
+	    });
+	    i2Stagger = new mojs.Stagger({
+	      els: this.line2,
+	      duration: iDuration * this.S,
+	      isRunLess: this.o.IS_RUNLESS,
+	      isShowEnd: true,
+	      delay: "stagger(" + ((iDelay + 100) * this.S) + ", 200)",
+	      easing: this.o.STAGGER_EASING,
+	      stroke: this.o.STAGGER_COLORS,
+	      strokeDasharray: '100%',
+	      strokeDashoffset: {
+	        '100%': 0
+	      }
+	    });
+	    i3Stagger = new mojs.Stagger({
+	      els: this.line3,
+	      duration: 2400 * this.S,
+	      isRunLess: this.o.IS_RUNLESS,
+	      isShowEnd: true,
+	      delay: "stagger(" + (iDelay2 * this.S) + ", 50)",
+	      easing: 'elastic.out',
+	      stroke: this.o.STAGGER_COLORS,
+	      strokeDasharray: '100%',
+	      strokeDashoffset: {
+	        '100%': '71.5%'
+	      }
+	    });
+	    circle = new mojs.Transit({
+	      parent: this.o.ctx,
+	      x: this.o.o2Left - 46,
+	      y: 166,
+	      type: 'circle',
+	      radius: 3 * this.o.CIRCLE_RADIUS,
+	      fill: 'transparent',
+	      strokeWidth: this.o.STROKE_WIDTH,
+	      stroke: this.o.CYAN,
+	      strokeDasharray: '100% 200%',
+	      strokeDashoffset: {
+	        '100%': '50%'
+	      },
+	      angle: 180,
+	      delay: (this.o.BALL_7_START + this.o.BALL_7_ARCDUR + iDuration2) * this.S,
+	      duration: 300 * this.S,
+	      isRunLess: this.o.IS_RUNLESS
+	    }).then({
+	      strokeDashoffset: '100%',
+	      angle: 360,
+	      delay: 0
+	    });
+	    return [mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween, circle.tween];
+	  };
+
+	  return Ball;
+
+	})();
+
+	module.exports = Ball;
 
 
 /***/ }

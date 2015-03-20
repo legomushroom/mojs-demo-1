@@ -6,6 +6,7 @@ Ball_3 = require './ball-3'
 Ball_4 = require './ball-4'
 Ball_5 = require './ball-5'
 Ball_6 = require './ball-6'
+Ball_7 = require './ball-7'
 
 class Main
   YELLOW:       '#F9DD5E'
@@ -13,8 +14,8 @@ class Main
   PINK:         '#FC2D79'
   WHITE:        '#FDFDFD'
   S:            1
-  DELAY_START:  1500
-  # DELAY_START:  0
+  # DELAY_START:  1500
+  DELAY_START:  0
   STROKE_WIDTH: 2
   CIRCLE_RADIUS:5
   IS_RUNLESS:   false
@@ -30,17 +31,20 @@ class Main
     @o2Left     = 287; @topLine    = 65; @bottomLine = 240
     @bottomLineBurst = @bottomLine + 10
     @CHARS_TOP = @bottomLine - 70
+    @DOWN_DUR  = 50
     @BALL_1_START   = @DELAY_START
-    @BALL_2_START   = @BALL_1_START + 1900
+    @BALL_2_START   = @BALL_1_START + 1800
     @BALL_2_ARCDUR  = 800
-    @BALL_3_START   = @BALL_2_START + @BALL_2_ARCDUR + 200
+    @BALL_3_START   = @BALL_2_START + @BALL_2_ARCDUR + 100
     @BALL_3_ARCDUR  = 900
-    @BALL_4_START   = @BALL_3_START + @BALL_3_ARCDUR + 200
+    @BALL_4_START   = @BALL_3_START + @BALL_3_ARCDUR + 100
     @BALL_4_ARCDUR  = 900
-    @BALL_5_START   = @BALL_4_START + @BALL_4_ARCDUR + 200
+    @BALL_5_START   = @BALL_4_START + @BALL_4_ARCDUR + 100
     @BALL_5_ARCDUR  = 800
-    @BALL_6_START   = @BALL_5_START + @BALL_5_ARCDUR + 200
+    @BALL_6_START   = @BALL_5_START + @BALL_5_ARCDUR + 100
     @BALL_6_ARCDUR  = 800
+    @BALL_7_START   = @BALL_6_START + @BALL_6_ARCDUR + 100
+    @BALL_7_ARCDUR  = 600
 
     @STAGGER_COLORS = [ @PINK, @CYAN, @WHITE ]
     @STAGGER_EASING = 'sinusoidal.out'
@@ -67,6 +71,7 @@ class Main
     @tween.add new Ball_4 @
     @tween.add new Ball_5 @
     @tween.add new Ball_6 @
+    @tween.add new Ball_7 @
 
 
 

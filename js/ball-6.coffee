@@ -23,6 +23,7 @@ class FirstBall
       delay:            @o.BALL_6_START*@S
       duration:         @o.BALL_6_ARCDUR*@S
       easing:           @easing
+      isRunLess:        @o.IS_RUNLESS
 
     opacityDelta = {}; opacityDelta[@o.TRAIL_OPACITY] = 0
     trailFade = new mojs.Transit
@@ -36,6 +37,7 @@ class FirstBall
       isShowEnd:        true
       delay:            (@o.BALL_6_START+(@o.BALL_6_ARCDUR/1.25))*@S
       duration:         @o.TRAIL_FADE*@S
+      isRunLess:        @o.IS_RUNLESS
 
     mp = new mojs.MotionPath
       path:         @path
@@ -57,7 +59,7 @@ class FirstBall
       fill:         'none'
       stroke:       @o.PINK
       strokeWidth:  @o.STROKE_WIDTH
-      delay:        (@o.BALL_6_START+@o.BALL_6_ARCDUR)*@S
+      delay:        (@o.BALL_6_START+@o.BALL_6_ARCDUR+50)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 

@@ -28,6 +28,7 @@ class FirstBall
       delay:            @o.BALL_2_START*@S
       duration:         @o.BALL_2_ARCDUR*@S
       easing:           @easing
+      isRunLess:        @o.IS_RUNLESS
 
     opacityDelta = {}; opacityDelta[@o.TRAIL_OPACITY] = 0
     # console.log opacityDelta
@@ -43,6 +44,7 @@ class FirstBall
       isShowEnd:        true
       delay:            (@o.BALL_2_START+(@o.BALL_2_ARCDUR/1.25))*@S
       duration:         @o.TRAIL_FADE*@S
+      isRunLess:        @o.IS_RUNLESS
 
     mp = new mojs.MotionPath
       path:       @path
