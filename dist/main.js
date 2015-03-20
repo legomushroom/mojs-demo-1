@@ -5650,7 +5650,7 @@
 	      isAngle: true,
 	      angleOffset: 90,
 	      pathEnd: .38,
-	      duration: 3000 * this.S
+	      duration: 2800 * this.S
 	    });
 	    iDuration = 800;
 	    iDelay2 = this.o.BALL_7_START + 100;
@@ -5687,18 +5687,18 @@
 	      duration: 2400 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
-	      delay: "stagger(" + (iDelay2 * this.S) + ", 50)",
+	      delay: "stagger(" + ((iDelay2 - 75) * this.S) + ", 25)",
 	      easing: 'elastic.out',
 	      stroke: this.o.STAGGER_COLORS,
-	      strokeDasharray: '100%',
+	      strokeDasharray: '100% 150%',
 	      strokeDashoffset: {
-	        '100%': '71.5%'
+	        '150%': '71.5%'
 	      }
 	    });
 	    circle = new mojs.Transit({
 	      parent: this.o.ctx,
 	      x: this.o.o2Left - 46,
-	      y: 166,
+	      y: 167,
 	      type: 'circle',
 	      radius: 3 * this.o.CIRCLE_RADIUS,
 	      fill: 'transparent',

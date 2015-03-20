@@ -19,7 +19,7 @@ class Ball
       isAngle:      true
       angleOffset:  90
       pathEnd:      .38
-      duration:     3000*@S
+      duration:     2800*@S
 
     iDuration = 800
     iDelay2 = @o.BALL_7_START + 100
@@ -52,11 +52,11 @@ class Ball
       duration:         2400*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
-      delay:            "stagger(#{(iDelay2)*@S}, 50)"
+      delay:            "stagger(#{(iDelay2-75)*@S}, 25)"
       easing:           'elastic.out'
       stroke:           @o.STAGGER_COLORS
-      strokeDasharray:  '100%'
-      strokeDashoffset: '100%': '71.5%'
+      strokeDasharray:  '100% 150%'
+      strokeDashoffset: '150%': '71.5%'
 
     # delay = iDelay2 + 2*iDuration2
     # i3Stagger2 = new mojs.Stagger
@@ -83,7 +83,7 @@ class Ball
 
     circle = new mojs.Transit
       parent:           @o.ctx
-      x: @o.o2Left-46,  y: 166
+      x: @o.o2Left-46,  y: 167
       type:             'circle'
       radius:           3*@o.CIRCLE_RADIUS
       fill:             'transparent'
