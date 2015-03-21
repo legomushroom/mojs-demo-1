@@ -50,8 +50,8 @@ class FirstBall
       angleOffset:  90
 
     burst = new mojs.Burst
-      parent: @o.ctx
-      x: 240, y: @o.bottomLineBurst
+      parent:       @o.ctx
+      x: 240,       y: @o.bottomLineBurst
       degree:       180
       angle:        90
       radius:       { 10: 25 }
@@ -63,9 +63,22 @@ class FirstBall
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 
+    # burst2 = new mojs.Burst
+    #   parent:       @o.ctx
+    #   x: 30,        y: @o.bottomLineBurst - 40
+    #   # degree:       180
+    #   angle:        90
+    #   radius:       { 10: 25 }
+    #   type:         'line'
+    #   fill:         'none'
+    #   stroke:       @o.PINK
+    #   strokeWidth:  @o.STROKE_WIDTH
+    #   delay:        (@o.BALL_6_START+@o.BALL_6_ARCDUR+50)*@S
+    #   isRunLess:    @o.IS_RUNLESS
+    #   childOptions: radius: { 7: 0 }
     
     mDuration = 1000; mDelay = @o.BALL_6_START+200
-    n1Stagger = new mojs.Stagger
+    m1Stagger = new mojs.Stagger
       els:              @line1
       duration:         mDuration*@S
       isRunLess:        @o.IS_RUNLESS
@@ -77,7 +90,7 @@ class FirstBall
       strokeDashoffset: '100%': '200%'
 
     shift = 15
-    n2Stagger = new mojs.Stagger
+    m2Stagger = new mojs.Stagger
       els:              @line2
       duration:         mDuration*@S
       isRunLess:        @o.IS_RUNLESS
@@ -93,7 +106,7 @@ class FirstBall
         ), null, null]
 
     [
-      burst.tween, n1Stagger.tween, n2Stagger.tween,
+      burst.tween, m1Stagger.tween, m2Stagger.tween,
       mp.tween, trail.tween, trailFade.tween
     ]
 

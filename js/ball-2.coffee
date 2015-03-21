@@ -101,6 +101,7 @@ class FirstBall
         transform = "#{translate} rotate(#{-135*(1-p)},33,33)"
         it.o2.setAttribute 'transform', transform
 
+
     @o.IS_RUNLESS or tween.start()
 
     [

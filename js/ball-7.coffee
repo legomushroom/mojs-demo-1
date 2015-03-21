@@ -14,7 +14,7 @@ class Ball
       el:           @o.mainBall.el
       isRunLess:    @o.IS_RUNLESS
       delay:        @o.BALL_7_START*@S
-      duration:     (@o.BALL_7_ARCDUR)*@S
+      # duration:     (@o.BALL_7_ARCDUR)*@S
       easing:       'elastic.out'
       isAngle:      true
       angleOffset:  90
@@ -55,31 +55,30 @@ class Ball
       delay:            "stagger(#{(iDelay2-75)*@S}, 25)"
       easing:           'elastic.out'
       stroke:           @o.STAGGER_COLORS
-      strokeDasharray:  '100% 150%'
-      strokeDashoffset: '150%': '71.5%'
+      strokeDasharray:  '100% 120%'
+      strokeDashoffset: '120%': '71.5%'
 
-    # delay = iDelay2 + 2*iDuration2
-    # i3Stagger2 = new mojs.Stagger
-    #   els:              @line3
-    #   duration:         iDuration2*@S
-    #   isRunLess:        @o.IS_RUNLESS
-    #   isShowEnd:        true
-    #   delay:            "stagger(#{delay*@S}, 150)"
-    #   easing:           'cubic.out'
-    #   stroke:           @o.STAGGER_COLORS
-    #   strokeDasharray:  '100%'
-    #   strokeDashoffset: '46%': '56%'
+    iTopStagger = new mojs.Stagger
+      els:              '#js-circles-left-top'
+      duration:         300*@S
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{(iDelay)*@S}, 200)"
+      easing:           @o.STAGGER_EASING
+      stroke:           @o.STAGGER_COLORS
+      strokeDasharray:  '100%'
+      strokeDashoffset: '100%': '200%'
 
-    # i3Stagger2 = new mojs.Stagger
-    #   els:              @line3
-    #   duration:         20*iDuration2*@S
-    #   isRunLess:        @o.IS_RUNLESS
-    #   isShowEnd:        true
-    #   delay:            "stagger(#{(iDelay2+2*iDuration2)*@S}, 150)"
-    #   easing:           'elastic.out'
-    #   stroke:           @o.STAGGER_COLORS
-    #   strokeDasharray:  '100%'
-    #   strokeDashoffset: '70%': '46%'
+    iBottomStagger = new mojs.Stagger
+      els:              '#js-circles-left-bottom'
+      duration:         300*@S
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{(iDelay)*@S}, 200)"
+      easing:           @o.STAGGER_EASING
+      stroke:           @o.STAGGER_COLORS
+      strokeDasharray:  '100%'
+      strokeDashoffset: '100%': '0%'
 
     circle = new mojs.Transit
       parent:           @o.ctx

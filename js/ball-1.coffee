@@ -266,10 +266,24 @@ class FirstBall
       isRunLess: @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 
+    burst3 = new mojs.Burst
+      parent:       @o.ctx
+      x: @o.o2Left+30, y: @o.bottomLineBurst+15
+      angle:        90
+      radius:       { 0: 20 }
+      type:         'line'
+      count:        4
+      degree:       360
+      stroke:       @o.PINK
+      strokeWidth:  @o.STROKE_WIDTH
+      delay:        (@o.BALL_2_START+1200)*@S
+      isRunLess:    @o.IS_RUNLESS
+      childOptions: radius: { 5: 0 }
+
     retrunValue =
       tweens: [
-        burst1.tween, burst2.tween, mp.tween, ball.tween,
-        circle.tween, trail1.tween, trail2.tween
+        burst1.tween, burst2.tween, burst3.tween, mp.tween,
+        ball.tween, circle.tween, trail1.tween, trail2.tween
       ]
       ball: ball
 

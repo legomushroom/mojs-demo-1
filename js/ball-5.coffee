@@ -100,9 +100,32 @@ class FirstBall
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
 
+    oTopStagger = new mojs.Stagger
+      els:              '#js-circles-right-top'
+      duration:         300*@S
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{(tDelay+tDuration/2)*@S}, 200)"
+      easing:           @o.STAGGER_EASING
+      stroke:           @o.STAGGER_COLORS
+      strokeDasharray:  '100%'
+      strokeDashoffset: '100%': '200%'
+
+    oBottomStagger = new mojs.Stagger
+      els:              '#js-circles-right-bottom'
+      duration:         300*@S
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{(tDelay+tDuration/2)*@S}, 200)"
+      easing:           @o.STAGGER_EASING
+      stroke:           @o.STAGGER_COLORS
+      strokeDasharray:  '100%'
+      strokeDashoffset: '100%': '0%'
+
     [
       t1Stagger.tween, t2Stagger.tween, t3Stagger.tween, burst.tween,
-      mp.tween, trail.tween, trailFade.tween
+      mp.tween, trail.tween, trailFade.tween, oTopStagger.tween,
+      oBottomStagger.tween
     ]
 
 
