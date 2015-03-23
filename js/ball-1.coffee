@@ -40,8 +40,8 @@ class FirstBall
     trail2 = new mojs.Transit
       x: @o.o2Left, y: @o.bottomLine - 92
       parent:           @o.ctx
-      delay:            (@o.BALL_1_START+600)*@S
-      duration:         500*@S
+      delay:            (@o.BALL_1_START+700)*@S
+      duration:         400*@S
       isRunLess:        @o.IS_RUNLESS
       isShowInit:       true
       isShowEnd:        true
@@ -63,8 +63,8 @@ class FirstBall
     trail3 = new mojs.Transit
       x: @o.o2Left, y: @o.topLine
       parent:           @o.ctx
-      delay:            (@o.BALL_1_START+1200)*@S
-      duration:         500*@S
+      delay:            (@o.BALL_1_START+1150)*@S
+      duration:         375*@S
       isRunLess:        @o.IS_RUNLESS
       isShowInit:       true
       isShowEnd:        true
