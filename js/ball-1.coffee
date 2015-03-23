@@ -190,8 +190,9 @@ class FirstBall
     .then
       radiusX:      @o.CIRCLE_RADIUS
       radiusY:      @o.CIRCLE_RADIUS
-      duration:     (@o.BALL_7_ARCDUR/3)*@S
+      duration:     (3*@o.BALL_7_ARCDUR)*@S
       delay:        0
+      easing:       'elastic.out'
     # .then
     #   y:            @o.CIRCLE_RADIUS
     #   radiusX:      1.5*@o.CIRCLE_RADIUS

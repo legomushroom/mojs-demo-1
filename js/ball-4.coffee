@@ -60,7 +60,7 @@ class FirstBall
       fill:         'none'
       stroke:       @o.CYAN
       strokeWidth:  @o.STROKE_WIDTH
-      delay:        (@o.BALL_4_START+@o.BALL_4_ARCDUR)*@S
+      delay:        (@o.BALL_4_START+@o.BALL_4_ARCDUR+10)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 
@@ -79,7 +79,7 @@ class FirstBall
       duration:     600*@S
       isRunLess:    @o.IS_RUNLESS
 
-    nDuration = 1000; nDelay = @o.BALL_4_START+200
+    nDuration = @o.CHAR_DUR; nDelay = @o.BALL_4_START+200
     n1Stagger = new mojs.Stagger
       els:              @n1
       duration:         nDuration*@S

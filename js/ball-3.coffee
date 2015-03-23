@@ -68,7 +68,6 @@ class FirstBall
     burst2 = new mojs.Transit
       parent: @o.ctx
       x: 125,       y: @o.CHARS_TOP
-      # degree:       180
       angle:        90
       radius:       { 5: 6 }
       fill:         'transparent'
@@ -76,6 +75,19 @@ class FirstBall
       stroke:       @o.CYAN
       strokeWidth:  @o.STROKE_WIDTH
       delay:        (@o.BALL_3_START+400)*@S
+      duration:     300*@S
+      isRunLess:    @o.IS_RUNLESS
+
+    burst3 = new mojs.Transit
+      parent: @o.ctx
+      x: 125,       y: @o.bottomLineBurst + 20
+      angle:        90
+      radius:       { 5: 6 }
+      fill:         'transparent'
+      type:         'rect'
+      stroke:       @o.ORANGE
+      strokeWidth:  @o.STROKE_WIDTH
+      delay:        (@o.BALL_3_START+@o.BALL_3_ARCDUR+400)*@S
       duration:     300*@S
       isRunLess:    @o.IS_RUNLESS
 
@@ -121,7 +133,8 @@ class FirstBall
 
     [
       trailFade.tween, oStagger.tween, oLine1Stagger.tween, burst.tween,
-      oLine2Stagger.tween, mp.tween, trail.tween, trailFade.tween
+      oLine2Stagger.tween, mp.tween, trail.tween, trailFade.tween,
+      burst2.tween, burst3.tween
     ]
 
 

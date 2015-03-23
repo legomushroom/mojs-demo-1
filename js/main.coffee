@@ -9,9 +9,10 @@ Ball_6 = require './ball-6'
 Ball_7 = require './ball-7'
 
 class Main
-  YELLOW:       '#F9DD5E'
   CYAN:         '#11CDC5'
   PINK:         '#FC2D79'
+  YELLOW:       '#F9DD5E'
+  ORANGE:       '#FCB635'
   WHITE:        '#FDFDFD'
   S:            1
   # DELAY_START:  1500
@@ -31,6 +32,7 @@ class Main
     @o2Left     = 287; @topLine    = 65; @bottomLine = 240
     @bottomLineBurst = @bottomLine + 10
     @CHARS_TOP = @bottomLine - 70
+    @CHAR_DUR  = 2500
     @DOWN_DUR  = 50
     @BALL_1_START   = @DELAY_START
     @BALL_2_START   = @BALL_1_START + 1800
@@ -54,18 +56,14 @@ class Main
     @TRAIL_FADE  = 400
     @TRAIL_COLOR   = 'white'
     @TRAIL_OPACITY = .5
-    # for i in [0..32]
-    #   @TRAIL_DASH += '4 '
-    # @TRAIL_DASH += '4'
-
   listenSlider:->
     it = @
     @slider.addEventListener 'input', (e)-> it.tween.setProgress (@value/100000)
   createBits:->
-    @createBall_1(); @createBall_2()
+    @createBall_1(); @createBalls()
   createBall_1:->
     ball_1 = new Ball_1(@); @tween.add(ball_1.tweens); @mainBall = ball_1.ball
-  createBall_2:->
+  createBalls:->
     @tween.add new Ball_2 @
     @tween.add new Ball_3 @
     @tween.add new Ball_4 @

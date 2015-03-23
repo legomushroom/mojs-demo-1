@@ -13,9 +13,6 @@ class FirstBall
 
   create:->
     @o.BALL_2_ARCDUR = 800
-    # @path.setAttribute 'stroke-dasharray', '4 4'
-    # @path.setAttribute 'stroke',           @o.TRAIL_COLOR
-    # @path.setAttribute 'opacity',          @o.TRAIL_OPACITY
     trail = new mojs.Transit
       bit:              @pathMask
       fill:             'transparent'
@@ -31,8 +28,6 @@ class FirstBall
       isRunLess:        @o.IS_RUNLESS
 
     opacityDelta = {}; opacityDelta[@o.TRAIL_OPACITY] = 0
-    # console.log opacityDelta
-    # console.log @path
     trailFade = new mojs.Transit
       bit:              @path
       fill:             'transparent'
@@ -69,9 +64,23 @@ class FirstBall
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 
+    burst2 = new mojs.Transit
+      parent: @o.ctx
+      x: 310,       y: @o.CHARS_TOP-10
+      angle:        90
+      radius:       { 5: 6 }
+      fill:         'transparent'
+      type:         'circle'
+      stroke:       @o.CYAN
+      strokeWidth:  @o.STROKE_WIDTH
+      delay:        (@o.BALL_2_START+@o.BALL_2_ARCDUR+3*@o.BALL_3_ARCDUR)*@S
+      duration:     300*@S
+      isRunLess:    @o.IS_RUNLESS
+
+    oDuration = @o.CHAR_DUR*@S
     oLineStagger = new mojs.Stagger
       els:          @o2Line
-      duration:     1000*@S
+      duration:     oDuration
       isRunLess:    @o.IS_RUNLESS
       isShowEnd:    true
       delay:        "stagger(#{(@o.BALL_2_START)*@S}, 200)"
@@ -82,7 +91,7 @@ class FirstBall
 
     it = @
     translate = "translate(253, 174)"
-    oDuration = 1600*@S; oDelay = (@o.BALL_2_START+400)*@S
+    oDelay = (@o.BALL_2_START+400)*@S
     oEasing = 'sinusoidal.out'
     oStagger = new mojs.Stagger
       els:          @o2

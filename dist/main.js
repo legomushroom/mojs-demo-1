@@ -73,11 +73,13 @@
 	Ball_7 = __webpack_require__(9);
 
 	Main = (function() {
-	  Main.prototype.YELLOW = '#F9DD5E';
-
 	  Main.prototype.CYAN = '#11CDC5';
 
 	  Main.prototype.PINK = '#FC2D79';
+
+	  Main.prototype.YELLOW = '#F9DD5E';
+
+	  Main.prototype.ORANGE = '#FCB635';
 
 	  Main.prototype.WHITE = '#FDFDFD';
 
@@ -111,6 +113,7 @@
 	    this.bottomLine = 240;
 	    this.bottomLineBurst = this.bottomLine + 10;
 	    this.CHARS_TOP = this.bottomLine - 70;
+	    this.CHAR_DUR = 2500;
 	    this.DOWN_DUR = 50;
 	    this.BALL_1_START = this.DELAY_START;
 	    this.BALL_2_START = this.BALL_1_START + 1800;
@@ -145,7 +148,7 @@
 
 	  Main.prototype.createBits = function() {
 	    this.createBall_1();
-	    return this.createBall_2();
+	    return this.createBalls();
 	  };
 
 	  Main.prototype.createBall_1 = function() {
@@ -155,7 +158,7 @@
 	    return this.mainBall = ball_1.ball;
 	  };
 
-	  Main.prototype.createBall_2 = function() {
+	  Main.prototype.createBalls = function() {
 	    this.tween.add(new Ball_2(this));
 	    this.tween.add(new Ball_3(this));
 	    this.tween.add(new Ball_4(this));
@@ -4782,8 +4785,9 @@
 	    }).then({
 	      radiusX: this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS,
-	      duration: (this.o.BALL_7_ARCDUR / 3) * this.S,
-	      delay: 0
+	      duration: (3 * this.o.BALL_7_ARCDUR) * this.S,
+	      delay: 0,
+	      easing: 'elastic.out'
 	    });
 	    ball.el.style.opacity = 0;
 	    mp = new mojs.MotionPath({
@@ -4928,7 +4932,7 @@
 	  };
 
 	  FirstBall.prototype.create = function() {
-	    var burst, it, mp, oDelay, oDuration, oEasing, oLineStagger, oStagger, opacityDelta, trail, trailFade, translate, tween;
+	    var burst, burst2, it, mp, oDelay, oDuration, oEasing, oLineStagger, oStagger, opacityDelta, trail, trailFade, translate, tween;
 	    this.o.BALL_2_ARCDUR = 800;
 	    trail = new mojs.Transit({
 	      bit: this.pathMask,
@@ -4991,9 +4995,26 @@
 	        }
 	      }
 	    });
+	    burst2 = new mojs.Transit({
+	      parent: this.o.ctx,
+	      x: 310,
+	      y: this.o.CHARS_TOP - 10,
+	      angle: 90,
+	      radius: {
+	        5: 6
+	      },
+	      fill: 'transparent',
+	      type: 'circle',
+	      stroke: this.o.CYAN,
+	      strokeWidth: this.o.STROKE_WIDTH,
+	      delay: (this.o.BALL_2_START + this.o.BALL_2_ARCDUR + 3 * this.o.BALL_3_ARCDUR) * this.S,
+	      duration: 300 * this.S,
+	      isRunLess: this.o.IS_RUNLESS
+	    });
+	    oDuration = this.o.CHAR_DUR * this.S;
 	    oLineStagger = new mojs.Stagger({
 	      els: this.o2Line,
-	      duration: 1000 * this.S,
+	      duration: oDuration,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + (this.o.BALL_2_START * this.S) + ", 200)",
@@ -5008,7 +5029,6 @@
 	    });
 	    it = this;
 	    translate = "translate(253, 174)";
-	    oDuration = 1600 * this.S;
 	    oDelay = (this.o.BALL_2_START + 400) * this.S;
 	    oEasing = 'sinusoidal.out';
 	    oStagger = new mojs.Stagger({
@@ -5068,7 +5088,7 @@
 	  };
 
 	  FirstBall.prototype.create = function() {
-	    var burst, burst2, it, mp, oDelay, oDuration, oEasing, oLine1Stagger, oLine2Stagger, oStagger, opacityDelta, trail, trailFade, translate;
+	    var burst, burst2, burst3, it, mp, oDelay, oDuration, oEasing, oLine1Stagger, oLine2Stagger, oStagger, opacityDelta, trail, trailFade, translate;
 	    trail = new mojs.Transit({
 	      bit: this.pathMask,
 	      fill: 'transparent',
@@ -5147,6 +5167,22 @@
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS
 	    });
+	    burst3 = new mojs.Transit({
+	      parent: this.o.ctx,
+	      x: 125,
+	      y: this.o.bottomLineBurst + 20,
+	      angle: 90,
+	      radius: {
+	        5: 6
+	      },
+	      fill: 'transparent',
+	      type: 'rect',
+	      stroke: this.o.ORANGE,
+	      strokeWidth: this.o.STROKE_WIDTH,
+	      delay: (this.o.BALL_3_START + this.o.BALL_3_ARCDUR + 400) * this.S,
+	      duration: 300 * this.S,
+	      isRunLess: this.o.IS_RUNLESS
+	    });
 	    oLine1Stagger = new mojs.Stagger({
 	      els: this.o1Line1,
 	      duration: 1000 * this.S,
@@ -5195,7 +5231,7 @@
 	      },
 	      strokeDashoffset: 0
 	    });
-	    return [trailFade.tween, oStagger.tween, oLine1Stagger.tween, burst.tween, oLine2Stagger.tween, mp.tween, trail.tween, trailFade.tween];
+	    return [trailFade.tween, oStagger.tween, oLine1Stagger.tween, burst.tween, oLine2Stagger.tween, mp.tween, trail.tween, trailFade.tween, burst2.tween, burst3.tween];
 	  };
 
 	  return FirstBall;
@@ -5285,7 +5321,7 @@
 	      fill: 'none',
 	      stroke: this.o.CYAN,
 	      strokeWidth: this.o.STROKE_WIDTH,
-	      delay: (this.o.BALL_4_START + this.o.BALL_4_ARCDUR) * this.S,
+	      delay: (this.o.BALL_4_START + this.o.BALL_4_ARCDUR + 10) * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      childOptions: {
 	        radius: {
@@ -5311,7 +5347,7 @@
 	      duration: 600 * this.S,
 	      isRunLess: this.o.IS_RUNLESS
 	    });
-	    nDuration = 1000;
+	    nDuration = this.o.CHAR_DUR;
 	    nDelay = this.o.BALL_4_START + 200;
 	    n1Stagger = new mojs.Stagger({
 	      els: this.n1,
@@ -5686,7 +5722,7 @@
 	  };
 
 	  Ball.prototype.create = function() {
-	    var circle, i1Stagger, i2Stagger, i3Stagger, iBottomStagger, iDelay, iDelay2, iDuration, iDuration2, iTopStagger, mp;
+	    var auroraStagger, circle, i1Stagger, i2Stagger, i3Stagger, iBottomStagger, iDelay, iDelay2, iDuration, iDuration2, iTopStagger, mp;
 	    mp = new mojs.MotionPath({
 	      path: "M240.529297,234.470827 L240.529297,57",
 	      el: this.o.mainBall.el,
@@ -5766,6 +5802,20 @@
 	      strokeDashoffset: {
 	        '100%': '0%'
 	      }
+	    });
+	    auroraStagger = new mojs.Stagger({
+	      els: '#js-aurora',
+	      duration: 300 * this.S,
+	      isRunLess: this.o.IS_RUNLESS,
+	      isShowEnd: true,
+	      delay: "stagger(" + ((this.o.BALL_7_START - 2 * this.o.BALL_7_ARCDUR) * this.S) + ", 200)",
+	      easing: 'sinusoidal.out',
+	      stroke: this.o.STAGGER_COLORS,
+	      strokeWidth: {
+	        5: 0
+	      },
+	      strokeDasharray: '20 100 40 50',
+	      strokeDashoffset: 0
 	    });
 	    circle = new mojs.Transit({
 	      parent: this.o.ctx,

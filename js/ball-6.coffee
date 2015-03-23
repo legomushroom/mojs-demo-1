@@ -63,20 +63,6 @@ class FirstBall
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 
-    # burst2 = new mojs.Burst
-    #   parent:       @o.ctx
-    #   x: 30,        y: @o.bottomLineBurst - 40
-    #   # degree:       180
-    #   angle:        90
-    #   radius:       { 10: 25 }
-    #   type:         'line'
-    #   fill:         'none'
-    #   stroke:       @o.PINK
-    #   strokeWidth:  @o.STROKE_WIDTH
-    #   delay:        (@o.BALL_6_START+@o.BALL_6_ARCDUR+50)*@S
-    #   isRunLess:    @o.IS_RUNLESS
-    #   childOptions: radius: { 7: 0 }
-    
     mDuration = 1000; mDelay = @o.BALL_6_START+200
     m1Stagger = new mojs.Stagger
       els:              @line1

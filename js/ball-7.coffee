@@ -80,6 +80,19 @@ class Ball
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '0%'
 
+    auroraStagger = new mojs.Stagger
+      els:              '#js-aurora'
+      duration:         300*@S
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{(@o.BALL_7_START-2*@o.BALL_7_ARCDUR)*@S}, 200)"
+      # easing:           @o.STAGGER_EASING
+      easing:           'sinusoidal.out'
+      stroke:           @o.STAGGER_COLORS
+      strokeWidth:      5:0
+      strokeDasharray:  '20 100 40 50'
+      strokeDashoffset: 0#: '100'
+
     circle = new mojs.Transit
       parent:           @o.ctx
       x: @o.o2Left-46,  y: 167
@@ -101,7 +114,6 @@ class Ball
 
     [
       mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween,
-      # i3Stagger2.tween,
       circle.tween
     ]
     # [
