@@ -14,7 +14,7 @@ class Main
   YELLOW:       '#F9DD5E'
   ORANGE:       '#FCB635'
   WHITE:        '#FDFDFD'
-  S:            1
+  S:            .7
   DELAY_START:  1500
   # DELAY_START:  0
   STROKE_WIDTH: 2
@@ -36,12 +36,12 @@ class Main
     @CHAR_DUR  = 2500
     @DOWN_DUR  = 50
     @BALL_1_START   = @DELAY_START
-    @BALL_2_START   = @BALL_1_START + 1800
+    @BALL_2_START   = @BALL_1_START + 1700
     @BALL_2_ARCDUR  = 800
     @BALL_3_START   = @BALL_2_START + @BALL_2_ARCDUR + 100
-    @BALL_3_ARCDUR  = 900
+    @BALL_3_ARCDUR  = 800
     @BALL_4_START   = @BALL_3_START + @BALL_3_ARCDUR + 100
-    @BALL_4_ARCDUR  = 900
+    @BALL_4_ARCDUR  = 800
     @BALL_5_START   = @BALL_4_START + @BALL_4_ARCDUR + 100
     @BALL_5_ARCDUR  = 800
     @BALL_6_START   = @BALL_5_START + @BALL_5_ARCDUR + 100
@@ -73,7 +73,9 @@ class Main
     @tween.add new Ball_7 @
 
   createSounds:->
-    @bells1 = new Howl urls: ['sounds/bells-1-trim.wav']
+    @bells1 = new Howl
+      urls: ['sounds/bells-1-half.wav']
+      duration: 20000
     @audio1 = new Howl
       urls: ['sounds/bell-1.wav']
       # volume: .25

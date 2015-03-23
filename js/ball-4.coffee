@@ -106,8 +106,8 @@ class FirstBall
     
     tween = new mojs.Tween; shift = 22.5; it = @
     tween.add new mojs.Timeline
-      duration:   nDuration
-      delay:      nDelay
+      duration:   nDuration*@S
+      delay:      nDelay*@S
       easing:     @o.STAGGER_EASING
       onUpdate:(p)->
         # nP = 1 - p

@@ -15,12 +15,14 @@ class FirstBall
 
     ballStart = -40
     trail1 = new mojs.Transit
-      x: @o.o2Left, y: ballStart
+      x: @o.o2Left,     y: ballStart
       parent:           @o.ctx
       angle:            90
       delay:            @o.BALL_1_START*@S
       duration:         600*@S
       isRunLess:        @o.IS_RUNLESS
+      isShowInit:       true
+      isShowEnd:        true
       strokeDasharray:  @o.TRAIL_DASH
       easing:           @FALL_EASING
       strokeWidth:      1
@@ -29,11 +31,11 @@ class FirstBall
       radius:           {0: 135}
       shiftY:           {0: 135}
     .then
-      opacity:  0
-      duration: @o.TRAIL_FADE*@S
-      delay:    0
-      radius:   135
-      shiftY:   135
+      opacity:          0
+      duration:         @o.TRAIL_FADE*@S
+      delay:            0
+      radius:           135
+      shiftY:           135
 
     trail2 = new mojs.Transit
       x: @o.o2Left, y: @o.bottomLine - 92
@@ -41,6 +43,8 @@ class FirstBall
       delay:            (@o.BALL_1_START+700)*@S
       duration:         500*@S
       isRunLess:        @o.IS_RUNLESS
+      isShowInit:       true
+      isShowEnd:        true
       strokeDasharray:  @o.TRAIL_DASH
       easing:           @RISE_EASING
       strokeWidth:      1
@@ -62,6 +66,8 @@ class FirstBall
       delay:            (@o.BALL_1_START+1200)*@S
       duration:         500*@S
       isRunLess:        @o.IS_RUNLESS
+      isShowInit:       true
+      isShowEnd:        true
       strokeDasharray:  @o.TRAIL_DASH
       easing:           @FALL_EASING
       strokeWidth:      1
@@ -193,34 +199,27 @@ class FirstBall
       duration:     (3*@o.BALL_7_ARCDUR)*@S
       delay:        0
       easing:       'elastic.out'
-    # .then
-    #   y:            @o.CIRCLE_RADIUS
-    #   radiusX:      1.5*@o.CIRCLE_RADIUS
-    #   radiusY:      @o.CIRCLE_RADIUS/2
-    #   duration:     gooDur*@S
-    #   delay:        (@o.BALL_6_ARCDUR-3*gooDur)*@S
-
-
+    
     ball.el.style.opacity = 0
     mp = new mojs.MotionPath
-      path: "M#{@o.o2Left},#{ballStart} L#{@o.o2Left},
-         #{@o.bottomLine-@o.CIRCLE_RADIUS}"
-      el: ball.el
-      duration: 600*@S
-      easing: @FALL_EASING
-      delay:  @o.BALL_1_START*@S
-      isRunLess: @o.IS_RUNLESS
+      path:       "M#{@o.o2Left},#{ballStart} L#{@o.o2Left},
+                   #{@o.bottomLine-@o.CIRCLE_RADIUS}"
+      el:         ball.el
+      duration:   600*@S
+      easing:     @FALL_EASING
+      delay:      @o.BALL_1_START*@S
+      isRunLess:  @o.IS_RUNLESS
       onUpdate:(p)-> ball.el.style.opacity = 5*p
     .then
-      isReverse: true
-      pathStart: .35
-      easing:   @RISE_EASING
-      delay:    (@o.DOWN_DUR+gooDur)*@S
-      duration: 500*@S
+      isReverse:  true
+      pathStart:  .35
+      easing:     @RISE_EASING
+      delay:      (@o.DOWN_DUR+gooDur)*@S
+      duration:   400*@S
     .then
       isReverse: false
       easing: @FALL_EASING
-      delay: 0
+      delay: 16*@S
 
     burst1 = new mojs.Burst
       parent: @o.ctx
@@ -238,23 +237,23 @@ class FirstBall
       onStart:=> @o.bells1.play()
 
     circle = new mojs.Transit
-      parent: @o.ctx
-      x: @o.o2Left, y: 55
-      type: 'circle'
-      radius: 3*@o.CIRCLE_RADIUS
-      fill: 'transparent'
-      strokeWidth: @o.STROKE_WIDTH
-      stroke:  @o.PINK
+      parent:           @o.ctx
+      x: @o.o2Left,     y: 55
+      type:             'circle'
+      radius:           3*@o.CIRCLE_RADIUS
+      fill:             'transparent'
+      strokeWidth:      @o.STROKE_WIDTH
+      stroke:           @o.PINK
       strokeDasharray:  '100% 200%'
       strokeDashoffset: {'100%': '50%'}
-      angle: 180
-      delay: (@o.BALL_1_START+1100)*@S
-      duration: 300*@S
-      isRunLess: @o.IS_RUNLESS
+      angle:            180
+      delay:            (@o.BALL_1_START+700)*@S
+      duration:         300*@S
+      isRunLess:        @o.IS_RUNLESS
     .then
       strokeDashoffset: '100%'
-      angle: 360
-      delay: 0
+      angle:            360
+      delay:            0
 
     burst2 = new mojs.Burst
       parent: @o.ctx
@@ -286,8 +285,10 @@ class FirstBall
 
     retrunValue =
       tweens: [
-        burst1.tween, burst2.tween, burst3.tween, mp.tween,
-        ball.tween, circle.tween, trail1.tween, trail2.tween
+        burst1.tween, burst2.tween, burst3.tween,
+        mp.tween,
+        ball.tween, circle.tween,
+        trail1.tween, trail2.tween, trail3.tween
       ]
       ball: ball
 

@@ -87,7 +87,7 @@ class Ball
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
-      delay:            "stagger(#{(@o.BALL_7_START-2*@o.BALL_7_ARCDUR)*@S}, 200)"
+      delay:            "stagger(#{4500*@S}, 200)"
       # easing:           @o.STAGGER_EASING
       easing:           'sinusoidal.out'
       stroke:           [@o.YELLOW, @o.CYAN, @o.PINK]
@@ -116,12 +116,9 @@ class Ball
 
     [
       mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween,
-      circle.tween, auroraStagger.tween
+      circle.tween, auroraStagger.tween, oTopStagger.tween,
+      oBottomStagger.tween
     ]
-    # [
-    #   burst.tween, n1Stagger.tween, n2Stagger.tween,
-    #   mp.tween, trail.tween, trailFade.tween
-    # ]
 
 
 module.exports = Ball

@@ -83,7 +83,7 @@
 
 	  Main.prototype.WHITE = '#FDFDFD';
 
-	  Main.prototype.S = 1;
+	  Main.prototype.S = .7;
 
 	  Main.prototype.DELAY_START = 1500;
 
@@ -119,12 +119,12 @@
 	    this.CHAR_DUR = 2500;
 	    this.DOWN_DUR = 50;
 	    this.BALL_1_START = this.DELAY_START;
-	    this.BALL_2_START = this.BALL_1_START + 1800;
+	    this.BALL_2_START = this.BALL_1_START + 1700;
 	    this.BALL_2_ARCDUR = 800;
 	    this.BALL_3_START = this.BALL_2_START + this.BALL_2_ARCDUR + 100;
-	    this.BALL_3_ARCDUR = 900;
+	    this.BALL_3_ARCDUR = 800;
 	    this.BALL_4_START = this.BALL_3_START + this.BALL_3_ARCDUR + 100;
-	    this.BALL_4_ARCDUR = 900;
+	    this.BALL_4_ARCDUR = 800;
 	    this.BALL_5_START = this.BALL_4_START + this.BALL_4_ARCDUR + 100;
 	    this.BALL_5_ARCDUR = 800;
 	    this.BALL_6_START = this.BALL_5_START + this.BALL_5_ARCDUR + 100;
@@ -172,7 +172,8 @@
 
 	  Main.prototype.createSounds = function() {
 	    this.bells1 = new Howl({
-	      urls: ['sounds/bells-1-trim.wav']
+	      urls: ['sounds/bells-1-half.wav'],
+	      duration: 20000
 	    });
 	    this.audio1 = new Howl({
 	      urls: ['sounds/bell-1.wav']
@@ -371,7 +372,7 @@
 	  };
 
 	  Swirl.prototype.extendDefaults = function() {
-	    var angle, x, y, _base, _base1;
+	    var angle, x, y, _base;
 	    Swirl.__super__.extendDefaults.apply(this, arguments);
 	    x = this.getPosValue('x');
 	    y = this.getPosValue('y');
@@ -385,13 +386,10 @@
 	      x: x,
 	      y: y
 	    };
-	    if ((_base = this.o).angleShift == null) {
-	      _base.angleShift = 0;
+	    if ((_base = this.o).radiusScale == null) {
+	      _base.radiusScale = 1;
 	    }
-	    if ((_base1 = this.o).radiusScale == null) {
-	      _base1.radiusScale = 1;
-	    }
-	    this.props.angleShift = this.h.parseIfRand(this.o.angleShift);
+	    this.props.angleShift = this.h.parseIfRand(this.o.angleShift || 0);
 	    return this.props.radiusScale = this.h.parseIfRand(this.o.radiusScale);
 	  };
 
@@ -419,7 +417,7 @@
 
 	  Swirl.prototype.setProgress = function(progress) {
 	    var angle, point, x, y;
-	    angle = this.positionDelta.angle + this.props.angleShift;
+	    angle = this.positionDelta.angle;
 	    if (this.o.isSwirl) {
 	      angle += this.getSwirl(progress);
 	    }
@@ -643,7 +641,7 @@
 	  };
 
 	  Burst.prototype.addBitOptions = function() {
-	    var angleAddition, delta, end, i, keys, newEnd, newStart, pointEnd, pointStart, points, start, step, transit, _i, _len, _ref, _results;
+	    var aShift, angleAddition, delta, end, i, keys, newEnd, newStart, pointEnd, pointStart, points, start, step, transit, _i, _len, _ref, _results;
 	    points = this.props.count;
 	    this.degreeCnt = this.props.degree % 360 === 0 ? points : points - 1;
 	    step = this.props.degree / this.degreeCnt;
@@ -651,13 +649,14 @@
 	    _results = [];
 	    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
 	      transit = _ref[i];
-	      pointStart = this.getSidePoint('start', i * step);
-	      pointEnd = this.getSidePoint('end', i * step);
+	      aShift = transit.props.angleShift;
+	      pointStart = this.getSidePoint('start', i * step + aShift);
+	      pointEnd = this.getSidePoint('end', i * step + aShift);
 	      transit.o.x = this.getDeltaFromPoints('x', pointStart, pointEnd);
 	      transit.o.y = this.getDeltaFromPoints('y', pointStart, pointEnd);
 	      if (!this.props.isResetAngles) {
 	        angleAddition = i * step + 90;
-	        transit.o.angle = typeof transit.o.angle !== 'object' ? transit.o.angle + angleAddition : (keys = Object.keys(transit.o.angle), start = keys[0], end = transit.o.angle[start], newStart = parseFloat(start) + angleAddition, newEnd = parseFloat(end) + angleAddition, delta = {}, delta[newStart] = newEnd, delta);
+	        transit.o.angle = typeof transit.o.angle !== 'object' ? transit.o.angle + angleAddition + aShift : (keys = Object.keys(transit.o.angle), start = keys[0], end = transit.o.angle[start], newStart = parseFloat(start) + angleAddition + aShift, newEnd = parseFloat(end) + angleAddition + aShift, delta = {}, delta[newStart] = newEnd, delta);
 	      }
 	      _results.push(transit.extendDefaults());
 	    }
@@ -1664,12 +1663,12 @@
 	/*
 	  :: mo · js :: motion graphics toolbelt for the web
 	  LegoMushroom - Oleg Solomka 2015 MIT
-	  v0.106.4 unstable
+	  v0.106.6 unstable
 	 */
 	var Burst, MotionPath, Stagger, Swirl, Timeline, Transit, Tween, h;
 
 	window.mojs = {
-	  revision: '0.106.4',
+	  revision: '0.106.6',
 	  isDebug: true
 	};
 
@@ -3931,6 +3930,12 @@
 	    if ((time >= this.props.startTime) && (time < this.props.endTime)) {
 	      this.isOnReverseComplete = false;
 	      this.isCompleted = false;
+	      if (time < this.prevTime && !this.isFirstUpdateBackward) {
+	        if ((_ref1 = this.o.onFirstUpdateBackward) != null) {
+	          _ref1.apply(this);
+	        }
+	        this.isFirstUpdateBackward = true;
+	      }
 	      if (!this.isFirstUpdate) {
 	        if ((_ref = this.o.onFirstUpdate) != null) {
 	          _ref.apply(this);
@@ -3938,8 +3943,8 @@
 	        this.isFirstUpdate = true;
 	      }
 	      if (!this.isStarted) {
-	        if ((_ref1 = this.o.onStart) != null) {
-	          _ref1.apply(this);
+	        if ((_ref2 = this.o.onStart) != null) {
+	          _ref2.apply(this);
 	        }
 	        this.isStarted = true;
 	      }
@@ -3964,12 +3969,6 @@
 	        } else {
 	          this.setProc(0);
 	        }
-	      }
-	      if (time < this.prevTime && !this.isFirstUpdateBackward) {
-	        if ((_ref2 = this.o.onFirstUpdateBackward) != null) {
-	          _ref2.apply(this);
-	        }
-	        this.isFirstUpdateBackward = true;
 	      }
 	      if (typeof this.onUpdate === "function") {
 	        this.onUpdate(this.easedProgress);
@@ -4631,6 +4630,8 @@
 	      delay: this.o.BALL_1_START * this.S,
 	      duration: 600 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
+	      isShowInit: true,
+	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.FALL_EASING,
 	      strokeWidth: 1,
@@ -4656,6 +4657,8 @@
 	      delay: (this.o.BALL_1_START + 700) * this.S,
 	      duration: 500 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
+	      isShowInit: true,
+	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.RISE_EASING,
 	      strokeWidth: 1,
@@ -4682,6 +4685,8 @@
 	      delay: (this.o.BALL_1_START + 1200) * this.S,
 	      duration: 500 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
+	      isShowInit: true,
+	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.FALL_EASING,
 	      strokeWidth: 1,
@@ -4827,11 +4832,11 @@
 	      pathStart: .35,
 	      easing: this.RISE_EASING,
 	      delay: (this.o.DOWN_DUR + gooDur) * this.S,
-	      duration: 500 * this.S
+	      duration: 400 * this.S
 	    }).then({
 	      isReverse: false,
 	      easing: this.FALL_EASING,
-	      delay: 0
+	      delay: 16 * this.S
 	    });
 	    burst1 = new mojs.Burst({
 	      parent: this.o.ctx,
@@ -4872,7 +4877,7 @@
 	        '100%': '50%'
 	      },
 	      angle: 180,
-	      delay: (this.o.BALL_1_START + 1100) * this.S,
+	      delay: (this.o.BALL_1_START + 700) * this.S,
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS
 	    }).then({
@@ -4922,7 +4927,7 @@
 	      isRunLess: this.o.IS_RUNLESS
 	    });
 	    return retrunValue = {
-	      tweens: [burst1.tween, burst2.tween, burst3.tween, mp.tween, ball.tween, circle.tween, trail1.tween, trail2.tween],
+	      tweens: [burst1.tween, burst2.tween, burst3.tween, mp.tween, ball.tween, circle.tween, trail1.tween, trail2.tween, trail3.tween],
 	      ball: ball
 	    };
 	  };
@@ -5421,8 +5426,8 @@
 	    shift = 22.5;
 	    it = this;
 	    tween.add(new mojs.Timeline({
-	      duration: nDuration,
-	      delay: nDelay,
+	      duration: nDuration * this.S,
+	      delay: nDelay * this.S,
 	      easing: this.o.STAGGER_EASING,
 	      onUpdate: function(p) {
 	        it.n1.setAttribute('transform', "translate(" + (shift * p) + ")");
@@ -5782,7 +5787,7 @@
 	        })(this)), null, null
 	      ]
 	    });
-	    return [burst.tween, m1Stagger.tween, m2Stagger.tween, mp.tween, trail.tween, trailFade.tween, forStagger.tween];
+	    return [burst.tween, m1Stagger.tween, m2Stagger.tween, mp.tween, trail.tween, trailFade.tween, forStagger.tween, forBurst.tween];
 	  };
 
 	  return FirstBall;
@@ -5903,7 +5908,7 @@
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
-	      delay: "stagger(" + ((this.o.BALL_7_START - 2 * this.o.BALL_7_ARCDUR) * this.S) + ", 200)",
+	      delay: "stagger(" + (4500 * this.S) + ", 200)",
 	      easing: 'sinusoidal.out',
 	      stroke: [this.o.YELLOW, this.o.CYAN, this.o.PINK],
 	      strokeWidth: {
@@ -5936,7 +5941,7 @@
 	      angle: 360,
 	      delay: 0
 	    });
-	    return [mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween, circle.tween, auroraStagger.tween];
+	    return [mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween, circle.tween, auroraStagger.tween, oTopStagger.tween, oBottomStagger.tween];
 	  };
 
 	  return Ball;

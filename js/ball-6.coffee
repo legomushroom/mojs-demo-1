@@ -127,7 +127,8 @@ class FirstBall
 
     [
       burst.tween, m1Stagger.tween, m2Stagger.tween,
-      mp.tween, trail.tween, trailFade.tween, forStagger.tween
+      mp.tween, trail.tween, trailFade.tween, forStagger.tween,
+      forBurst.tween
     ]
 
 

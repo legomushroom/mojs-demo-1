@@ -25,7 +25,7 @@ Swirl = (function(_super) {
   };
 
   Swirl.prototype.extendDefaults = function() {
-    var angle, x, y, _base, _base1;
+    var angle, x, y, _base;
     Swirl.__super__.extendDefaults.apply(this, arguments);
     x = this.getPosValue('x');
     y = this.getPosValue('y');
@@ -39,13 +39,10 @@ Swirl = (function(_super) {
       x: x,
       y: y
     };
-    if ((_base = this.o).angleShift == null) {
-      _base.angleShift = 0;
+    if ((_base = this.o).radiusScale == null) {
+      _base.radiusScale = 1;
     }
-    if ((_base1 = this.o).radiusScale == null) {
-      _base1.radiusScale = 1;
-    }
-    this.props.angleShift = this.h.parseIfRand(this.o.angleShift);
+    this.props.angleShift = this.h.parseIfRand(this.o.angleShift || 0);
     return this.props.radiusScale = this.h.parseIfRand(this.o.radiusScale);
   };
 
@@ -73,7 +70,7 @@ Swirl = (function(_super) {
 
   Swirl.prototype.setProgress = function(progress) {
     var angle, point, x, y;
-    angle = this.positionDelta.angle + this.props.angleShift;
+    angle = this.positionDelta.angle;
     if (this.o.isSwirl) {
       angle += this.getSwirl(progress);
     }
@@ -297,7 +294,7 @@ Burst = (function(_super) {
   };
 
   Burst.prototype.addBitOptions = function() {
-    var angleAddition, delta, end, i, keys, newEnd, newStart, pointEnd, pointStart, points, start, step, transit, _i, _len, _ref, _results;
+    var aShift, angleAddition, delta, end, i, keys, newEnd, newStart, pointEnd, pointStart, points, start, step, transit, _i, _len, _ref, _results;
     points = this.props.count;
     this.degreeCnt = this.props.degree % 360 === 0 ? points : points - 1;
     step = this.props.degree / this.degreeCnt;
@@ -305,13 +302,14 @@ Burst = (function(_super) {
     _results = [];
     for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
       transit = _ref[i];
-      pointStart = this.getSidePoint('start', i * step);
-      pointEnd = this.getSidePoint('end', i * step);
+      aShift = transit.props.angleShift;
+      pointStart = this.getSidePoint('start', i * step + aShift);
+      pointEnd = this.getSidePoint('end', i * step + aShift);
       transit.o.x = this.getDeltaFromPoints('x', pointStart, pointEnd);
       transit.o.y = this.getDeltaFromPoints('y', pointStart, pointEnd);
       if (!this.props.isResetAngles) {
         angleAddition = i * step + 90;
-        transit.o.angle = typeof transit.o.angle !== 'object' ? transit.o.angle + angleAddition : (keys = Object.keys(transit.o.angle), start = keys[0], end = transit.o.angle[start], newStart = parseFloat(start) + angleAddition, newEnd = parseFloat(end) + angleAddition, delta = {}, delta[newStart] = newEnd, delta);
+        transit.o.angle = typeof transit.o.angle !== 'object' ? transit.o.angle + angleAddition + aShift : (keys = Object.keys(transit.o.angle), start = keys[0], end = transit.o.angle[start], newStart = parseFloat(start) + angleAddition + aShift, newEnd = parseFloat(end) + angleAddition + aShift, delta = {}, delta[newStart] = newEnd, delta);
       }
       _results.push(transit.extendDefaults());
     }
@@ -1318,12 +1316,12 @@ if (typeof window !== "undefined" && window !== null) {
 /*
   :: mo · js :: motion graphics toolbelt for the web
   LegoMushroom - Oleg Solomka 2015 MIT
-  v0.106.4 unstable
+  v0.106.6 unstable
  */
 var Burst, MotionPath, Stagger, Swirl, Timeline, Transit, Tween, h;
 
 window.mojs = {
-  revision: '0.106.4',
+  revision: '0.106.6',
   isDebug: true
 };
 
@@ -3585,6 +3583,12 @@ Timeline = (function() {
     if ((time >= this.props.startTime) && (time < this.props.endTime)) {
       this.isOnReverseComplete = false;
       this.isCompleted = false;
+      if (time < this.prevTime && !this.isFirstUpdateBackward) {
+        if ((_ref1 = this.o.onFirstUpdateBackward) != null) {
+          _ref1.apply(this);
+        }
+        this.isFirstUpdateBackward = true;
+      }
       if (!this.isFirstUpdate) {
         if ((_ref = this.o.onFirstUpdate) != null) {
           _ref.apply(this);
@@ -3592,8 +3596,8 @@ Timeline = (function() {
         this.isFirstUpdate = true;
       }
       if (!this.isStarted) {
-        if ((_ref1 = this.o.onStart) != null) {
-          _ref1.apply(this);
+        if ((_ref2 = this.o.onStart) != null) {
+          _ref2.apply(this);
         }
         this.isStarted = true;
       }
@@ -3618,12 +3622,6 @@ Timeline = (function() {
         } else {
           this.setProc(0);
         }
-      }
-      if (time < this.prevTime && !this.isFirstUpdateBackward) {
-        if ((_ref2 = this.o.onFirstUpdateBackward) != null) {
-          _ref2.apply(this);
-        }
-        this.isFirstUpdateBackward = true;
       }
       if (typeof this.onUpdate === "function") {
         this.onUpdate(this.easedProgress);
