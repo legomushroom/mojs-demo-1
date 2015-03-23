@@ -10,7 +10,6 @@ class FirstBall
     @o2Line   = document.querySelector '#js-o2-line'
     @easing = @o.generateBezier(0.240, 0.725, 0.790, 0.395)
 
-
   create:->
     @o.BALL_2_ARCDUR = 800
     trail = new mojs.Transit
@@ -63,6 +62,7 @@ class FirstBall
       delay:        (@o.BALL_2_START+@o.BALL_2_ARCDUR)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
+      onStart:=>    @o.playSound @o.audio1
 
     burst2 = new mojs.Transit
       parent: @o.ctx

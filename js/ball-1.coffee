@@ -234,6 +234,8 @@ class FirstBall
       delay: (@o.BALL_1_START+600)*@S
       isRunLess: @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
+      # onStart:=> @o.playSound @o.audio1
+      onStart:=> @o.bells1.play()
 
     circle = new mojs.Transit
       parent: @o.ctx
@@ -266,12 +268,13 @@ class FirstBall
       delay: (@o.BALL_1_START+1700)*@S
       isRunLess: @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
+      onStart:=> @o.playSound @o.audio1
 
     burst3 = new mojs.Burst
       parent:       @o.ctx
       x: @o.o2Left+30, y: @o.bottomLineBurst+15
       angle:        90
-      radius:       { 0: 20 }
+      radius:       { 4: 20 }
       type:         'line'
       count:        4
       degree:       360
@@ -279,7 +282,7 @@ class FirstBall
       strokeWidth:  @o.STROKE_WIDTH
       delay:        (@o.BALL_2_START+1200)*@S
       isRunLess:    @o.IS_RUNLESS
-      childOptions: radius: { 5: 0 }
+      # childOptions: radius: { 5: 0 }
 
     retrunValue =
       tweens: [

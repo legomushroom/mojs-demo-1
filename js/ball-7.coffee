@@ -58,7 +58,7 @@ class Ball
       strokeDasharray:  '100% 120%'
       strokeDashoffset: '120%': '71.5%'
 
-    iTopStagger = new mojs.Stagger
+    oTopStagger = new mojs.Stagger
       els:              '#js-circles-left-top'
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
@@ -66,10 +66,11 @@ class Ball
       delay:            "stagger(#{(iDelay)*@S}, 200)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
+      strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
 
-    iBottomStagger = new mojs.Stagger
+    oBottomStagger = new mojs.Stagger
       els:              '#js-circles-left-bottom'
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
@@ -77,6 +78,7 @@ class Ball
       delay:            "stagger(#{(iDelay)*@S}, 200)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
+      strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '0%'
 
@@ -88,10 +90,10 @@ class Ball
       delay:            "stagger(#{(@o.BALL_7_START-2*@o.BALL_7_ARCDUR)*@S}, 200)"
       # easing:           @o.STAGGER_EASING
       easing:           'sinusoidal.out'
-      stroke:           @o.STAGGER_COLORS
+      stroke:           [@o.YELLOW, @o.CYAN, @o.PINK]
       strokeWidth:      5:0
       strokeDasharray:  '20 100 40 50'
-      strokeDashoffset: 0#: '100'
+      strokeDashoffset: 0: '100'
 
     circle = new mojs.Transit
       parent:           @o.ctx
@@ -114,7 +116,7 @@ class Ball
 
     [
       mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween,
-      circle.tween
+      circle.tween, auroraStagger.tween
     ]
     # [
     #   burst.tween, n1Stagger.tween, n2Stagger.tween,

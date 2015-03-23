@@ -65,6 +65,7 @@ class FirstBall
       delay:        (@o.BALL_5_START+@o.BALL_5_ARCDUR)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
+      onStart:=>    @o.playSound @o.audio1
 
     tDuration = 1000; tDelay = @o.BALL_5_START+200
     t1Stagger = new mojs.Stagger
@@ -108,6 +109,7 @@ class FirstBall
       delay:            "stagger(#{(tDelay+tDuration/2)*@S}, 200)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
+      strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
 
@@ -119,6 +121,7 @@ class FirstBall
       delay:            "stagger(#{(tDelay+tDuration/2)*@S}, 200)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
+      strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '0%'
 

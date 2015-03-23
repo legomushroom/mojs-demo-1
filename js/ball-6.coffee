@@ -62,6 +62,7 @@ class FirstBall
       delay:        (@o.BALL_6_START+@o.BALL_6_ARCDUR+50)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
+      onStart:=>    @o.playSound @o.audio1
 
     mDuration = 1000; mDelay = @o.BALL_6_START+200
     m1Stagger = new mojs.Stagger
@@ -74,6 +75,39 @@ class FirstBall
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
+
+    # forDelay = @o.BALL_7_START + 4*@o.BALL_7_ARCDUR
+    forDelay = mDelay; forDuration = mDuration
+    forStagger = new mojs.Stagger
+      els:              '#js-for-the-web'
+      duration:         forDuration*@S
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{(forDelay)*@S}, 100)"
+      easing:           @o.STAGGER_EASING
+      stroke:           @o.WHITE
+      strokeWidth:      .3
+      strokeDasharray:  ''
+      strokeDashoffset: 0
+      fill:             @o.WHITE
+      opacity:          0:1
+
+    forBurst = new mojs.Burst
+      parent:       @o.ctx
+      x: 413,       y: @o.bottomLineBurst + 25
+      # degree:       80
+      angle:        15
+      radius:       { 8: 15 }
+      type:         'line'
+      fill:         'none'
+      stroke:       [@o.PINK, @o.CYAN]
+      strokeWidth:  1
+      delay:        (forDelay+forDuration+300)*@S
+      # delay:        0
+      count:        4
+      isRunLess:    @o.IS_RUNLESS
+      childOptions: radius: { 'rand(2,4)': 0 }
+      # onStart:=> @o.playSound @o.audio1
 
     shift = 15
     m2Stagger = new mojs.Stagger
@@ -93,7 +127,7 @@ class FirstBall
 
     [
       burst.tween, m1Stagger.tween, m2Stagger.tween,
-      mp.tween, trail.tween, trailFade.tween
+      mp.tween, trail.tween, trailFade.tween, forStagger.tween
     ]
 
 

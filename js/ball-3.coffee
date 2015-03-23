@@ -64,6 +64,7 @@ class FirstBall
       delay:        (@o.BALL_3_START+@o.BALL_3_ARCDUR)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
+      onStart:=>    @o.playSound @o.audio1
 
     burst2 = new mojs.Transit
       parent: @o.ctx
@@ -86,7 +87,7 @@ class FirstBall
       fill:         'transparent'
       type:         'rect'
       stroke:       @o.ORANGE
-      strokeWidth:  @o.STROKE_WIDTH
+      strokeWidth:  @o.STROKE_WIDTH-.5
       delay:        (@o.BALL_3_START+@o.BALL_3_ARCDUR+400)*@S
       duration:     300*@S
       isRunLess:    @o.IS_RUNLESS

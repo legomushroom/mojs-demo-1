@@ -15,15 +15,16 @@ class Main
   ORANGE:       '#FCB635'
   WHITE:        '#FDFDFD'
   S:            1
-  # DELAY_START:  1500
-  DELAY_START:  0
+  DELAY_START:  1500
+  # DELAY_START:  0
   STROKE_WIDTH: 2
   CIRCLE_RADIUS:5
   IS_RUNLESS:   false
+  IS_SOUND:     false
   tween:        new mojs.Tween
   constructor:->
     @vars(); @listenSlider()
-    @createBits()
+    @createBits(); @createSounds()
   vars:->
     @slider = document.querySelector '#js-slider'
     @ctx    = document.querySelector '#js-svg-canvas'
@@ -70,6 +71,15 @@ class Main
     @tween.add new Ball_5 @
     @tween.add new Ball_6 @
     @tween.add new Ball_7 @
+
+  createSounds:->
+    @bells1 = new Howl urls: ['sounds/bells-1-trim.wav']
+    @audio1 = new Howl
+      urls: ['sounds/bell-1.wav']
+      # volume: .25
+    @audio2 = new Howl urls: ['sounds/bell-2.wav']
+
+  playSound:(audio)-> return if !@IS_SOUND; audio.play()
 
 
 
