@@ -91,7 +91,7 @@
 
 	  Main.prototype.CIRCLE_RADIUS = 5;
 
-	  Main.prototype.IS_RUNLESS = false;
+	  Main.prototype.IS_RUNLESS = true;
 
 	  Main.prototype.IS_SOUND = false;
 
@@ -102,6 +102,7 @@
 	    this.listenSlider();
 	    this.createBits();
 	    this.createSounds();
+	    this.listenLinks();
 	  }
 
 	  Main.prototype.vars = function() {
@@ -171,15 +172,8 @@
 	  };
 
 	  Main.prototype.createSounds = function() {
-	    this.bells1 = new Howl({
-	      urls: ['sounds/bells-1-half.wav'],
-	      duration: 20000
-	    });
-	    this.audio1 = new Howl({
-	      urls: ['sounds/bell-1.wav']
-	    });
-	    return this.audio2 = new Howl({
-	      urls: ['sounds/bell-2.wav']
+	    return this.bells1 = new Howl({
+	      urls: ['sounds/bells-1-half.wav']
 	    });
 	  };
 
@@ -188,6 +182,37 @@
 	      return;
 	    }
 	    return audio.play();
+	  };
+
+	  Main.prototype.listenLinks = function() {
+	    this.lego = document.querySelector('#js-by-logo');
+	    this.legoSnowball = document.querySelector('#js-by-snowball');
+	    this.lego.addEventListener('click', (function(_this) {
+	      return function(e) {
+	        var href;
+	        e.preventDefault();
+	        href = e.target.getAttribute('href');
+	        _this.legoSnowball.classList.add('is-shown');
+	        setTimeout(function() {
+	          return window.location.href = href;
+	        }, 200);
+	        return false;
+	      };
+	    })(this));
+	    this.mojs = document.querySelector('#js-with-logo');
+	    this.mojsSnowball = document.querySelector('#js-with-snowball');
+	    return this.mojs.addEventListener('click', (function(_this) {
+	      return function(e) {
+	        var href;
+	        e.preventDefault();
+	        href = e.target.getAttribute('href');
+	        _this.mojsSnowball.classList.add('is-shown');
+	        setTimeout(function() {
+	          return window.location.href = href;
+	        }, 200);
+	        return false;
+	      };
+	    })(this));
 	  };
 
 	  Main.prototype.generateBezier = function(mX1, mY1, mX2, mY2) {
@@ -4654,7 +4679,7 @@
 	      x: this.o.o2Left,
 	      y: this.o.bottomLine - 92,
 	      parent: this.o.ctx,
-	      delay: (this.o.BALL_1_START + 700) * this.S,
+	      delay: (this.o.BALL_1_START + 600) * this.S,
 	      duration: 500 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowInit: true,
@@ -4859,7 +4884,7 @@
 	      },
 	      onStart: (function(_this) {
 	        return function() {
-	          return _this.o.bells1.play();
+	          return _this.o.playSound(_this.o.bells1);
 	        };
 	      })(this)
 	    });
@@ -4903,12 +4928,7 @@
 	        radius: {
 	          7: 0
 	        }
-	      },
-	      onStart: (function(_this) {
-	        return function() {
-	          return _this.o.playSound(_this.o.audio1);
-	        };
-	      })(this)
+	      }
 	    });
 	    burst3 = new mojs.Burst({
 	      parent: this.o.ctx,
@@ -5025,12 +5045,7 @@
 	        radius: {
 	          7: 0
 	        }
-	      },
-	      onStart: (function(_this) {
-	        return function() {
-	          return _this.o.playSound(_this.o.audio1);
-	        };
-	      })(this)
+	      }
 	    });
 	    burst2 = new mojs.Transit({
 	      parent: this.o.ctx,
@@ -5186,12 +5201,7 @@
 	        radius: {
 	          7: 0
 	        }
-	      },
-	      onStart: (function(_this) {
-	        return function() {
-	          return _this.o.playSound(_this.o.audio1);
-	        };
-	      })(this)
+	      }
 	    });
 	    burst2 = new mojs.Transit({
 	      parent: this.o.ctx,
@@ -5369,12 +5379,7 @@
 	        radius: {
 	          7: 0
 	        }
-	      },
-	      onStart: (function(_this) {
-	        return function() {
-	          return _this.o.playSound(_this.o.audio1);
-	        };
-	      })(this)
+	      }
 	    });
 	    burst2 = new mojs.Burst({
 	      parent: this.o.ctx,
@@ -5532,12 +5537,7 @@
 	        radius: {
 	          7: 0
 	        }
-	      },
-	      onStart: (function(_this) {
-	        return function() {
-	          return _this.o.playSound(_this.o.audio1);
-	        };
-	      })(this)
+	      }
 	    });
 	    tDuration = 1000;
 	    tDelay = this.o.BALL_5_START + 200;
@@ -5704,12 +5704,7 @@
 	        radius: {
 	          7: 0
 	        }
-	      },
-	      onStart: (function(_this) {
-	        return function() {
-	          return _this.o.playSound(_this.o.audio1);
-	        };
-	      })(this)
+	      }
 	    });
 	    mDuration = 1000;
 	    mDelay = this.o.BALL_6_START + 200;

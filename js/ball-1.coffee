@@ -40,7 +40,7 @@ class FirstBall
     trail2 = new mojs.Transit
       x: @o.o2Left, y: @o.bottomLine - 92
       parent:           @o.ctx
-      delay:            (@o.BALL_1_START+700)*@S
+      delay:            (@o.BALL_1_START+600)*@S
       duration:         500*@S
       isRunLess:        @o.IS_RUNLESS
       isShowInit:       true
@@ -233,8 +233,7 @@ class FirstBall
       delay: (@o.BALL_1_START+600)*@S
       isRunLess: @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
-      # onStart:=> @o.playSound @o.audio1
-      onStart:=> @o.bells1.play()
+      onStart:=> @o.playSound @o.bells1
 
     circle = new mojs.Transit
       parent:           @o.ctx
@@ -267,7 +266,6 @@ class FirstBall
       delay: (@o.BALL_1_START+1700)*@S
       isRunLess: @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
-      onStart:=> @o.playSound @o.audio1
 
     burst3 = new mojs.Burst
       parent:       @o.ctx

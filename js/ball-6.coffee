@@ -62,7 +62,6 @@ class FirstBall
       delay:        (@o.BALL_6_START+@o.BALL_6_ARCDUR+50)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
-      onStart:=>    @o.playSound @o.audio1
 
     mDuration = 1000; mDelay = @o.BALL_6_START+200
     m1Stagger = new mojs.Stagger
@@ -107,7 +106,6 @@ class FirstBall
       count:        4
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 'rand(2,4)': 0 }
-      # onStart:=> @o.playSound @o.audio1
 
     shift = 15
     m2Stagger = new mojs.Stagger

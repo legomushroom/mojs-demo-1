@@ -2,11 +2,27 @@ doctype
 html
   head
     meta(charset='UTF-8')
-    title mo · js
+    title mo · js demo 1
     link(rel="stylesheet", type="text/css", href="css/main.css")
+    link(rel="prerender", href="https://github.com/legomushroom/mojs")
+    link(rel="prefetch",  href="https://github.com/legomushroom/mojs")
+    link(rel="prerender", href="https://twitter.com/legomushroom")
+    link(rel="prefetch",  href="https://twitter.com/legomushroom")
     meta(name="viewport", content="width=device-width, user-scalable=no")
   
   body
+    .credits
+      .with
+        .with__text built with
+        a(href="https://github.com/legomushroom/mojs", title="mo · js").with__logo#js-with-logo
+      .by
+        .by__text by
+        a(href="https://twitter.com/legomushroom", title="LegoMushroom").by__logo#js-by-logo
+      
+    .snowball.snowball--with#js-with-snowball
+    .snowball.snowball--by#js-by-snowball
+
+
     input(type="range", min="0", max="100000", value="0", style="width:70%")#js-slider
 
     .svg-canvas#js-svg-canvas

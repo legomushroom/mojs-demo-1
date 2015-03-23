@@ -62,7 +62,6 @@ class FirstBall
       delay:        (@o.BALL_2_START+@o.BALL_2_ARCDUR)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
-      onStart:=>    @o.playSound @o.audio1
 
     burst2 = new mojs.Transit
       parent: @o.ctx

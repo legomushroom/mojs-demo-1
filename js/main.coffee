@@ -19,12 +19,13 @@ class Main
   # DELAY_START:  0
   STROKE_WIDTH: 2
   CIRCLE_RADIUS:5
-  IS_RUNLESS:   false
+  IS_RUNLESS:   true
   IS_SOUND:     false
   tween:        new mojs.Tween
   constructor:->
     @vars(); @listenSlider()
     @createBits(); @createSounds()
+    @listenLinks()
   vars:->
     @slider = document.querySelector '#js-slider'
     @ctx    = document.querySelector '#js-svg-canvas'
@@ -73,15 +74,32 @@ class Main
     @tween.add new Ball_7 @
 
   createSounds:->
-    @bells1 = new Howl
-      urls: ['sounds/bells-1-half.wav']
-      duration: 20000
-    @audio1 = new Howl
-      urls: ['sounds/bell-1.wav']
-      # volume: .25
-    @audio2 = new Howl urls: ['sounds/bell-2.wav']
+    @bells1 = new Howl urls: ['sounds/bells-1-half.wav']
 
   playSound:(audio)-> return if !@IS_SOUND; audio.play()
+
+  listenLinks:->
+    @lego = document.querySelector '#js-by-logo'
+    @legoSnowball = document.querySelector '#js-by-snowball'
+    @lego.addEventListener 'click', (e)=>
+      e.preventDefault()
+      href = e.target.getAttribute 'href'
+      @legoSnowball.classList.add 'is-shown'
+      setTimeout ->
+        window.location.href = href
+      , 200
+      false
+
+    @mojs = document.querySelector '#js-with-logo'
+    @mojsSnowball = document.querySelector '#js-with-snowball'
+    @mojs.addEventListener 'click', (e)=>
+      e.preventDefault()
+      href = e.target.getAttribute 'href'
+      @mojsSnowball.classList.add 'is-shown'
+      setTimeout ->
+        window.location.href = href
+      , 200
+      false
 
 
 
