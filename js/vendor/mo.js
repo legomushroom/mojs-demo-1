@@ -4239,8 +4239,4 @@ if ((typeof define === "function") && define.amd) {
   }
 }
 
-},{}]},{},[5])
-
-if ((typeof module === "object") && (typeof module.exports === "object")) {
-  module.exports = mojs;
-}
+},{}]},{},[5]);

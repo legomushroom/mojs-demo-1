@@ -1,4 +1,4 @@
-mojs = require './vendor/mo.js'
+# mojs = require './vendor/mo.js'
 
 class FirstBall
   constructor:(@o={})-> @vars(); return @create()
