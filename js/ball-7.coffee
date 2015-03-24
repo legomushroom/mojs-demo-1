@@ -87,7 +87,7 @@ class Ball
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
-      delay:            "stagger(#{4500*@S}, 200)"
+      delay:            "stagger(#{(@o.DELAY_START+3000)*@S}, 200)"
       # easing:           @o.STAGGER_EASING
       easing:           'sinusoidal.out'
       stroke:           [@o.YELLOW, @o.CYAN, @o.PINK]

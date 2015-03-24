@@ -51,10 +51,8 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Ball_1, Ball_2, Ball_3, Ball_4, Ball_5, Ball_6, Ball_7, Main, mojs,
+	var Ball_1, Ball_2, Ball_3, Ball_4, Ball_5, Ball_6, Ball_7, Main,
 	  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-	mojs = __webpack_require__(2);
 
 	mojs.isDebug = false;
 
@@ -91,9 +89,9 @@
 
 	  Main.prototype.CIRCLE_RADIUS = 5;
 
-	  Main.prototype.IS_RUNLESS = true;
+	  Main.prototype.IS_RUNLESS = false;
 
-	  Main.prototype.IS_SOUND = false;
+	  Main.prototype.IS_SOUND = true;
 
 	  Main.prototype.tween = new mojs.Tween;
 
@@ -120,7 +118,8 @@
 	    this.CHAR_DUR = 2500;
 	    this.DOWN_DUR = 50;
 	    this.BALL_1_START = this.DELAY_START;
-	    this.BALL_2_START = this.BALL_1_START + 1700;
+	    this.BALL_1_ARCDUR = 1600;
+	    this.BALL_2_START = this.BALL_1_START + this.BALL_1_ARCDUR;
 	    this.BALL_2_ARCDUR = 800;
 	    this.BALL_3_START = this.BALL_2_START + this.BALL_2_ARCDUR + 100;
 	    this.BALL_3_ARCDUR = 800;
@@ -4750,18 +4749,18 @@
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
+	      duration: 150 * this.S,
 	      delay: 0
 	    }).then({
 	      radiusX: this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
+	      duration: 150 * this.S,
 	      delay: 0
 	    }).then({
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
-	      delay: 400 * this.S
+	      duration: 150 * this.S,
+	      delay: 350 * this.S
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
@@ -4772,8 +4771,8 @@
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
-	      delay: 0
+	      duration: 150 * this.S,
+	      delay: 50 * this.S
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
@@ -4784,50 +4783,50 @@
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
+	      duration: 150 * this.S,
 	      delay: 0
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_3_ARCDUR - 3 * gooDur) * this.S
+	      delay: (this.o.BALL_3_ARCDUR - 2 * gooDur) * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
+	      duration: 150 * this.S,
 	      delay: 0 * this.S
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_4_ARCDUR - 3 * gooDur) * this.S
+	      delay: (this.o.BALL_4_ARCDUR - 2 * gooDur) * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
+	      duration: 150 * this.S,
 	      delay: 0 * this.S
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_5_ARCDUR - 3 * gooDur) * this.S
+	      delay: (this.o.BALL_5_ARCDUR - 2 * gooDur) * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
 	      radiusY: 1.5 * this.o.CIRCLE_RADIUS,
-	      duration: 200 * this.S,
+	      duration: 150 * this.S,
 	      delay: 0 * this.S
 	    }).then({
 	      y: this.o.CIRCLE_RADIUS,
 	      radiusX: 1.5 * this.o.CIRCLE_RADIUS,
 	      radiusY: this.o.CIRCLE_RADIUS / 2,
 	      duration: gooDur * this.S,
-	      delay: (this.o.BALL_6_ARCDUR - 3 * gooDur) * this.S
+	      delay: (this.o.BALL_6_ARCDUR - 2 * gooDur) * this.S
 	    }).then({
 	      y: 0,
 	      radiusX: this.o.CIRCLE_RADIUS / 2,
@@ -4922,7 +4921,7 @@
 	      type: 'line',
 	      stroke: this.o.CYAN,
 	      strokeWidth: this.o.STROKE_WIDTH,
-	      delay: (this.o.BALL_1_START + 1700) * this.S,
+	      delay: (this.o.BALL_1_START + this.o.BALL_1_ARCDUR - gooDur) * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      childOptions: {
 	        radius: {
@@ -5903,7 +5902,7 @@
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
-	      delay: "stagger(" + (4500 * this.S) + ", 200)",
+	      delay: "stagger(" + ((this.o.DELAY_START + 3000) * this.S) + ", 200)",
 	      easing: 'sinusoidal.out',
 	      stroke: [this.o.YELLOW, this.o.CYAN, this.o.PINK],
 	      strokeWidth: {

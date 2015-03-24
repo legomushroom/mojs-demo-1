@@ -102,19 +102,19 @@ class FirstBall
       y:            0
       radiusX:      @o.CIRCLE_RADIUS/2
       radiusY:      1.5*@o.CIRCLE_RADIUS
-      duration:     200*@S
+      duration:     150*@S
       delay:        0
     .then
       radiusX:      @o.CIRCLE_RADIUS
       radiusY:      @o.CIRCLE_RADIUS
-      duration:     200*@S
+      duration:     150*@S
       delay:        0
     # fall 2
     .then
       radiusX:      @o.CIRCLE_RADIUS/2
       radiusY:      1.5*@o.CIRCLE_RADIUS
-      duration:     200*@S
-      delay:        400*@S
+      duration:     150*@S
+      delay:        350*@S
     .then
       y:            @o.CIRCLE_RADIUS
       radiusX:      1.5*@o.CIRCLE_RADIUS
@@ -126,8 +126,8 @@ class FirstBall
       y:            0
       radiusX:      @o.CIRCLE_RADIUS/2
       radiusY:      1.5*@o.CIRCLE_RADIUS
-      duration:     200*@S
-      delay:        0
+      duration:     150*@S
+      delay:        50*@S
     .then
       y:            @o.CIRCLE_RADIUS
       radiusX:      1.5*@o.CIRCLE_RADIUS
@@ -139,53 +139,53 @@ class FirstBall
       y:            0
       radiusX:      @o.CIRCLE_RADIUS/2
       radiusY:      1.5*@o.CIRCLE_RADIUS
-      duration:     200*@S
+      duration:     150*@S
       delay:        0
     .then
       y:            @o.CIRCLE_RADIUS
       radiusX:      1.5*@o.CIRCLE_RADIUS
       radiusY:      @o.CIRCLE_RADIUS/2
       duration:     gooDur*@S
-      delay:        (@o.BALL_3_ARCDUR-3*gooDur)*@S
+      delay:        (@o.BALL_3_ARCDUR-2*gooDur)*@S
     # ball 4
     .then
       y:            0
       radiusX:      @o.CIRCLE_RADIUS/2
       radiusY:      1.5*@o.CIRCLE_RADIUS
-      duration:     200*@S
+      duration:     150*@S
       delay:        0*@S
     .then
       y:            @o.CIRCLE_RADIUS
       radiusX:      1.5*@o.CIRCLE_RADIUS
       radiusY:      @o.CIRCLE_RADIUS/2
       duration:     gooDur*@S
-      delay:        (@o.BALL_4_ARCDUR-3*gooDur)*@S
+      delay:        (@o.BALL_4_ARCDUR-2*gooDur)*@S
     # ball 5
     .then
       y:            0
       radiusX:      @o.CIRCLE_RADIUS/2
       radiusY:      1.5*@o.CIRCLE_RADIUS
-      duration:     200*@S
+      duration:     150*@S
       delay:        0*@S
     .then
       y:            @o.CIRCLE_RADIUS
       radiusX:      1.5*@o.CIRCLE_RADIUS
       radiusY:      @o.CIRCLE_RADIUS/2
       duration:     gooDur*@S
-      delay:        (@o.BALL_5_ARCDUR-3*gooDur)*@S
+      delay:        (@o.BALL_5_ARCDUR-2*gooDur)*@S
     # ball 6
     .then
       y:            0
       radiusX:      @o.CIRCLE_RADIUS/2
       radiusY:      1.5*@o.CIRCLE_RADIUS
-      duration:     200*@S
+      duration:     150*@S
       delay:        0*@S
     .then
       y:            @o.CIRCLE_RADIUS
       radiusX:      1.5*@o.CIRCLE_RADIUS
       radiusY:      @o.CIRCLE_RADIUS/2
       duration:     gooDur*@S
-      delay:        (@o.BALL_6_ARCDUR-3*gooDur)*@S
+      delay:        (@o.BALL_6_ARCDUR-2*gooDur)*@S
     # ball 7
     .then
       y:            0
@@ -263,7 +263,7 @@ class FirstBall
       type: 'line'
       stroke: @o.CYAN
       strokeWidth: @o.STROKE_WIDTH
-      delay: (@o.BALL_1_START+1700)*@S
+      delay: (@o.BALL_1_START+@o.BALL_1_ARCDUR-gooDur)*@S
       isRunLess: @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 

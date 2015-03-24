@@ -1,5 +1,6 @@
-mojs = require './vendor/mo.js'
+# mojs = require './vendor/mo.js'
 mojs.isDebug = false
+
 Ball_1 = require './ball-1'
 Ball_2 = require './ball-2'
 Ball_3 = require './ball-3'
@@ -9,19 +10,19 @@ Ball_6 = require './ball-6'
 Ball_7 = require './ball-7'
 
 class Main
-  CYAN:         '#11CDC5'
-  PINK:         '#FC2D79'
-  YELLOW:       '#F9DD5E'
-  ORANGE:       '#FCB635'
-  WHITE:        '#FDFDFD'
-  S:            .7
-  DELAY_START:  1500
-  # DELAY_START:  0
-  STROKE_WIDTH: 2
-  CIRCLE_RADIUS:5
-  IS_RUNLESS:   true
-  IS_SOUND:     false
-  tween:        new mojs.Tween
+  CYAN:           '#11CDC5'
+  PINK:           '#FC2D79'
+  YELLOW:         '#F9DD5E'
+  ORANGE:         '#FCB635'
+  WHITE:          '#FDFDFD'
+  S:              .7
+  DELAY_START:    1500
+  # DELAY_START:    0
+  STROKE_WIDTH:   2
+  CIRCLE_RADIUS:  5
+  IS_RUNLESS:     false
+  IS_SOUND:       true
+  tween:          new mojs.Tween
   constructor:->
     @vars(); @listenSlider()
     @createBits(); @createSounds()
@@ -37,7 +38,8 @@ class Main
     @CHAR_DUR  = 2500
     @DOWN_DUR  = 50
     @BALL_1_START   = @DELAY_START
-    @BALL_2_START   = @BALL_1_START + 1700
+    @BALL_1_ARCDUR  = 1600
+    @BALL_2_START   = @BALL_1_START + @BALL_1_ARCDUR
     @BALL_2_ARCDUR  = 800
     @BALL_3_START   = @BALL_2_START + @BALL_2_ARCDUR + 100
     @BALL_3_ARCDUR  = 800
@@ -61,8 +63,7 @@ class Main
   listenSlider:->
     it = @
     @slider.addEventListener 'input', (e)-> it.tween.setProgress (@value/100000)
-  createBits:->
-    @createBall_1(); @createBalls()
+  createBits:-> @createBall_1(); @createBalls()
   createBall_1:->
     ball_1 = new Ball_1(@); @tween.add(ball_1.tweens); @mainBall = ball_1.ball
   createBalls:->
