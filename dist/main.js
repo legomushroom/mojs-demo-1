@@ -56,19 +56,19 @@
 
 	mojs.isDebug = false;
 
-	Ball_1 = __webpack_require__(3);
+	Ball_1 = __webpack_require__(2);
 
-	Ball_2 = __webpack_require__(4);
+	Ball_2 = __webpack_require__(3);
 
-	Ball_3 = __webpack_require__(5);
+	Ball_3 = __webpack_require__(4);
 
-	Ball_4 = __webpack_require__(6);
+	Ball_4 = __webpack_require__(5);
 
-	Ball_5 = __webpack_require__(7);
+	Ball_5 = __webpack_require__(6);
 
-	Ball_6 = __webpack_require__(8);
+	Ball_6 = __webpack_require__(7);
 
-	Ball_7 = __webpack_require__(9);
+	Ball_7 = __webpack_require__(8);
 
 	Main = (function() {
 	  Main.prototype.CYAN = '#11CDC5';
@@ -83,17 +83,15 @@
 
 	  Main.prototype.S = .7;
 
-	  Main.prototype.DELAY_START = 1500;
+	  Main.prototype.DELAY_START = 0;
 
 	  Main.prototype.STROKE_WIDTH = 2;
 
 	  Main.prototype.CIRCLE_RADIUS = 5;
 
-	  Main.prototype.IS_RUNLESS = false;
+	  Main.prototype.IS_RUNLESS = true;
 
 	  Main.prototype.IS_SOUND = true;
-
-	  Main.prototype.tween = new mojs.Tween;
 
 	  function Main() {
 	    this.vars();
@@ -106,6 +104,7 @@
 	  Main.prototype.vars = function() {
 	    this.slider = document.querySelector('#js-slider');
 	    this.ctx = document.querySelector('#js-svg-canvas');
+	    this.repeat = document.querySelector('#js-repeat');
 	    this.ctxWidth = 480;
 	    this.ctxHeight = 400;
 	    this.centerX = this.ctxWidth / 2;
@@ -138,15 +137,39 @@
 	    this.TRAIL_WIDTH = 1;
 	    this.TRAIL_FADE = 400;
 	    this.TRAIL_COLOR = 'white';
-	    return this.TRAIL_OPACITY = .5;
+	    this.TRAIL_OPACITY = .5;
+	    return this.tween = new mojs.Tween({
+	      onUpdate: (function(_this) {
+	        return function(p) {
+	          return _this.slider.value = p * 100000;
+	        };
+	      })(this)
+	    });
 	  };
 
 	  Main.prototype.listenSlider = function() {
 	    var it;
 	    it = this;
-	    return this.slider.addEventListener('input', function(e) {
+	    this.slider.addEventListener('input', function(e) {
 	      return it.tween.setProgress(this.value / 100000);
 	    });
+	    return this.repeat.addEventListener('click', (function(_this) {
+	      return function() {
+	        _this.tween.setProgress(.99);
+	        _this.tween.setProgress(.82);
+	        _this.tween.setProgress(.81);
+	        _this.tween.setProgress(.8);
+	        _this.tween.setProgress(.79);
+	        _this.tween.setProgress(.78);
+	        _this.tween.setProgress(.77);
+	        _this.tween.setProgress(.25);
+	        _this.tween.setProgress(.15);
+	        _this.tween.setProgress(.10);
+	        _this.tween.setProgress(.05);
+	        _this.tween.setProgress(.01);
+	        return _this.tween.start();
+	      };
+	    })(this));
 	  };
 
 	  Main.prototype.createBits = function() {
@@ -167,7 +190,12 @@
 	    this.tween.add(new Ball_4(this));
 	    this.tween.add(new Ball_5(this));
 	    this.tween.add(new Ball_6(this));
-	    return this.tween.add(new Ball_7(this));
+	    this.tween.add(new Ball_7(this));
+	    return setTimeout(((function(_this) {
+	      return function() {
+	        return _this.tween.start();
+	      };
+	    })(this)), 1500);
 	  };
 
 	  Main.prototype.createSounds = function() {
@@ -366,8 +394,7 @@
 
 
 /***/ },
-/* 2 */,
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FirstBall;
@@ -402,8 +429,6 @@
 	      delay: this.o.BALL_1_START * this.S,
 	      duration: 600 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
-	      isShowInit: true,
-	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.FALL_EASING,
 	      strokeWidth: 1,
@@ -429,8 +454,6 @@
 	      delay: (this.o.BALL_1_START + 700) * this.S,
 	      duration: 400 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
-	      isShowInit: true,
-	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.RISE_EASING,
 	      strokeWidth: 1,
@@ -457,8 +480,6 @@
 	      delay: (this.o.BALL_1_START + 1150) * this.S,
 	      duration: 375 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
-	      isShowInit: true,
-	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.FALL_EASING,
 	      strokeWidth: 1,
@@ -707,7 +728,7 @@
 
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FirstBall;
@@ -860,7 +881,7 @@
 
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FirstBall;
@@ -1037,7 +1058,7 @@
 
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FirstBall;
@@ -1192,7 +1213,7 @@
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FirstBall;
@@ -1358,7 +1379,7 @@
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FirstBall;
@@ -1530,7 +1551,7 @@
 
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Ball;

@@ -16,13 +16,12 @@ class Main
   ORANGE:         '#FCB635'
   WHITE:          '#FDFDFD'
   S:              .7
-  DELAY_START:    1500
-  # DELAY_START:    0
+  # DELAY_START:    1500
+  DELAY_START:    0
   STROKE_WIDTH:   2
   CIRCLE_RADIUS:  5
-  IS_RUNLESS:     false
+  IS_RUNLESS:     true
   IS_SOUND:       true
-  tween:          new mojs.Tween
   constructor:->
     @vars(); @listenSlider()
     @createBits(); @createSounds()
@@ -30,6 +29,7 @@ class Main
   vars:->
     @slider = document.querySelector '#js-slider'
     @ctx    = document.querySelector '#js-svg-canvas'
+    @repeat = document.querySelector '#js-repeat'
     @ctxWidth   = 480; @ctxHeight = 400
     @centerX    = @ctxWidth/2; @centerY = @ctxHeight/2
     @o2Left     = 287; @topLine    = 65; @bottomLine = 240
@@ -60,9 +60,29 @@ class Main
     @TRAIL_FADE  = 400
     @TRAIL_COLOR   = 'white'
     @TRAIL_OPACITY = .5
+    
+    @tween = new mojs.Tween onUpdate:(p)=>
+      # console.log p
+      @slider.value = p*100000
+
   listenSlider:->
     it = @
     @slider.addEventListener 'input', (e)-> it.tween.setProgress (@value/100000)
+    @repeat.addEventListener 'click', =>
+      @tween.setProgress .99
+      @tween.setProgress .82
+      @tween.setProgress .81
+      @tween.setProgress .8
+      @tween.setProgress .79
+      @tween.setProgress .78
+      @tween.setProgress .77
+      @tween.setProgress .25
+      @tween.setProgress .15
+      @tween.setProgress .10
+      @tween.setProgress .05
+      @tween.setProgress .01
+      @tween.start()
+
   createBits:-> @createBall_1(); @createBalls()
   createBall_1:->
     ball_1 = new Ball_1(@); @tween.add(ball_1.tweens); @mainBall = ball_1.ball
@@ -73,6 +93,7 @@ class Main
     @tween.add new Ball_5 @
     @tween.add new Ball_6 @
     @tween.add new Ball_7 @
+    setTimeout (=> @tween.start()), 1500
 
   createSounds:->
     @bells1 = new Howl urls: ['sounds/bells-1-half.wav']

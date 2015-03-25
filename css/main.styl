@@ -9,6 +9,10 @@
 
 use('assets/nesting-tree-traversal.js')
 
+mainColor     = lighten(#595959, 20)
+normalOpacity = .5
+hoverOpacity  = 1
+
 .snowball
   rect 500*PX
   border-radius 50%
@@ -72,17 +76,52 @@ body
   background #333
   font-size 16px
 
+.controls
+  padding-bottom .5*gs
+  position relative
+  &__repeat
+    position absolute
+    z-index 1
+    left .6*gs
+    top PX
+  &__timeline
+    padding-left 3*gs
+    
+.icon
+  fill mainColor
+  opacity normalOpacity
+  overflow hidden
+  cursor pointer
+  position relative
+  display block
+  easy-click()
+  &:after
+    hl green
+  &--repeat
+    rect 18*PX
+  &:hover
+    opacity hoverOpacity
+  &:active
+    opacity normalOpacity
+
 canvasWidth  = 48*gs
 canvasHeight = 40*gs
-.svg-canvas
+.motion
   position absolute
   top  50%
   left 50%
-  // hl #777
   width  canvasWidth
   height canvasHeight
   margin-top  -(canvasHeight/2)
   margin-left -(canvasWidth/2)
+  // padding-bottom 4*gs
+  &__controls
+    position absolute
+    width 75%
+    left 8%
+    bottom 2*gs
+    z-index 1
+.svg-canvas
   &__svg
     rect 100%
     position absolute
@@ -90,11 +129,10 @@ canvasHeight = 40*gs
 
 trackHeight = 1*PX
 thumbSize   = 16px
-mainColor   = lighten(#595959, 20)
 input[type=range]
   -webkit-appearance none
   width 100%
-  opacity .5
+  opacity normalOpacity
   &:active, &:hover
     opacity 1
   &:focus

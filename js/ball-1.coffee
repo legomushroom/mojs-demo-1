@@ -21,8 +21,8 @@ class FirstBall
       delay:            @o.BALL_1_START*@S
       duration:         600*@S
       isRunLess:        @o.IS_RUNLESS
-      isShowInit:       true
-      isShowEnd:        true
+      # isShowInit:       true
+      # isShowEnd:        true
       strokeDasharray:  @o.TRAIL_DASH
       easing:           @FALL_EASING
       strokeWidth:      1
@@ -43,8 +43,8 @@ class FirstBall
       delay:            (@o.BALL_1_START+700)*@S
       duration:         400*@S
       isRunLess:        @o.IS_RUNLESS
-      isShowInit:       true
-      isShowEnd:        true
+      # isShowInit:       true
+      # isShowEnd:        true
       strokeDasharray:  @o.TRAIL_DASH
       easing:           @RISE_EASING
       strokeWidth:      1
@@ -66,8 +66,8 @@ class FirstBall
       delay:            (@o.BALL_1_START+1150)*@S
       duration:         375*@S
       isRunLess:        @o.IS_RUNLESS
-      isShowInit:       true
-      isShowEnd:        true
+      # isShowInit:       true
+      # isShowEnd:        true
       strokeDasharray:  @o.TRAIL_DASH
       easing:           @FALL_EASING
       strokeWidth:      1

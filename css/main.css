@@ -76,7 +76,50 @@ body {
   background: #333;
   font-size: 16px;
 }
-.svg-canvas {
+.controls {
+  padding-bottom: 0.3125rem;
+  position: relative;
+}
+.controls__repeat {
+  position: absolute;
+  z-index: 1;
+  left: 0.375rem;
+  top: 0.0625rem;
+}
+.controls__timeline {
+  padding-left: 1.875rem;
+}
+.icon {
+  fill: #8c8c8c;
+  opacity: 0.5;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  display: block;
+}
+.icon:after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  z-index: 1;
+  top: -50%;
+  left: -50%;
+}
+.icon:after {
+  outline: 1px solid #008000;
+}
+.icon--repeat {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+.icon:hover {
+  opacity: 1;
+}
+.icon:active {
+  opacity: 0.5;
+}
+.motion {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -84,6 +127,13 @@ body {
   height: 25rem;
   margin-top: -12.5rem;
   margin-left: -15rem;
+}
+.motion__controls {
+  position: absolute;
+  width: 75%;
+  left: 8%;
+  bottom: 1.25rem;
+  z-index: 1;
 }
 .svg-canvas__svg {
   width: 100%;
