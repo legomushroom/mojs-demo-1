@@ -55,33 +55,20 @@ class Main
     @STAGGER_COLORS = [ @PINK, @CYAN, @WHITE ]
     @STAGGER_EASING = 'sinusoidal.out'
     @BG = '#333'
+    # @BG = 'deeppink'
     @TRAIL_DASH  = '4 4'
     @TRAIL_WIDTH = 1
     @TRAIL_FADE  = 400
     @TRAIL_COLOR   = 'white'
     @TRAIL_OPACITY = .5
     
-    @tween = new mojs.Tween onUpdate:(p)=>
-      # console.log p
-      @slider.value = p*100000
+    @tween = new mojs.Tween onUpdate:(p)=> @slider.value = p*100000
 
   listenSlider:->
     it = @
     @slider.addEventListener 'input', (e)-> it.tween.setProgress (@value/100000)
-    @repeat.addEventListener 'click', =>
-      @tween.setProgress .99
-      @tween.setProgress .82
-      @tween.setProgress .81
-      @tween.setProgress .8
-      @tween.setProgress .79
-      @tween.setProgress .78
-      @tween.setProgress .77
-      @tween.setProgress .25
-      @tween.setProgress .15
-      @tween.setProgress .10
-      @tween.setProgress .05
-      @tween.setProgress .01
-      @tween.start()
+    
+    @repeat.addEventListener 'click', => @bells1.stop(); @tween.restart()
 
   createBits:-> @createBall_1(); @createBalls()
   createBall_1:->

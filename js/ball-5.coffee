@@ -19,7 +19,7 @@ class FirstBall
       fill:             'transparent'
       strokeDasharray:  '100%'
       strokeDashoffset: '200%': '100%'
-      strokeWidth:      2
+      strokeWidth:      4*@o.TRAIL_WIDTH
       stroke:           @o.BG
       isShowInit:       true
       isShowEnd:        true
@@ -27,6 +27,7 @@ class FirstBall
       duration:         @o.BALL_5_ARCDUR*@S
       easing:           @easing
       isRunLess:        @o.IS_RUNLESS
+      strokeLinecap:    'round'
 
     opacityDelta = {}; opacityDelta[@o.TRAIL_OPACITY] = 0
     trailFade = new mojs.Transit

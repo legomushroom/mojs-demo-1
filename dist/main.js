@@ -155,19 +155,8 @@
 	    });
 	    return this.repeat.addEventListener('click', (function(_this) {
 	      return function() {
-	        _this.tween.setProgress(.99);
-	        _this.tween.setProgress(.82);
-	        _this.tween.setProgress(.81);
-	        _this.tween.setProgress(.8);
-	        _this.tween.setProgress(.79);
-	        _this.tween.setProgress(.78);
-	        _this.tween.setProgress(.77);
-	        _this.tween.setProgress(.25);
-	        _this.tween.setProgress(.15);
-	        _this.tween.setProgress(.10);
-	        _this.tween.setProgress(.05);
-	        _this.tween.setProgress(.01);
-	        return _this.tween.start();
+	        _this.bells1.stop();
+	        return _this.tween.restart();
 	      };
 	    })(this));
 	  };
@@ -429,6 +418,8 @@
 	      delay: this.o.BALL_1_START * this.S,
 	      duration: 600 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
+	      isShowInit: true,
+	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.FALL_EASING,
 	      strokeWidth: 1,
@@ -454,6 +445,8 @@
 	      delay: (this.o.BALL_1_START + 700) * this.S,
 	      duration: 400 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
+	      isShowInit: true,
+	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.RISE_EASING,
 	      strokeWidth: 1,
@@ -480,6 +473,8 @@
 	      delay: (this.o.BALL_1_START + 1150) * this.S,
 	      duration: 375 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
+	      isShowInit: true,
+	      isShowEnd: true,
 	      strokeDasharray: this.o.TRAIL_DASH,
 	      easing: this.FALL_EASING,
 	      strokeWidth: 1,
@@ -629,7 +624,7 @@
 	    }).then({
 	      isReverse: false,
 	      easing: this.FALL_EASING,
-	      delay: 16 * this.S
+	      delay: 0
 	    });
 	    burst1 = new mojs.Burst({
 	      parent: this.o.ctx,
@@ -759,14 +754,15 @@
 	      strokeDashoffset: {
 	        '200%': '100%'
 	      },
-	      strokeWidth: 2,
+	      strokeWidth: 4 * this.o.TRAIL_WIDTH,
 	      stroke: this.o.BG,
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: this.o.BALL_2_START * this.S,
 	      duration: this.o.BALL_2_ARCDUR * this.S,
 	      easing: this.easing,
-	      isRunLess: this.o.IS_RUNLESS
+	      isRunLess: this.o.IS_RUNLESS,
+	      strokeLinecap: 'round'
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
@@ -905,22 +901,6 @@
 
 	  FirstBall.prototype.create = function() {
 	    var burst, burst2, burst3, it, mp, oDelay, oDuration, oEasing, oLine1Stagger, oLine2Stagger, oStagger, opacityDelta, trail, trailFade, translate;
-	    trail = new mojs.Transit({
-	      bit: this.pathMask,
-	      fill: 'transparent',
-	      strokeDasharray: '100%',
-	      strokeDashoffset: {
-	        '200%': '100%'
-	      },
-	      strokeWidth: 2,
-	      stroke: this.o.BG,
-	      isShowInit: true,
-	      isShowEnd: true,
-	      delay: this.o.BALL_3_START * this.S,
-	      duration: this.o.BALL_3_ARCDUR * this.S,
-	      easing: this.easing,
-	      isRunLess: this.o.IS_RUNLESS
-	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
 	    trailFade = new mojs.Transit({
@@ -935,6 +915,23 @@
 	      delay: (this.o.BALL_3_START + (this.o.BALL_3_ARCDUR / 1.25)) * this.S,
 	      duration: this.o.TRAIL_FADE * this.S,
 	      isRunLess: this.o.IS_RUNLESS
+	    });
+	    trail = new mojs.Transit({
+	      bit: this.pathMask,
+	      fill: 'transparent',
+	      strokeDasharray: '100%',
+	      strokeDashoffset: {
+	        '200%': '100%'
+	      },
+	      strokeWidth: 4 * this.o.TRAIL_WIDTH,
+	      stroke: this.o.BG,
+	      isShowInit: true,
+	      isShowEnd: true,
+	      delay: this.o.BALL_3_START * this.S,
+	      duration: this.o.BALL_3_ARCDUR * this.S,
+	      easing: this.easing,
+	      isRunLess: this.o.IS_RUNLESS,
+	      strokeLinecap: 'round'
 	    });
 	    mp = new mojs.MotionPath({
 	      path: this.path,
@@ -1088,14 +1085,15 @@
 	      strokeDashoffset: {
 	        '200%': '100%'
 	      },
-	      strokeWidth: 2,
+	      strokeWidth: 4 * this.o.TRAIL_WIDTH,
 	      stroke: this.o.BG,
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: this.o.BALL_4_START * this.S,
 	      duration: this.o.BALL_4_ARCDUR * this.S,
 	      easing: this.easing,
-	      isRunLess: this.o.IS_RUNLESS
+	      isRunLess: this.o.IS_RUNLESS,
+	      strokeLinecap: 'round'
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
@@ -1244,14 +1242,15 @@
 	      strokeDashoffset: {
 	        '200%': '100%'
 	      },
-	      strokeWidth: 2,
+	      strokeWidth: 4 * this.o.TRAIL_WIDTH,
 	      stroke: this.o.BG,
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: this.o.BALL_5_START * this.S,
 	      duration: this.o.BALL_5_ARCDUR * this.S,
 	      easing: this.easing,
-	      isRunLess: this.o.IS_RUNLESS
+	      isRunLess: this.o.IS_RUNLESS,
+	      strokeLinecap: 'round'
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
@@ -1409,14 +1408,15 @@
 	      strokeDashoffset: {
 	        '200%': '100%'
 	      },
-	      strokeWidth: 2,
+	      strokeWidth: 4 * this.o.TRAIL_WIDTH,
 	      stroke: this.o.BG,
 	      isShowInit: true,
 	      isShowEnd: true,
 	      delay: this.o.BALL_6_START * this.S,
 	      duration: this.o.BALL_6_ARCDUR * this.S,
 	      easing: this.easing,
-	      isRunLess: this.o.IS_RUNLESS
+	      isRunLess: this.o.IS_RUNLESS,
+	      strokeLinecap: 'round'
 	    });
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;

@@ -13,20 +13,6 @@ class FirstBall
     # @easing = @o.generateBezier(0.435, 0.715, 0.795, 0.570)
 
   create:->
-    trail = new mojs.Transit
-      bit:              @pathMask
-      fill:             'transparent'
-      strokeDasharray:  '100%'
-      strokeDashoffset: '200%': '100%'
-      strokeWidth:      2
-      stroke:           @o.BG
-      isShowInit:       true
-      isShowEnd:        true
-      delay:            @o.BALL_3_START*@S
-      duration:         @o.BALL_3_ARCDUR*@S
-      easing:           @easing
-      isRunLess:        @o.IS_RUNLESS
-
     opacityDelta = {}; opacityDelta[@o.TRAIL_OPACITY] = 0
     trailFade = new mojs.Transit
       bit:              @path
@@ -40,6 +26,21 @@ class FirstBall
       delay:            (@o.BALL_3_START+(@o.BALL_3_ARCDUR/1.25))*@S
       duration:         @o.TRAIL_FADE*@S
       isRunLess:        @o.IS_RUNLESS
+
+    trail = new mojs.Transit
+      bit:              @pathMask
+      fill:             'transparent'
+      strokeDasharray:  '100%'
+      strokeDashoffset: '200%': '100%'
+      strokeWidth:      4*@o.TRAIL_WIDTH
+      stroke:           @o.BG
+      isShowInit:       true
+      isShowEnd:        true
+      delay:            @o.BALL_3_START*@S
+      duration:         @o.BALL_3_ARCDUR*@S
+      easing:           @easing
+      isRunLess:        @o.IS_RUNLESS
+      strokeLinecap:    'round'
 
     mp = new mojs.MotionPath
       path:         @path
