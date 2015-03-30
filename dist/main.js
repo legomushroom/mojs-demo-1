@@ -107,6 +107,7 @@
 	    this.repeat = document.querySelector('#js-repeat');
 	    this.controls = document.querySelector('#js-controls');
 	    this.pin = document.querySelector('#js-pin');
+	    this.sound = document.querySelector('#js-sound');
 	    this.ctxWidth = 480;
 	    this.ctxHeight = 400;
 	    this.centerX = this.ctxWidth / 2;
@@ -140,9 +141,13 @@
 	    this.TRAIL_FADE = 400;
 	    this.TRAIL_COLOR = 'white';
 	    this.TRAIL_OPACITY = .5;
+	    this.isIOS = this.isIOSSafari();
+	    this.isOn = !this.isIOS;
+	    !this.isIOS && this.sound.classList.add('is-on');
 	    return this.tween = new mojs.Tween({
 	      onUpdate: (function(_this) {
 	        return function(p) {
+	          _this.progress = p;
 	          return _this.slider.value = p * 100000;
 	        };
 	      })(this),
@@ -157,6 +162,12 @@
 	        };
 	      })(this)
 	    });
+	  };
+
+	  Main.prototype.isIOSSafari = function() {
+	    var userAgent;
+	    userAgent = window.navigator.userAgent;
+	    return userAgent.match(/iPad/i) || userAgent.match(/iPhone/i);
 	  };
 
 	  Main.prototype.listenSlider = function() {
@@ -175,10 +186,22 @@
 	        return _this.tween.restart();
 	      };
 	    })(this));
-	    return this.pin.addEventListener('click', (function(_this) {
+	    this.pin.addEventListener('click', (function(_this) {
 	      return function() {
 	        _this.pin.classList.toggle('is-pinned');
 	        return _this.isPinned = !_this.isPinned;
+	      };
+	    })(this));
+	    return this.sound.addEventListener('click', (function(_this) {
+	      return function() {
+	        if (!_this.isOn) {
+	          _this.bells1.play().pos(_this.progress * 5);
+	          _this.sound.classList.toggle('is-on');
+	          return _this.isOn = true;
+	        } else {
+	          _this.isOn = false;
+	          return _this.bells1.stop();
+	        }
 	      };
 	    })(this));
 	  };
@@ -216,7 +239,7 @@
 	  };
 
 	  Main.prototype.playSound = function(audio) {
-	    if (!this.IS_SOUND) {
+	    if (!this.isOn) {
 	      return;
 	    }
 	    return audio.play();

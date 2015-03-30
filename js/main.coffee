@@ -32,6 +32,7 @@ class Main
     @repeat   = document.querySelector '#js-repeat'
     @controls = document.querySelector '#js-controls'
     @pin      = document.querySelector '#js-pin'
+    @sound    = document.querySelector '#js-sound'
     @ctxWidth   = 480; @ctxHeight = 400
     @centerX    = @ctxWidth/2; @centerY = @ctxHeight/2
     @o2Left     = 287; @topLine    = 65; @bottomLine = 240
@@ -63,11 +64,18 @@ class Main
     @TRAIL_FADE  = 400
     @TRAIL_COLOR   = 'white'
     @TRAIL_OPACITY = .5
-    
+    @isIOS = @isIOSSafari()
+    @isOn = !@isIOS
+    !@isIOS and @sound.classList.add 'is-on'
+
     @tween = new mojs.Tween
-      onUpdate:(p)=> @slider.value = p*100000
+      onUpdate:(p)=> @progress = p; @slider.value = p*100000
       onStart:=>    !@isPinned and @controls.classList.remove 'is-shown'
       onComplete:=> @controls.classList.add 'is-shown'
+
+  isIOSSafari:->
+    userAgent = window.navigator.userAgent
+    userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)
 
   listenSlider:->
     it = @
@@ -79,6 +87,13 @@ class Main
     @pin.addEventListener 'click', =>
       @pin.classList.toggle 'is-pinned'
       @isPinned = !@isPinned
+
+    @sound.addEventListener 'click', =>
+      if !@isOn
+        @bells1.play().pos(@progress*5)
+        @sound.classList.toggle 'is-on'
+        @isOn = true
+      else @isOn = false; @bells1.stop()
 
   createBits:-> @createBall_1(); @createBalls()
   createBall_1:->
@@ -95,9 +110,7 @@ class Main
   createSounds:->
     @bells1 = new Howl urls: ['sounds/bells-1-half.wav']
 
-  playSound:(audio)->
-    return if !@IS_SOUND
-    audio.play()
+  playSound:(audio)-> return if !@isOn; audio.play()
 
   listenLinks:->
     @lego = document.querySelector '#js-by-logo'
