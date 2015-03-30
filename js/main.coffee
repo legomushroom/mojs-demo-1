@@ -27,9 +27,11 @@ class Main
     @createBits(); @createSounds()
     @listenLinks()
   vars:->
-    @slider = document.querySelector '#js-slider'
-    @ctx    = document.querySelector '#js-svg-canvas'
-    @repeat = document.querySelector '#js-repeat'
+    @slider   = document.querySelector '#js-slider'
+    @ctx      = document.querySelector '#js-svg-canvas'
+    @repeat   = document.querySelector '#js-repeat'
+    @controls = document.querySelector '#js-controls'
+    @pin      = document.querySelector '#js-pin'
     @ctxWidth   = 480; @ctxHeight = 400
     @centerX    = @ctxWidth/2; @centerY = @ctxHeight/2
     @o2Left     = 287; @topLine    = 65; @bottomLine = 240
@@ -62,13 +64,21 @@ class Main
     @TRAIL_COLOR   = 'white'
     @TRAIL_OPACITY = .5
     
-    @tween = new mojs.Tween onUpdate:(p)=> @slider.value = p*100000
+    @tween = new mojs.Tween
+      onUpdate:(p)=> @slider.value = p*100000
+      onStart:=>    !@isPinned and @controls.classList.remove 'is-shown'
+      onComplete:=> @controls.classList.add 'is-shown'
 
   listenSlider:->
     it = @
-    @slider.addEventListener 'input', (e)-> it.tween.setProgress (@value/100000)
-    
+    @slider.addEventListener 'input', (e)->
+      if it.tween.state is 'play' then it.tween.pause(); it.bells1.stop()
+      it.tween.setProgress (@value/100000)
     @repeat.addEventListener 'click', => @bells1.stop(); @tween.restart()
+
+    @pin.addEventListener 'click', =>
+      @pin.classList.toggle 'is-pinned'
+      @isPinned = !@isPinned
 
   createBits:-> @createBall_1(); @createBalls()
   createBall_1:->
@@ -85,7 +95,9 @@ class Main
   createSounds:->
     @bells1 = new Howl urls: ['sounds/bells-1-half.wav']
 
-  playSound:(audio)-> return if !@IS_SOUND; audio.play()
+  playSound:(audio)->
+    return if !@IS_SOUND
+    audio.play()
 
   listenLinks:->
     @lego = document.querySelector '#js-by-logo'

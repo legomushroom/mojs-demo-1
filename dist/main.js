@@ -105,6 +105,8 @@
 	    this.slider = document.querySelector('#js-slider');
 	    this.ctx = document.querySelector('#js-svg-canvas');
 	    this.repeat = document.querySelector('#js-repeat');
+	    this.controls = document.querySelector('#js-controls');
+	    this.pin = document.querySelector('#js-pin');
 	    this.ctxWidth = 480;
 	    this.ctxHeight = 400;
 	    this.centerX = this.ctxWidth / 2;
@@ -143,6 +145,16 @@
 	        return function(p) {
 	          return _this.slider.value = p * 100000;
 	        };
+	      })(this),
+	      onStart: (function(_this) {
+	        return function() {
+	          return !_this.isPinned && _this.controls.classList.remove('is-shown');
+	        };
+	      })(this),
+	      onComplete: (function(_this) {
+	        return function() {
+	          return _this.controls.classList.add('is-shown');
+	        };
 	      })(this)
 	    });
 	  };
@@ -151,12 +163,22 @@
 	    var it;
 	    it = this;
 	    this.slider.addEventListener('input', function(e) {
+	      if (it.tween.state === 'play') {
+	        it.tween.pause();
+	        it.bells1.stop();
+	      }
 	      return it.tween.setProgress(this.value / 100000);
 	    });
-	    return this.repeat.addEventListener('click', (function(_this) {
+	    this.repeat.addEventListener('click', (function(_this) {
 	      return function() {
 	        _this.bells1.stop();
 	        return _this.tween.restart();
+	      };
+	    })(this));
+	    return this.pin.addEventListener('click', (function(_this) {
+	      return function() {
+	        _this.pin.classList.toggle('is-pinned');
+	        return _this.isPinned = !_this.isPinned;
 	      };
 	    })(this));
 	  };
@@ -1489,7 +1511,7 @@
 	      delay: "stagger(" + (forDelay * this.S) + ", 100)",
 	      easing: this.o.STAGGER_EASING,
 	      stroke: this.o.WHITE,
-	      strokeWidth: .3,
+	      strokeWidth: .5,
 	      strokeDasharray: '',
 	      strokeDashoffset: 0,
 	      fill: this.o.WHITE,

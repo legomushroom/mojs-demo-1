@@ -79,13 +79,27 @@ body
 .controls
   padding-bottom .5*gs
   position relative
-  &__repeat
+  visibility hidden
+  opacity 0
+  transition all .5s linear
+  &.is-shown
+    visibility visible
+    opacity 1
+  &__repeat, &__pin
     position absolute
     z-index 1
+  &__repeat
     left .6*gs
     top PX
+  &__pin
+    left 3*gs
+    top 0
+    &.is-pinned
+      transform rotate(-42deg) //translate(2*PX,-2*PX)
+      .icon
+        fill white
   &__timeline
-    padding-left 3*gs
+    padding-left 5.6*gs
     
 .icon
   fill mainColor
@@ -94,6 +108,8 @@ body
   cursor pointer
   position relative
   display block
+  width  18*PX
+  height 18*PX
   easy-click()
   &:after
     hl green

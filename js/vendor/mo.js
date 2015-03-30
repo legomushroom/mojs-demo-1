@@ -1,7 +1,7 @@
 /*! 
   :: mo · js :: motion graphics toolbelt for the web
   Oleg Solomka @LegoMushroom 2015 MIT
-  v0.109.2 
+  v0.110.0 
 */
 
 (function e(t,n,r){
@@ -3330,15 +3330,21 @@ Tween = (function() {
     return this;
   };
 
+  Tween.prototype.pause = function() {
+    this.removeFromTweener();
+    this.state = 'pause';
+    return this;
+  };
+
   Tween.prototype.stop = function() {
     this.removeFromTweener();
+    this.setProgress(0);
     this.state = 'stop';
     return this;
   };
 
   Tween.prototype.restart = function() {
     this.stop();
-    this.setProgress(0);
     return this.start();
   };
 

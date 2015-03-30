@@ -86,7 +86,7 @@ class FirstBall
       delay:            "stagger(#{(forDelay)*@S}, 100)"
       easing:           @o.STAGGER_EASING
       stroke:           @o.WHITE
-      strokeWidth:      .3
+      strokeWidth:      .5
       strokeDasharray:  ''
       strokeDashoffset: 0
       fill:             @o.WHITE
