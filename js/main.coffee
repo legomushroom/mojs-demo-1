@@ -67,33 +67,53 @@ class Main
     @isIOS = @isIOSSafari()
     @isOn = !@isIOS
     !@isIOS and @sound.classList.add 'is-on'
+    @clickHandler = if @isIOS or @isTouch() then 'touchstart' else 'click'
 
     @tween = new mojs.Tween
-      onUpdate:(p)=> @progress = p; @slider.value = p*100000
+      onUpdate:(p)=>
+        @progress = p
+        @slider.value = p*100000 if @tween.state is 'play'
+
       onStart:=>    !@isPinned and @controls.classList.remove 'is-shown'
       onComplete:=> @controls.classList.add 'is-shown'
+
+    @clickArea = new mojs.Transit
+      type:      'circle'
+      fill:      @WHITE
+      opacity:   .5: 0
+      isRunLess: true
+      radius:    0: 25
+      parent:    @controls
+      easing:   'cubic.out'
 
   isIOSSafari:->
     userAgent = window.navigator.userAgent
     userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)
+
+  isTouch:->
+    isIETouch = navigator.maxTouchPoints > 0 or navigator.msMaxTouchPoints > 0
+    'ontouchstart' in window or isIETouch
 
   listenSlider:->
     it = @
     @slider.addEventListener 'input', (e)->
       if it.tween.state is 'play' then it.tween.pause(); it.bells1.stop()
       it.tween.setProgress (@value/100000)
-    @repeat.addEventListener 'click', => @bells1.stop(); @tween.restart()
 
-    @pin.addEventListener 'click', =>
+    controlsStep = 27
+    @addEvent @repeat, =>
+      @clickArea.run(x: 12, y: 10)
+      @bells1.stop(); @tween.restart()
+    @addEvent @pin, (e)=>
+      @clickArea.run(x: 12+1*controlsStep, y: 10)
       @pin.classList.toggle 'is-pinned'
       @isPinned = !@isPinned
-
-    @sound.addEventListener 'click', =>
-      if !@isOn
-        @bells1.play().pos(@progress*5)
-        @sound.classList.toggle 'is-on'
-        @isOn = true
-      else @isOn = false; @bells1.stop()
+    @addEvent @sound, (e)=>
+      @clickArea.run(x: 12+2*controlsStep, y: 10)
+      if !@isOn then @bells1.play().pos(@progress*5.14858)
+      else @bells1.stop()
+      @sound.classList.toggle 'is-on'
+      @isOn = !@isOn
 
   createBits:-> @createBall_1(); @createBalls()
   createBall_1:->
@@ -115,7 +135,8 @@ class Main
   listenLinks:->
     @lego = document.querySelector '#js-by-logo'
     @legoSnowball = document.querySelector '#js-by-snowball'
-    @lego.addEventListener 'click', (e)=>
+
+    @addEvent @lego, (e)=>
       e.preventDefault()
       href = e.target.getAttribute 'href'
       @legoSnowball.classList.add 'is-shown'
@@ -126,7 +147,7 @@ class Main
 
     @mojs = document.querySelector '#js-with-logo'
     @mojsSnowball = document.querySelector '#js-with-snowball'
-    @mojs.addEventListener 'click', (e)=>
+    @addEvent @mojs, (e)=>
       e.preventDefault()
       href = e.target.getAttribute 'href'
       @mojsSnowball.classList.add 'is-shown'
@@ -135,6 +156,8 @@ class Main
       , 200
       false
 
+  addEvent:(el, handler)->
+    el.addEventListener @clickHandler, handler
 
 
 

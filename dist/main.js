@@ -144,11 +144,14 @@
 	    this.isIOS = this.isIOSSafari();
 	    this.isOn = !this.isIOS;
 	    !this.isIOS && this.sound.classList.add('is-on');
-	    return this.tween = new mojs.Tween({
+	    this.clickHandler = this.isIOS || this.isTouch() ? 'touchstart' : 'click';
+	    this.tween = new mojs.Tween({
 	      onUpdate: (function(_this) {
 	        return function(p) {
 	          _this.progress = p;
-	          return _this.slider.value = p * 100000;
+	          if (_this.tween.state === 'play') {
+	            return _this.slider.value = p * 100000;
+	          }
 	        };
 	      })(this),
 	      onStart: (function(_this) {
@@ -162,6 +165,19 @@
 	        };
 	      })(this)
 	    });
+	    return this.clickArea = new mojs.Transit({
+	      type: 'circle',
+	      fill: this.WHITE,
+	      opacity: {
+	        .5: 0
+	      },
+	      isRunLess: true,
+	      radius: {
+	        0: 25
+	      },
+	      parent: this.controls,
+	      easing: 'cubic.out'
+	    });
 	  };
 
 	  Main.prototype.isIOSSafari = function() {
@@ -170,8 +186,14 @@
 	    return userAgent.match(/iPad/i) || userAgent.match(/iPhone/i);
 	  };
 
+	  Main.prototype.isTouch = function() {
+	    var isIETouch;
+	    isIETouch = navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+	    return indexOf.call(window, 'ontouchstart') >= 0 || isIETouch;
+	  };
+
 	  Main.prototype.listenSlider = function() {
-	    var it;
+	    var controlsStep, it;
 	    it = this;
 	    this.slider.addEventListener('input', function(e) {
 	      if (it.tween.state === 'play') {
@@ -180,28 +202,40 @@
 	      }
 	      return it.tween.setProgress(this.value / 100000);
 	    });
-	    this.repeat.addEventListener('click', (function(_this) {
+	    controlsStep = 27;
+	    this.addEvent(this.repeat, (function(_this) {
 	      return function() {
+	        _this.clickArea.run({
+	          x: 12,
+	          y: 10
+	        });
 	        _this.bells1.stop();
 	        return _this.tween.restart();
 	      };
 	    })(this));
-	    this.pin.addEventListener('click', (function(_this) {
-	      return function() {
+	    this.addEvent(this.pin, (function(_this) {
+	      return function(e) {
+	        _this.clickArea.run({
+	          x: 12 + 1 * controlsStep,
+	          y: 10
+	        });
 	        _this.pin.classList.toggle('is-pinned');
 	        return _this.isPinned = !_this.isPinned;
 	      };
 	    })(this));
-	    return this.sound.addEventListener('click', (function(_this) {
-	      return function() {
+	    return this.addEvent(this.sound, (function(_this) {
+	      return function(e) {
+	        _this.clickArea.run({
+	          x: 12 + 2 * controlsStep,
+	          y: 10
+	        });
 	        if (!_this.isOn) {
-	          _this.bells1.play().pos(_this.progress * 5);
-	          _this.sound.classList.toggle('is-on');
-	          return _this.isOn = true;
+	          _this.bells1.play().pos(_this.progress * 5.14858);
 	        } else {
-	          _this.isOn = false;
-	          return _this.bells1.stop();
+	          _this.bells1.stop();
 	        }
+	        _this.sound.classList.toggle('is-on');
+	        return _this.isOn = !_this.isOn;
 	      };
 	    })(this));
 	  };
@@ -248,7 +282,7 @@
 	  Main.prototype.listenLinks = function() {
 	    this.lego = document.querySelector('#js-by-logo');
 	    this.legoSnowball = document.querySelector('#js-by-snowball');
-	    this.lego.addEventListener('click', (function(_this) {
+	    this.addEvent(this.lego, (function(_this) {
 	      return function(e) {
 	        var href;
 	        e.preventDefault();
@@ -262,7 +296,7 @@
 	    })(this));
 	    this.mojs = document.querySelector('#js-with-logo');
 	    this.mojsSnowball = document.querySelector('#js-with-snowball');
-	    return this.mojs.addEventListener('click', (function(_this) {
+	    return this.addEvent(this.mojs, (function(_this) {
 	      return function(e) {
 	        var href;
 	        e.preventDefault();
@@ -274,6 +308,10 @@
 	        return false;
 	      };
 	    })(this));
+	  };
+
+	  Main.prototype.addEvent = function(el, handler) {
+	    return el.addEventListener(this.clickHandler, handler);
 	  };
 
 	  Main.prototype.generateBezier = function(mX1, mY1, mX2, mY2) {
