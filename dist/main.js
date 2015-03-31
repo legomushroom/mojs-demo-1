@@ -1537,7 +1537,7 @@
 	      },
 	      type: 'line',
 	      fill: 'none',
-	      stroke: this.o.PINK,
+	      stroke: this.o.YELLOW,
 	      strokeWidth: this.o.STROKE_WIDTH,
 	      delay: (this.o.BALL_6_START + this.o.BALL_6_ARCDUR + 50) * this.S,
 	      isRunLess: this.o.IS_RUNLESS,

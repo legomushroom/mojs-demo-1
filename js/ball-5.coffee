@@ -67,6 +67,48 @@ class FirstBall
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
 
+    # burst2 = new mojs.Transit
+    #   parent: @o.ctx
+    #   x: 310,       y: @o.CHARS_TOP - 10
+    #   angle:        180
+    #   radius:       { 6: 7 }
+    #   fill:         'transparent'
+    #   type:         'polygon'
+    #   points:       5
+    #   stroke:       @o.PINK
+    #   strokeWidth:  @o.STROKE_WIDTH
+    #   delay:        (@o.BALL_5_START+@o.BALL_5_ARCDUR/2)*@S
+    #   duration:     300*@S
+    #   isRunLess:    @o.IS_RUNLESS
+
+    # burst3 = new mojs.Transit
+    #   parent: @o.ctx
+    #   x: 370,       y: @o.bottomLineBurst + 10
+    #   angle:        180
+    #   radius:       { 6: 7 }
+    #   fill:         'transparent'
+    #   type:         'polygon'
+    #   points:       3
+    #   stroke:       @o.CYAN
+    #   strokeWidth:  @o.STROKE_WIDTH
+    #   delay:        (@o.BALL_5_START+@o.BALL_5_ARCDUR - 200)*@S
+    #   duration:     300*@S
+    #   isRunLess:    @o.IS_RUNLESS
+
+    # burst4 = new mojs.Transit
+    #   parent: @o.ctx
+    #   x: 120,       y: @o.bottomLineBurst + 10
+    #   angle:        180
+    #   radius:       { 5: 6 }
+    #   fill:         'transparent'
+    #   type:         'equal'
+    #   points:       3
+    #   stroke:       @o.ORANGE
+    #   strokeWidth:  @o.STROKE_WIDTH
+    #   delay:        (@o.BALL_5_START + 300)*@S
+    #   duration:     300*@S
+    #   isRunLess:    @o.IS_RUNLESS
+
     tDuration = 1000; tDelay = @o.BALL_5_START+200
     t1Stagger = new mojs.Stagger
       els:              @line1
@@ -128,7 +170,7 @@ class FirstBall
     [
       t1Stagger.tween, t2Stagger.tween, t3Stagger.tween, burst.tween,
       mp.tween, trail.tween, trailFade.tween, oTopStagger.tween,
-      oBottomStagger.tween
+      oBottomStagger.tween#, burst2.tween, burst3.tween, burst4.tween
     ]
 
 

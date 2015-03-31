@@ -58,7 +58,8 @@ class FirstBall
       radius:       { 10: 25 }
       type:         'line'
       fill:         'none'
-      stroke:       @o.PINK
+      stroke:       @o.YELLOW
+      # stroke:       @o.PINK
       strokeWidth:  @o.STROKE_WIDTH
       delay:        (@o.BALL_6_START+@o.BALL_6_ARCDUR+50)*@S
       isRunLess:    @o.IS_RUNLESS

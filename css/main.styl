@@ -88,13 +88,17 @@ body
   visibility hidden
   opacity 0
   transition all .5s linear
-  &.is-shown
-    visibility visible
-    opacity 1
+  // &.is-shown
+  //   visibility visible
+  //   opacity 1
   &__repeat, &__pin, &__sound
     position absolute
     z-index 1
     easy-click()
+    transition all .25s linear
+    &:active
+      transform scale(1.4)
+      transition-duration 0
   &__repeat
     left .6*gs
     top PX

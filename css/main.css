@@ -97,15 +97,13 @@ body {
   -webkit-transition: all 0.5s linear;
           transition: all 0.5s linear;
 }
-.controls.is-shown {
-  visibility: visible;
-  opacity: 1;
-}
 .controls__repeat,
 .controls__pin,
 .controls__sound {
   position: absolute;
   z-index: 1;
+  -webkit-transition: all 0.25s linear;
+          transition: all 0.25s linear;
 }
 .controls__repeat:after,
 .controls__pin:after,
@@ -117,6 +115,15 @@ body {
   z-index: 1;
   top: -50%;
   left: -50%;
+}
+.controls__repeat:active,
+.controls__pin:active,
+.controls__sound:active {
+  -webkit-transform: scale(1.4);
+      -ms-transform: scale(1.4);
+          transform: scale(1.4);
+  -webkit-transition-duration: 0;
+          transition-duration: 0;
 }
 .controls__repeat {
   left: 0.375rem;
