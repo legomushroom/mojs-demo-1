@@ -1,4 +1,4 @@
-# mojs = require './vendor/mo.js'
+mojs = require './vendor/mo.js'
 mojs.isDebug = false
 
 Ball_1 = require './ball-1'
@@ -21,7 +21,6 @@ class Main
   STROKE_WIDTH:   2
   CIRCLE_RADIUS:  5
   IS_RUNLESS:     true
-  IS_SOUND:       true
   constructor:->
     @vars(); @listenSlider()
     @createBits(); @createSounds()
@@ -125,10 +124,12 @@ class Main
     @tween.add new Ball_5 @
     @tween.add new Ball_6 @
     @tween.add new Ball_7 @
-    setTimeout (=> @tween.start()), 1500
 
   createSounds:->
-    @bells1 = new Howl urls: ['sounds/bells-1-half.wav']
+    # http://goo.gl/PYW5rR
+    @bells1 = new Howl
+      urls: ['sounds/bells-1-half.mp3']
+      onload:=> setTimeout (=> @tween.start()), 500
 
   playSound:(audio)-> return if !@isOn; audio.play()
 
@@ -158,15 +159,6 @@ class Main
 
   addEvent:(el, handler)->
     el.addEventListener @clickHandler, handler
-
-
-
-
-
-
-
-
-
 
 
 
@@ -230,7 +222,8 @@ class Main
           aB = currentT
         else
           aA = currentT
-        unless Math.abs(currentX) > SUBDIVISION_PRECISION and ++i < SUBDIVISION_MAX_ITERATIONS
+        isSubDiv = Math.abs(currentX) > SUBDIVISION_PRECISION
+        unless isSubDiv and ++i < SUBDIVISION_MAX_ITERATIONS
           break
       currentT
 
@@ -242,7 +235,8 @@ class Main
         intervalStart += kSampleStepSize
         ++currentSample
       --currentSample
-      dist = (aX - mSampleValues[currentSample]) / (mSampleValues[currentSample + 1] - mSampleValues[currentSample])
+      one = (aX-mSampleValues[currentSample])/(mSampleValues[currentSample + 1]
+      dist = one - mSampleValues[currentSample])
       guessForT = intervalStart + dist * kSampleStepSize
       initialSlope = getSlope(guessForT, mX1, mX2)
       if initialSlope >= NEWTON_MIN_SLOPE
@@ -265,7 +259,8 @@ class Main
 
     i = 0
     while i < 4
-      if typeof arguments[i] != 'number' or isNaN(arguments[i]) or !isFinite(arguments[i])
+      isNan = isNaN(arguments[i])
+      if typeof arguments[i] != 'number' or isNan or !isFinite(arguments[i])
         return false
       ++i
 
@@ -275,7 +270,9 @@ class Main
     mX2 = Math.min(mX2, 1)
     mX1 = Math.max(mX1, 0)
     mX2 = Math.max(mX2, 0)
-    mSampleValues = if float32ArraySupported then new Float32Array(kSplineTableSize) else new Array(kSplineTableSize)
+    mSampleValues = if float32ArraySupported
+      new Float32Array(kSplineTableSize)
+    else new Array(kSplineTableSize)
     _precomputed = false
 
     f = (aX) ->
@@ -303,7 +300,3 @@ class Main
     f
 
 new Main
-
-# # mainTween.add ball.tween
-# # mainTween.add burst.tween
-# # mainTween.add circle.tween
