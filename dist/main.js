@@ -261,9 +261,17 @@
 	    return this.tween.add(new Ball_7(this));
 	  };
 
+	  Main.prototype.isOpera = function() {
+	    var userAgent;
+	    userAgent = navigator.userAgent;
+	    return /^Opera\//.test(userAgent) || /\x20OPR\//.test(userAgent);
+	  };
+
 	  Main.prototype.createSounds = function() {
+	    var audioLink;
+	    audioLink = this.isOpera() ? 'sounds/bells-1-half.wav' : 'sounds/bells-1-half.mp3';
 	    return this.bells1 = new Howl({
-	      urls: ['sounds/bells-1-half.mp3'],
+	      urls: [audioLink],
 	      onload: (function(_this) {
 	        return function() {
 	          return setTimeout((function() {

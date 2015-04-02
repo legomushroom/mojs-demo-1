@@ -125,10 +125,15 @@ class Main
     @tween.add new Ball_6 @
     @tween.add new Ball_7 @
 
+  isOpera:->
+    userAgent = navigator.userAgent
+    /^Opera\//.test(userAgent) or /\x20OPR\//.test(userAgent)
+
   createSounds:->
-    # http://goo.gl/PYW5rR
+    audioLink = if @isOpera() then 'sounds/bells-1-half.wav'
+    else 'sounds/bells-1-half.mp3'
     @bells1 = new Howl
-      urls: ['sounds/bells-1-half.mp3']
+      urls: [audioLink]
       onload:=> setTimeout (=> @tween.start()), 500
 
   playSound:(audio)-> return if !@isOn; audio.play()
