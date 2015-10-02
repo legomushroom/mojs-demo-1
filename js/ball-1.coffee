@@ -283,10 +283,10 @@ class FirstBall
 
     retrunValue =
       tweens: [
-        burst1.tween, burst2.tween, burst3.tween,
-        mp.tween,
-        ball.tween, circle.tween,
-        trail1.tween, trail2.tween, trail3.tween
+        burst1, burst2, burst3,
+        mp,
+        ball, circle,
+        trail1, trail2, trail3
       ]
       ball: ball
 

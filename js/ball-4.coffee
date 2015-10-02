@@ -8,7 +8,7 @@ class FirstBall
     @pathMask = document.querySelector '#js-curve-3-mask'
     @n1       = document.querySelector '#js-n-1'
     @n2       = document.querySelector '#js-n-2'
-    @easing = @o.generateBezier(0.435, 0.715, 0.635, 0.395)
+    @easing = mojs.easing.bezier(0.435, 0.715, 0.635, 0.395)
     # @easing = @o.generateBezier(0.435, 0.715, 0.795, 0.570)
 
   create:->
@@ -104,8 +104,8 @@ class FirstBall
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
     
-    tween = new mojs.Tween; shift = 22.5; it = @
-    tween.add new mojs.Timeline
+    shift = 22.5; it = @
+    tween = new mojs.Tween
       duration:   nDuration*@S
       delay:      nDelay*@S
       easing:     @o.STAGGER_EASING
@@ -117,7 +117,7 @@ class FirstBall
     @o.IS_RUNLESS or tween.start()
 
     [
-      tween, n1Stagger.tween, n2Stagger.tween, burst.tween,
+      tween, burst.tween, # n1Stagger.tween, n2Stagger.tween,
       mp.tween, trail.tween, trailFade.tween
     ]
 

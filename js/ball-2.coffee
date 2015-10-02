@@ -92,7 +92,7 @@ class FirstBall
     it = @
     translate = "translate(253, 174)"
     oDelay = (@o.BALL_2_START+400)*@S
-    oEasing = 'sinusoidal.out'
+    oEasing = 'sin.out'
     oStagger = new mojs.Stagger
       els:          @o2
       duration:     oDuration
@@ -101,8 +101,8 @@ class FirstBall
       delay:        "stagger(#{oDelay}, 100)"
       easing:       oEasing
       stroke:       @o.STAGGER_COLORS
+
     tween = new mojs.Tween
-    tween.add new mojs.Timeline
       duration:   oDuration
       delay:      oDelay
       easing:     oEasing
@@ -110,12 +110,11 @@ class FirstBall
         transform = "#{translate} rotate(#{-135*(1-p)},33,33)"
         it.o2.setAttribute 'transform', transform
 
-
     @o.IS_RUNLESS or tween.start()
 
     [
-      mp.tween, burst.tween, oStagger.tween,
-      oLineStagger.tween, tween, trail.tween, trailFade.tween
+      mp, burst, tween, trail, trailFade#, oStagger,
+      # oLineStagger
     ]
 
 

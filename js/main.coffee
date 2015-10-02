@@ -1,4 +1,4 @@
-mojs = require './vendor/mo.js'
+mojs = require 'mo-js'
 mojs.isDebug = false
 
 Ball_1 = require './ball-1'
@@ -55,7 +55,7 @@ class Main
     @BALL_7_ARCDUR  = 600
 
     @STAGGER_COLORS = [ @PINK, @CYAN, @WHITE ]
-    @STAGGER_EASING = 'sinusoidal.out'
+    @STAGGER_EASING = 'sin.out'
     @BG = '#333'
     # @BG = 'deeppink'
     @TRAIL_DASH  = '4 4'
@@ -68,7 +68,7 @@ class Main
     !@isIOS and @sound.classList.add 'is-on'
     @clickHandler = if @isIOS or @isTouch() then 'touchstart' else 'click'
 
-    @tween = new mojs.Tween
+    @tween = new mojs.Timeline
       onUpdate:(p)=>
         @progress = p
         @slider.value = p*100000 if @tween.state is 'play'
@@ -121,9 +121,9 @@ class Main
     @tween.add new Ball_2 @
     @tween.add new Ball_3 @
     @tween.add new Ball_4 @
-    @tween.add new Ball_5 @
-    @tween.add new Ball_6 @
-    @tween.add new Ball_7 @
+    # @tween.add new Ball_5 @
+    # @tween.add new Ball_6 @
+    # @tween.add new Ball_7 @
 
   isOpera:->
     userAgent = navigator.userAgent

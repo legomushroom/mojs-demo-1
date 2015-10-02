@@ -133,9 +133,8 @@ class FirstBall
       strokeDashoffset: 0
 
     [
-      trailFade.tween, oStagger.tween, oLine1Stagger.tween, burst.tween,
-      oLine2Stagger.tween, mp.tween, trail.tween, trailFade.tween,
-      burst2.tween, burst3.tween
+      trailFade, burst, # oStagger, oLine1Stagger, oLine2Stagger,
+      mp, trail, trailFade, burst2, burst3
     ]
 
 
