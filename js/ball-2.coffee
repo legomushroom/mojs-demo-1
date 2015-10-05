@@ -78,43 +78,44 @@ class FirstBall
       isRunLess:    @o.IS_RUNLESS
 
     oDuration = @o.CHAR_DUR*@S
-    oLineStagger = new mojs.Stagger
-      els:          @o2Line
-      duration:     oDuration
-      isRunLess:    @o.IS_RUNLESS
-      isShowEnd:    true
-      delay:        "stagger(#{(@o.BALL_2_START)*@S}, 200)"
-      easing:       'sinusoidal.out'
-      stroke:       @o.STAGGER_COLORS
+    oLinetagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @o2Line.children, 0
+      quantifier:       'bit'
+      duration:         oDuration
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{(@o.BALL_2_START)*@S}, 200)"
+      easing:           'sin.out'
+      stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '0 100%': '100% 100%'
       strokeDashoffset: '50%': '200%'
 
-    it = @
-    translate = "translate(253, 174)"
     oDelay = (@o.BALL_2_START+400)*@S
-    oEasing = 'sin.out'
-    oStagger = new mojs.Stagger
-      els:          @o2
+
+    oStagger = new @o.TransitStagger
+      bit:          Array.prototype.slice.call @o2.children, 0
+      quantifier:   'bit'
       duration:     oDuration
       isRunLess:    @o.IS_RUNLESS
       isShowEnd:    true
       delay:        "stagger(#{oDelay}, 100)"
-      easing:       oEasing
+      easing:       @STAGGER_EASING
+      fill:         'transparent'
       stroke:       @o.STAGGER_COLORS
+      strokeDasharray:  '0 100%': '100% 100%'
 
     tween = new mojs.Tween
       duration:   oDuration
       delay:      oDelay
-      easing:     oEasing
-      onUpdate:(p)->
-        transform = "#{translate} rotate(#{-135*(1-p)},33,33)"
-        it.o2.setAttribute 'transform', transform
+      easing:     @STAGGER_EASING
+      onUpdate:(p)=>
+        transform = "translate(253, 174) rotate(#{-135*(1-p)},33,33)"
+        @o2.setAttribute 'transform', transform
 
     @o.IS_RUNLESS or tween.start()
 
     [
-      mp, burst, tween, trail, trailFade#, oStagger,
-      # oLineStagger
+      mp, burst, tween, trail, trailFade, oLinetagger, oStagger
     ]
 
 

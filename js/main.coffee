@@ -54,6 +54,8 @@ class Main
     @BALL_7_START   = @BALL_6_START + @BALL_6_ARCDUR + 100
     @BALL_7_ARCDUR  = 600
 
+    @TransitStagger = new mojs.Stagger mojs.Transit
+
     @STAGGER_COLORS = [ @PINK, @CYAN, @WHITE ]
     @STAGGER_EASING = 'sin.out'
     @BG = '#333'

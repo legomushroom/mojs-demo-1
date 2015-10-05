@@ -8,8 +8,7 @@ class FirstBall
     @pathMask = document.querySelector '#js-curve-3-mask'
     @n1       = document.querySelector '#js-n-1'
     @n2       = document.querySelector '#js-n-2'
-    @easing = mojs.easing.bezier(0.435, 0.715, 0.635, 0.395)
-    # @easing = @o.generateBezier(0.435, 0.715, 0.795, 0.570)
+    @easing   = mojs.easing.bezier(0.435, 0.715, 0.635, 0.395)
 
   create:->
     trail = new mojs.Transit
