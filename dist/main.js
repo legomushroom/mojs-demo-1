@@ -257,7 +257,9 @@
 	    this.tween.add(new Ball_2(this));
 	    this.tween.add(new Ball_3(this));
 	    this.tween.add(new Ball_4(this));
-	    return this.tween.add(new Ball_5(this));
+	    this.tween.add(new Ball_5(this));
+	    this.tween.add(new Ball_6(this));
+	    return this.tween.add(new Ball_7(this));
 	  };
 
 	  Main.prototype.isOpera = function() {
@@ -6441,7 +6443,7 @@
 	  };
 
 	  FirstBall.prototype.create = function() {
-	    var burst, forBurst, forDelay, forDuration, forStagger, m1Stagger, m2Stagger, mDelay, mDuration, mp, opacityDelta, shift, trail, trailFade;
+	    var burst, els, forBurst, forDelay, forDuration, forStagger, m1Stagger, m2Stagger, mDelay, mDuration, mp, opacityDelta, shift, trail, trailFade;
 	    trail = new mojs.Transit({
 	      bit: this.pathMask,
 	      fill: 'transparent',
@@ -6507,13 +6509,15 @@
 	    });
 	    mDuration = 1000;
 	    mDelay = this.o.BALL_6_START + 200;
-	    m1Stagger = new mojs.Stagger({
-	      els: this.line1,
+	    m1Stagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.line1.children, 0),
+	      quantifier: 'bit',
 	      duration: mDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + (mDelay * this.S) + ", 200)",
 	      easing: this.o.STAGGER_EASING,
+	      fill: 'transparent',
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: '100%',
 	      strokeDashoffset: {
@@ -6522,8 +6526,10 @@
 	    });
 	    forDelay = mDelay;
 	    forDuration = mDuration;
-	    forStagger = new mojs.Stagger({
-	      els: '#js-for-the-web',
+	    els = document.querySelector('#js-for-the-web');
+	    forStagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(els.children, 0),
+	      quantifier: 'bit',
 	      duration: forDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
@@ -6560,13 +6566,15 @@
 	      }
 	    });
 	    shift = 15;
-	    m2Stagger = new mojs.Stagger({
-	      els: this.line2,
+	    m2Stagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.line2.children, 0),
+	      quantifier: 'bit',
 	      duration: mDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + (mDelay * this.S) + ", 200)",
 	      easing: this.o.STAGGER_EASING,
+	      fill: 'transparent',
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: '100%',
 	      strokeDashoffset: {
@@ -6581,7 +6589,7 @@
 	        })(this)), null, null
 	      ]
 	    });
-	    return [burst.tween, m1Stagger.tween, m2Stagger.tween, mp.tween, trail.tween, trailFade.tween, forStagger.tween, forBurst.tween];
+	    return [burst, m1Stagger, m2Stagger, mp, trail, trailFade, forStagger, forBurst];
 	  };
 
 	  return FirstBall;
@@ -6612,7 +6620,7 @@
 	  };
 
 	  Ball.prototype.create = function() {
-	    var auroraStagger, circle, i1Stagger, i2Stagger, i3Stagger, iDelay, iDelay2, iDuration, iDuration2, mp, oBottomStagger, oTopStagger;
+	    var auroraStagger, circle, els, i1Stagger, i2Stagger, i3Stagger, iDelay, iDelay2, iDuration, iDuration2, mp, oBottomStagger, oTopStagger;
 	    mp = new mojs.MotionPath({
 	      path: "M240.529297,234.470827 L240.529297,57",
 	      el: this.o.mainBall.el,
@@ -6628,8 +6636,9 @@
 	    iDelay2 = this.o.BALL_7_START + 100;
 	    iDuration2 = 250;
 	    iDelay = iDelay2 + iDuration2;
-	    i1Stagger = new mojs.Stagger({
-	      els: this.line1,
+	    i1Stagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.line1.children, 0),
+	      quantifier: 'bit',
 	      duration: iDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
@@ -6641,8 +6650,9 @@
 	        '100%': 0
 	      }
 	    });
-	    i2Stagger = new mojs.Stagger({
-	      els: this.line2,
+	    i2Stagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.line2.children, 0),
+	      quantifier: 'bit',
 	      duration: iDuration * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
@@ -6654,8 +6664,9 @@
 	        '100%': 0
 	      }
 	    });
-	    i3Stagger = new mojs.Stagger({
-	      els: this.line3,
+	    i3Stagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.line3.children, 0),
+	      quantifier: 'bit',
 	      duration: 2400 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
@@ -6667,13 +6678,16 @@
 	        '120%': '71.5%'
 	      }
 	    });
-	    oTopStagger = new mojs.Stagger({
-	      els: '#js-circles-left-top',
+	    els = document.querySelector('#js-circles-left-top');
+	    oTopStagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(els.children, 0),
+	      quantifier: 'bit',
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + (iDelay * this.S) + ", 200)",
 	      easing: this.o.STAGGER_EASING,
+	      fill: 'transparent',
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeWidth: 1.3,
 	      strokeDasharray: '100%',
@@ -6681,13 +6695,16 @@
 	        '100%': '200%'
 	      }
 	    });
-	    oBottomStagger = new mojs.Stagger({
-	      els: '#js-circles-left-bottom',
+	    els = document.querySelector('#js-circles-left-bottom');
+	    oBottomStagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(els.children, 0),
+	      quantifier: 'bit',
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + (iDelay * this.S) + ", 200)",
 	      easing: this.o.STAGGER_EASING,
+	      fill: 'transparent',
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeWidth: 1.3,
 	      strokeDasharray: '100%',
@@ -6695,13 +6712,15 @@
 	        '100%': '0%'
 	      }
 	    });
-	    auroraStagger = new mojs.Stagger({
-	      els: '#js-aurora',
+	    els = document.querySelector('#js-aurora');
+	    auroraStagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(els.children, 0),
+	      quantifier: 'bit',
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + ((this.o.DELAY_START + 3000) * this.S) + ", 200)",
-	      easing: 'sinusoidal.out',
+	      easing: this.STAGGER_EASING,
 	      stroke: [this.o.YELLOW, this.o.CYAN, this.o.PINK],
 	      strokeWidth: {
 	        5: 0
@@ -6733,7 +6752,7 @@
 	      angle: 360,
 	      delay: 0
 	    });
-	    return [mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween, circle.tween, auroraStagger.tween, oTopStagger.tween, oBottomStagger.tween];
+	    return [mp, i1Stagger, i2Stagger, i3Stagger, circle, auroraStagger, oTopStagger, oBottomStagger];
 	  };
 
 	  return Ball;

@@ -66,21 +66,25 @@ class FirstBall
       childOptions: radius: { 7: 0 }
 
     mDuration = 1000; mDelay = @o.BALL_6_START+200
-    m1Stagger = new mojs.Stagger
-      els:              @line1
+    m1Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line1.children, 0
+      quantifier:       'bit'
       duration:         mDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(mDelay)*@S}, 200)"
       easing:           @o.STAGGER_EASING
+      fill:             'transparent'
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
 
     # forDelay = @o.BALL_7_START + 4*@o.BALL_7_ARCDUR
     forDelay = mDelay; forDuration = mDuration
-    forStagger = new mojs.Stagger
-      els:              '#js-for-the-web'
+    els = document.querySelector '#js-for-the-web'
+    forStagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call els.children, 0
+      quantifier:       'bit'
       duration:         forDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
@@ -110,13 +114,15 @@ class FirstBall
       childOptions: radius: { 'rand(2,4)': 0 }
 
     shift = 15
-    m2Stagger = new mojs.Stagger
-      els:              @line2
+    m2Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line2.children, 0
+      quantifier:       'bit'
       duration:         mDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(mDelay)*@S}, 200)"
       easing:           @o.STAGGER_EASING
+      fill:             'transparent'
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
@@ -126,9 +132,9 @@ class FirstBall
         ), null, null]
 
     [
-      burst.tween, m1Stagger.tween, m2Stagger.tween,
-      mp.tween, trail.tween, trailFade.tween, forStagger.tween,
-      forBurst.tween
+      burst, m1Stagger, m2Stagger,
+      mp, trail, trailFade, forStagger,
+      forBurst
     ]
 
 

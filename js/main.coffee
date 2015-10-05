@@ -124,8 +124,8 @@ class Main
     @tween.add new Ball_3 @
     @tween.add new Ball_4 @
     @tween.add new Ball_5 @
-    # @tween.add new Ball_6 @
-    # @tween.add new Ball_7 @
+    @tween.add new Ball_6 @
+    @tween.add new Ball_7 @
 
   isOpera:->
     userAgent = navigator.userAgent

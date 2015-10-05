@@ -25,8 +25,9 @@ class Ball
     iDelay2 = @o.BALL_7_START + 100
     iDuration2 = 250
     iDelay = iDelay2 + iDuration2
-    i1Stagger = new mojs.Stagger
-      els:              @line1
+    i1Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line1.children, 0
+      quantifier:       'bit'
       duration:         iDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
@@ -36,8 +37,9 @@ class Ball
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': 0
 
-    i2Stagger = new mojs.Stagger
-      els:              @line2
+    i2Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line2.children, 0
+      quantifier:       'bit'
       duration:         iDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
@@ -47,8 +49,9 @@ class Ball
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': 0
 
-    i3Stagger = new mojs.Stagger
-      els:              @line3
+    i3Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line3.children, 0
+      quantifier:       'bit'
       duration:         2400*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
@@ -58,38 +61,46 @@ class Ball
       strokeDasharray:  '100% 120%'
       strokeDashoffset: '120%': '71.5%'
 
-    oTopStagger = new mojs.Stagger
-      els:              '#js-circles-left-top'
+    els = document.querySelector '#js-circles-left-top'
+    oTopStagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call els.children, 0
+      quantifier:       'bit'
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(iDelay)*@S}, 200)"
       easing:           @o.STAGGER_EASING
+      fill:             'transparent'
       stroke:           @o.STAGGER_COLORS
       strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
 
-    oBottomStagger = new mojs.Stagger
-      els:              '#js-circles-left-bottom'
+    els = document.querySelector '#js-circles-left-bottom'
+    oBottomStagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call els.children, 0
+      quantifier:       'bit'
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(iDelay)*@S}, 200)"
       easing:           @o.STAGGER_EASING
+      fill:             'transparent'
       stroke:           @o.STAGGER_COLORS
       strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '0%'
 
-    auroraStagger = new mojs.Stagger
-      els:              '#js-aurora'
+    els = document.querySelector '#js-aurora'
+    auroraStagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call els.children, 0
+      quantifier:       'bit'
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(@o.DELAY_START+3000)*@S}, 200)"
       # easing:           @o.STAGGER_EASING
-      easing:           'sinusoidal.out'
+      easing:           @STAGGER_EASING
       stroke:           [@o.YELLOW, @o.CYAN, @o.PINK]
       strokeWidth:      5:0
       strokeDasharray:  '20 100 40 50'
@@ -115,9 +126,9 @@ class Ball
       delay:            0
 
     [
-      mp.tween, i1Stagger.tween, i2Stagger.tween, i3Stagger.tween,
-      circle.tween, auroraStagger.tween, oTopStagger.tween,
-      oBottomStagger.tween
+      mp, i1Stagger, i2Stagger, i3Stagger,
+      circle, auroraStagger, oTopStagger,
+      oBottomStagger
     ]
 
 
