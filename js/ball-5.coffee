@@ -66,52 +66,11 @@ class FirstBall
       delay:        (@o.BALL_5_START+@o.BALL_5_ARCDUR)*@S
       isRunLess:    @o.IS_RUNLESS
       childOptions: radius: { 7: 0 }
-
-    # burst2 = new mojs.Transit
-    #   parent: @o.ctx
-    #   x: 310,       y: @o.CHARS_TOP - 10
-    #   angle:        180
-    #   radius:       { 6: 7 }
-    #   fill:         'transparent'
-    #   type:         'polygon'
-    #   points:       5
-    #   stroke:       @o.PINK
-    #   strokeWidth:  @o.STROKE_WIDTH
-    #   delay:        (@o.BALL_5_START+@o.BALL_5_ARCDUR/2)*@S
-    #   duration:     300*@S
-    #   isRunLess:    @o.IS_RUNLESS
-
-    # burst3 = new mojs.Transit
-    #   parent: @o.ctx
-    #   x: 370,       y: @o.bottomLineBurst + 10
-    #   angle:        180
-    #   radius:       { 6: 7 }
-    #   fill:         'transparent'
-    #   type:         'polygon'
-    #   points:       3
-    #   stroke:       @o.CYAN
-    #   strokeWidth:  @o.STROKE_WIDTH
-    #   delay:        (@o.BALL_5_START+@o.BALL_5_ARCDUR - 200)*@S
-    #   duration:     300*@S
-    #   isRunLess:    @o.IS_RUNLESS
-
-    # burst4 = new mojs.Transit
-    #   parent: @o.ctx
-    #   x: 120,       y: @o.bottomLineBurst + 10
-    #   angle:        180
-    #   radius:       { 5: 6 }
-    #   fill:         'transparent'
-    #   type:         'equal'
-    #   points:       3
-    #   stroke:       @o.ORANGE
-    #   strokeWidth:  @o.STROKE_WIDTH
-    #   delay:        (@o.BALL_5_START + 300)*@S
-    #   duration:     300*@S
-    #   isRunLess:    @o.IS_RUNLESS
-
+    
     tDuration = 1000; tDelay = @o.BALL_5_START+200
-    t1Stagger = new mojs.Stagger
-      els:              @line1
+    t1Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line1.children, 0
+      quantifier:       'bit'
       duration:         tDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
@@ -121,8 +80,9 @@ class FirstBall
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': 0
 
-    t2Stagger = new mojs.Stagger
-      els:              @line2
+    t2Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line2.children, 0
+      quantifier:       'bit'
       duration:         tDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
@@ -132,8 +92,9 @@ class FirstBall
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': 0
 
-    t3Stagger = new mojs.Stagger
-      els:              @line3
+    t3Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @line3.children, 0
+      quantifier:       'bit'
       duration:         tDuration*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
@@ -143,34 +104,39 @@ class FirstBall
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
 
-    oTopStagger = new mojs.Stagger
-      els:              '#js-circles-right-top'
+    oTopEl = document.querySelector '#js-circles-right-top'
+    oTopStagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call oTopEl.children, 0
+      quantifier:       'bit'
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(tDelay+tDuration/2)*@S}, 200)"
       easing:           @o.STAGGER_EASING
+      fill:             'none'
       stroke:           @o.STAGGER_COLORS
       strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '200%'
 
-    oBottomStagger = new mojs.Stagger
-      els:              '#js-circles-right-bottom'
+    oBottomEl = document.querySelector '#js-circles-right-bottom'
+    oBottomStagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call oBottomEl.children, 0
+      quantifier:       'bit'
       duration:         300*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(tDelay+tDuration/2)*@S}, 200)"
       easing:           @o.STAGGER_EASING
+      fill:             'none'
       stroke:           @o.STAGGER_COLORS
       strokeWidth:      1.3
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': '0%'
 
     [
-      t1Stagger.tween, t2Stagger.tween, t3Stagger.tween, burst.tween,
-      mp.tween, trail.tween, trailFade.tween, oTopStagger.tween,
-      oBottomStagger.tween#, burst2.tween, burst3.tween, burst4.tween
+      burst, mp, trail, trailFade,
+      t1Stagger, t2Stagger, t3Stagger, oTopStagger, oBottomStagger
     ]
 
 

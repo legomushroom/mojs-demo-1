@@ -92,10 +92,11 @@ class FirstBall
       duration:     300*@S
       isRunLess:    @o.IS_RUNLESS
 
+    oDuration = 1000*@S
     oLine1Stagger = new @o.TransitStagger
       bit:              Array.prototype.slice.call @o1Line1.children, 0
       quantifier:       'bit'
-      duration:         1000*@S
+      duration:         oDuration
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(@o.BALL_3_START)*@S}, 200)"
@@ -107,7 +108,7 @@ class FirstBall
     oLine2Stagger = new @o.TransitStagger
       bit:              Array.prototype.slice.call @o1Line2.children, 0
       quantifier:       'bit'
-      duration:         1000*@S
+      duration:         oDuration
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(@o.BALL_3_START+800)*@S}, 200)"
@@ -118,8 +119,7 @@ class FirstBall
 
     it = @
     translate = "translate(253, 174)"
-    oDuration = 1000*@S; oDelay = (@o.BALL_3_START+1200)*@S
-
+    oDelay = (@o.BALL_3_START+1200)*@S
     oStagger = new @o.TransitStagger
       bit:              Array.prototype.slice.call @o1circle.children, 0
       quantifier:       'bit'
@@ -136,7 +136,7 @@ class FirstBall
       strokeDashoffset: 0
 
     [
-      trailFade, burst, # oStagger
+      trailFade, burst
       mp, trail, trailFade, burst2, burst3, oLine1Stagger, oLine2Stagger, oStagger
     ]
 
