@@ -85,7 +85,7 @@ class FirstBall
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(@o.BALL_2_START)*@S}, 200)"
-      easing:           'sin.out'
+      easing:           @STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '0 100%': '100% 100%'
       strokeDashoffset: '50%': '200%'

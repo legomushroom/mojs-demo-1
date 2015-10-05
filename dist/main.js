@@ -1429,7 +1429,6 @@
 	      });
 	      return Circle.__super__.draw.apply(this, arguments);
 	    };
-
 	    Circle.prototype.getLength = function() {
 	      var radiusX, radiusY;
 	      radiusX = this.props.radiusX != null ? this.props.radiusX : this.props.radius;
@@ -2293,7 +2292,7 @@
 	      return this.isShown = false;
 	    };
 
-	    Transit.prototype.draw = function() {
+	    Transit.prototype.draw = function() {      
 	      this.bit.setProp({
 	        x: this.origin.x,
 	        y: this.origin.y,
@@ -2412,7 +2411,7 @@
 	      this.bit = new bitClass({
 	        ctx: this.ctx,
 	        el: this.o.bit,
-	        isDrawLess: true
+	        isDrawLess: true,
 	      });
 	      if (this.isForeign || this.isForeignBit) {
 	        return this.el = this.bit.el;
@@ -5855,7 +5854,7 @@
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + (this.o.BALL_2_START * this.S) + ", 200)",
-	      easing: 'sin.out',
+	      easing: this.STAGGER_EASING,
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: {
 	        '0 100%': '100% 100%'
@@ -5926,7 +5925,7 @@
 	  };
 
 	  FirstBall.prototype.create = function() {
-	    var burst, burst2, burst3, it, mp, oDelay, oDuration, oEasing, oLine1Stagger, oLine2Stagger, oStagger, opacityDelta, trail, trailFade, translate;
+	    var burst, burst2, burst3, it, mp, oDelay, oDuration, oLine1Stagger, oLine2Stagger, oStagger, opacityDelta, trail, trailFade, translate;
 	    opacityDelta = {};
 	    opacityDelta[this.o.TRAIL_OPACITY] = 0;
 	    trailFade = new mojs.Transit({
@@ -6022,26 +6021,28 @@
 	      duration: 300 * this.S,
 	      isRunLess: this.o.IS_RUNLESS
 	    });
-	    oLine1Stagger = new mojs.Stagger({
-	      els: this.o1Line1,
+	    oLine1Stagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.o1Line1.children, 0),
+	      quantifier: 'bit',
 	      duration: 1000 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + (this.o.BALL_3_START * this.S) + ", 200)",
-	      easing: 'sinusoidal.out',
+	      easing: this.STAGGER_EASING,
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: '100%',
 	      strokeDashoffset: {
 	        '100%': 0
 	      }
 	    });
-	    oLine2Stagger = new mojs.Stagger({
-	      els: this.o1Line2,
+	    oLine2Stagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.o1Line2.children, 0),
+	      quantifier: 'bit',
 	      duration: 1000 * this.S,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + ((this.o.BALL_3_START + 800) * this.S) + ", 200)",
-	      easing: 'sinusoidal.out',
+	      easing: this.STAGGER_EASING,
 	      stroke: this.o.STAGGER_COLORS,
 	      strokeDasharray: {
 	        '0 100%': '100% 100%'
@@ -6054,23 +6055,24 @@
 	    translate = "translate(253, 174)";
 	    oDuration = 1000 * this.S;
 	    oDelay = (this.o.BALL_3_START + 1200) * this.S;
-	    oEasing = 'sinusoidal.out';
-	    oStagger = new mojs.Stagger({
+	    oStagger = new this.o.TransitStagger({
+	      bit: Array.prototype.slice.call(this.o1circle.children, 0),
+	      quantifier: 'bit',
 	      type: 'circle',
-	      els: this.o1circle,
 	      duration: oDuration,
 	      isRunLess: this.o.IS_RUNLESS,
 	      isShowEnd: true,
 	      delay: "stagger(" + oDelay + ", 100)",
-	      easing: oEasing,
+	      easing: this.o.STAGGER_EASING,
 	      stroke: this.o.STAGGER_COLORS,
+	      fill: 'transparent',
 	      radius: 24,
 	      radiusX: {
 	        0: 24
 	      },
 	      strokeDashoffset: 0
 	    });
-	    return [trailFade, burst, mp, trail, trailFade, burst2, burst3];
+	    return [trailFade, burst, mp, trail, trailFade, burst2, burst3, oLine1Stagger, oLine2Stagger, oStagger];
 	  };
 
 	  return FirstBall;

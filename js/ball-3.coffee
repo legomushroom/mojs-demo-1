@@ -92,24 +92,26 @@ class FirstBall
       duration:     300*@S
       isRunLess:    @o.IS_RUNLESS
 
-    oLine1Stagger = new mojs.Stagger
-      els:              @o1Line1
+    oLine1Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @o1Line1.children, 0
+      quantifier:       'bit'
       duration:         1000*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(@o.BALL_3_START)*@S}, 200)"
-      easing:           'sinusoidal.out'
+      easing:           @STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '100%'
       strokeDashoffset: '100%': 0
 
-    oLine2Stagger = new mojs.Stagger
-      els:              @o1Line2
+    oLine2Stagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @o1Line2.children, 0
+      quantifier:       'bit'
       duration:         1000*@S
       isRunLess:        @o.IS_RUNLESS
       isShowEnd:        true
       delay:            "stagger(#{(@o.BALL_3_START+800)*@S}, 200)"
-      easing:           'sinusoidal.out'
+      easing:           @STAGGER_EASING
       stroke:           @o.STAGGER_COLORS
       strokeDasharray:  '0 100%': '100% 100%'
       strokeDashoffset: '50%': '200%'
@@ -117,24 +119,25 @@ class FirstBall
     it = @
     translate = "translate(253, 174)"
     oDuration = 1000*@S; oDelay = (@o.BALL_3_START+1200)*@S
-    oEasing = 'sinusoidal.out'
-    oStagger = new mojs.Stagger
-      type:         'circle'
-      els:          @o1circle
-      # fill:         'deeppink'
-      duration:     oDuration
-      isRunLess:    @o.IS_RUNLESS
-      isShowEnd:    true
-      delay:        "stagger(#{oDelay}, 100)"
-      easing:       oEasing
-      stroke:       @o.STAGGER_COLORS
-      radius:       24
-      radiusX:      0:24
+
+    oStagger = new @o.TransitStagger
+      bit:              Array.prototype.slice.call @o1circle.children, 0
+      quantifier:       'bit'
+      type:             'circle'
+      duration:         oDuration
+      isRunLess:        @o.IS_RUNLESS
+      isShowEnd:        true
+      delay:            "stagger(#{oDelay}, 100)"
+      easing:           @o.STAGGER_EASING
+      stroke:           @o.STAGGER_COLORS
+      fill:             'transparent'
+      radius:           24
+      radiusX:          0:24
       strokeDashoffset: 0
 
     [
-      trailFade, burst, # oStagger, oLine1Stagger, oLine2Stagger,
-      mp, trail, trailFade, burst2, burst3
+      trailFade, burst, # oStagger
+      mp, trail, trailFade, burst2, burst3, oLine1Stagger, oLine2Stagger, oStagger
     ]
 
 
